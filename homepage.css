@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'MilkyWalky'; /* This is the name you'll reference the font with */
+  src: url('fonts/milky-walky/MilkyWalky-Regular.otf') format('opentype'); /* Path to the .otf font file */
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #FFF0CB;
@@ -5,21 +12,27 @@ body {
   padding: 0;
 }
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
+  z-index: 1000; /*header zostane on top a stranka bude skrolovana popod nu*/
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
   background-color: #a2c6d2;
   padding: 10px 20px;
   height: 60px
 }
 
-.bi {
-  font-size: 23px; /* Adjust size as needed */
-  font-weight: bold
+.bi { /*velkost ikoniek*/
+  margin: 0;
+  padding: 0;
+  font-size: 23px;
+  font-weight: bold;
 }
 
-.bi-list {
+.bi-list { /*velkost ikonky triciarky*/
   font-size: 30px;
   padding-left: 10px;
 }
@@ -30,91 +43,144 @@ header {
 
 .logo-container img {
   height: 30px;
-  width: auto; /* Keeps proportions */
+  width: auto;
   position: relative;
   top: -7px;
 }
 
-
-
-
-
-
-
-
-/* body {
-  background-image: url(https://cdn.freecodecamp.org/curriculum/css-cafe/beans.jpg);
-  font-family: sans-serif;
-  padding: 20px;
+.banner-container {
+  margin-top: 60px;
+  position: relative;
+  width: 100%;
 }
 
-h1 {
-  font-size: 40px;
-  margin-top: 0;
-  margin-bottom: 15px;
+.overlay-text { /*formatovanie nazvu eshopu*/
+  font-family: 'MilkyWalky';
+  position: absolute;
+  top: 15%;  
+  left: 50%; 
+  transform: translate(-50%, -50%); /* vycentrovanie */
+  color: lightcyan;  
+  font-size: 9vw; /* Bude sa velkost dynamicky menit podla velkosti stranky */
 }
 
-h2 {
-  font-size: 30px;
+.banner-text {
+  position: absolute;
+  left: 9vw; /* Stick it to the left side */
+  top: 105%; /* Move it vertically */
+  transform: translateY(-50%); /* Center it properly */
+  
+  width: 42vw; /* Adjust width */
+  height: 12vw; /* Adjust height */
+  
+  background-color: #C4E3E8; /* Semi-transparent red */
+  border-radius: 10px; /* Rounded corners */
+
+  display: flex;
+  justify-content: center; /* Center text horizontally */
+  align-items: center; /* Center text vertically */
 }
 
-.established {
+.text_on_banner {
   font-style: italic;
-}
-
-h1, h2, p {
+  color: black; /* Text color */
+  font-size: 2vw; /* Adjust text size */
+  font-weight: lighter; /* Make text bold */
   text-align: center;
+  width: 30vw;
 }
 
-.menu {
-  width: 80%;
-  background-color: burlywood;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
-  max-width: 500px;
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 10.5vw 10vw 0vw 10vw;
+  align-items: center;
+  gap: 5vw;
+  background-color: white;
 }
 
-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+.nav h2 {
+  font-size: 2vw;
+  font-weight: lighter;
+  text-transform: uppercase;
 }
 
-hr {
-  height: 2px;
-  background-color: brown;
-  border-color: brown;
+.product_left {
+  margin-top: 2vw;
+  display: flex;
+  justify-content: center;
+  gap: 1vw;
 }
 
-.bottom-line {
-  margin-top: 25px;
+.surfboard_products {
+  display: flex;
+  gap: 2vw;
+  justify-content: baseline;
+  flex-direction: column;
+
 }
 
-h1, h2 {
-  font-family: Impact, serif;
+.surfboard_picture {
+  height: 40vw;
+  width: 25vw;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
-.item p {
-  display: inline-block;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 18px;
+.surfboard_product {
+  height: 25vw;
+  width: 18vw;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-left: 2vw;
 }
 
-.flavor, .dessert {
-  text-align: left;
-  width: 75%;
+.custom-btn {
+  margin-left: 2vw;
+  width: 10vw;
+  height: 5vw;
+  background-color: lightblue;
+  border: none;
+  border-radius: 8px;
+  font-size: 2.5vw;
+  color: white;
 }
 
-.price {
-  text-align: right;
-  width: 25%;
+/*Flipped layout*/
+.product_right {
+  margin-top: 2vw;
+  display: flex;
+  justify-content: center;
+  gap: 1vw;
+  display: flex;
+  flex-direction: row-reverse; /* Flips the layout order */
+  align-items: center;
 }
 
-/* FOOTER */
+.equipment_product {
+  height: 25vw;
+  width: 18vw;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 2vw;
+}
 
-footer {
+.equipment_picture {
+  height: 40vw;
+  width: 25vw;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.equipment_products {
+  display: flex;
+  gap: 2vw;
+  justify-content: baseline;
+  flex-direction: column;
+
+}
+
+/* footer {
   font-size: 14px;
 }
 
@@ -136,4 +202,4 @@ a:hover {
 
 a:active {
   color: brown;
-} 
+}  */
