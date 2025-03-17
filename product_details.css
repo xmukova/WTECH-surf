@@ -1,0 +1,307 @@
+@font-face {
+    font-family: 'MilkyWalky'; /* This is the name you'll reference the font with */
+    src: url('fonts/milky-walky/MilkyWalky-Regular.otf') format('opentype'); /* Path to the .otf font file */
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFF0CB;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    position: fixed;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    z-index: 1000; /*header zostane on top a stranka bude skrolovana popod nu*/
+    justify-content: space-between;
+    align-items: center;
+    background-color: #a2c6d2;
+    padding: 10px 20px;
+    height: 60px
+}
+
+.bi { /*velkost ikoniek*/
+    margin: 0;
+    padding: 0;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.bi-list { /*velkost ikonky triciarky*/
+    font-size: 30px;
+    padding-left: 10px;
+}
+
+.bi-person {
+    font-size: 25px;
+}
+
+.logo-container img {
+    height: 30px;
+    width: auto;
+    position: relative;
+    top: -7px;
+}
+
+.overlay-text { /*formatovanie nazvu eshopu*/
+    font-family: 'MilkyWalky';
+    position: absolute;
+    top: 110%;  
+    left: 50%; 
+    transform: translate(-50%, -50%); /* vycentrovanie */
+    color: #26769C;  
+    font-size: min(9vw, 70px); /* Bude sa velkost dynamicky menit podla velkosti stranky, ale nie prilis */
+}
+
+/* PRODUCT DETAIL PHOTOS */
+.specific_product {
+    display: flex;  /* Spreads items evenly, placing one on the left and one on the right */
+    width: 100%; /* Ensures full width */
+    padding: 20px; /* Adds spacing */
+}
+
+.all_details {
+    margin: 40px 0 0 2vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product_photo1 {
+    height: 50vw;
+    width: 40vw;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: 1px;
+}
+
+.product_photo {
+    height: 50vw;
+    width: 40vw;
+    object-fit: cover;
+    margin-bottom: 1px;
+}
+
+.product_photo2 {
+    height: 50vw;
+    width: 40vw;
+    object-fit: cover;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* DESCRIPTION */
+.product_description {
+    text-align: left;
+    margin: 50px 0 0 4vw;
+    font-size: clamp(10px, 2.5vw, 60px);
+    font-weight: lighter;
+    display: flex;
+    flex-direction: column;
+}
+
+.product_name {
+    margin-right: 70px;
+    font-weight: 300;
+}
+
+.stars {
+    display: flex;  
+    align-items: baseline;
+}
+
+.reviews {
+    font-size: min(1.8vw, 40vw);
+    margin-left: 1.6vw;
+}
+
+.reviews:hover {
+    color: #26769C;
+}
+
+.star {
+    font-size: min(1.8vw, 20px);
+    margin-right: 2px;
+
+}
+
+.short_description {
+    margin-top: 2vw;
+    font-size: min(1.8vw, 20px);
+}
+
+.dropbtn {
+    margin-top: 4vw;
+    width: 12vw;
+    height: 4vw;
+    background-color: #26769C;
+    border: none;
+    border-radius: 0.6vw;
+    font-size: 1.5vw;
+    color: white;
+    font-weight: 2px;
+    text-align: center;
+    display: flex; /* Makes sure the icon aligns properly */
+    align-items: center;
+    justify-content: center;
+    gap: 0.7vw; /* Space between text and icon */
+    min-width: 40px; /* Prevents button from getting too small */
+}
+
+/* Ensures the icon is always visible */
+.dropbtn i {
+    font-size: 1.5vw; /* Adjusted icon size */
+}
+
+.dropbtn:hover, .fav-button:hover, .buy-button:hover{
+    background-color: #2F6781;
+}
+
+
+@media (max-width: 768px) {
+    .dropdown-item {
+        font-size: 1.8vw; /* Reduce text size */
+        height: 10px;
+        width: 10px;
+        display: flex !important;
+        align-items: center !important;
+    }
+}
+
+.fav-buy {
+    display: flex;
+    justify-content:end ;
+}
+
+.fav-button, .buy-button {
+    height: 4vw;
+    background-color: #26769C;
+    border: none;
+    font-size: 2vw;
+    color: white;
+    font-weight: 2px;
+}
+
+.fav-button {
+    width: 4vw;
+    border-top-left-radius: 0.6vw;
+    border-bottom-left-radius: 0.6vw;
+}
+
+.buy-button {
+    width: 7.5vw;
+    border-top-right-radius: 0.6vw;
+    border-bottom-right-radius: 0.6vw;
+    border-left: 1px solid #2F6781;
+}
+
+.smaller {
+    font-size: 1.8vw;
+}
+
+/* DROPDOWN FEATURES */
+.dropdown-features {
+    margin-top: 2vw;
+}
+
+.bi-chevron-down {
+    font-size: 1.5vw; /* Adjusted icon size */
+}
+/* Dropdown button */
+.dropdown-btn {
+    width: 100%;
+    padding: 0.9vw 2vw;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    font-size: 1.8vw;
+    text-align: left;
+
+}
+
+/* Hide the checkbox */
+.dropdown-toggle {
+    display: none;
+}
+
+.dropdown-content {
+    display: none;
+    padding: 3vw;
+    background-color: #f9f9f9;
+    color: #333;
+    border: 1px solid #ddd;
+    font-size: 1.6vw;
+    text-align: left;
+}
+
+.smaller-text {
+    font-size: 1.5vw;
+    margin-left: -20px;
+}
+
+/* When the checkbox is checked, show the dropdown content */
+.dropdown-toggle:checked + .dropdown-btn + .dropdown-content {
+    display: block;
+}
+
+
+/* Optional: Add hover effect for the button */
+.dropdown-btn:hover {
+    background-color: #26769C;
+    color: white;
+    border: 1px solid white;
+}
+
+.more-reviews:hover {
+    color: #26769C;
+}
+
+/* FOOTER */
+.footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #26769C;
+    color: white;
+    min-height: 200px;  /* Ensures it's never too small */
+    max-height: 28vh; 
+    padding: 2vw 0; 
+    width: 100%;
+    margin-top: 5vw;
+}
+
+.footer_heading {
+    font-size: 2vw;
+}
+
+.footer-info {
+    text-align: left;
+    font-size: 1.5vw;
+    margin-left: 4vw;
+    font-weight: 300;
+}
+
+.footer-box {
+    margin: 0 3vw;
+    width: 30%;
+    text-align: center;
+}
+
+.share-info {
+    text-align: center;
+    font-size: 1.5vw;
+    font-weight: 300;
+}
+
+.share {
+    font-size: 2.5vw;
+    margin-left: 0.5vw;
+}
