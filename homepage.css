@@ -7,7 +7,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #FFF0CB;
+  background-color: #FBF5E6 !important;
   margin: 0;
   padding: 0;
 }
@@ -41,6 +41,10 @@ header {
   font-size: 25px;
 }
 
+.icon_click:hover {
+  color: #26769C;
+}
+
 .logo-container img {
   height: 30px;
   width: auto;
@@ -52,6 +56,8 @@ header {
   margin-top: 60px;
   position: relative;
   width: 100%;
+  display: flex;
+  justify-content: flex-end; /*so the search bar is on the right*/
 }
 
 .overlay-text { /*formatovanie nazvu eshopu*/
@@ -66,43 +72,96 @@ header {
 
 .banner-text {
   position: absolute;
-  left: 9vw; /* Stick it to the left side */
-  top: 105%; /* Move it vertically */
-  transform: translateY(-50%); /* Center it properly */
+  left: 9vw; 
+  top: 105%;
+  transform: translateY(-50%); 
   
-  width: 42vw; /* Adjust width */
-  height: 12vw; /* Adjust height */
+  width: 42vw;
+  height: 12vw; 
   
-  background-color: #C4E3E8; /* Semi-transparent red */
-  border-radius: 10px; /* Rounded corners */
+  background-color: #C4E3E8; 
+  border-radius: 10px; 
 
   display: flex;
-  justify-content: center; /* Center text horizontally */
-  align-items: center; /* Center text vertically */
+  justify-content: center; 
+  align-items: center; 
 }
 
 .text_on_banner {
   font-style: italic;
-  color: black; /* Text color */
-  font-size: 2vw; /* Adjust text size */
-  font-weight: lighter; /* Make text bold */
+  color: black; 
+  font-size: 2vw; 
+  font-weight: lighter; 
   text-align: center;
   width: 30vw;
 }
 
+/* search bar */
+.search-bar {
+  display: flex;
+  border: 0.1vw solid white;
+  border-radius: 1.8vw;
+  width: 22vw;
+  position: absolute;
+  margin: 2vw;
+  justify-content: space-between;
+}
+
+.bi-search {
+  font-size: 1.9vw;
+  color: white;
+  margin-right: 1vw;
+}
+
+.search-bar input {
+  border: none;
+  background-color: transparent;
+  font-size: 1.8vw;
+  font-weight: 100;
+  color: white;
+  padding-left: 1vw;
+  width: 80%;
+}
+
+/* acting of searchbar */
+.search-bar input::placeholder {
+  color: white;
+  opacity: 65%;
+}
+
+.search-bar input:focus::placeholder {
+  color: transparent;
+}
+
+.search-bar input:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+
+/* NAV */
 .nav {
   display: flex;
   justify-content: space-between;
   margin: 10.5vw 10vw 0vw 10vw;
   align-items: center;
   gap: 5vw;
-  background-color: white;
 }
 
 .nav h2 {
   font-size: 2vw;
   font-weight: lighter;
   text-transform: uppercase;
+  padding: 0.3vw 1.3vw;
+  border: 1px solid #FBF5E6;
+  border-radius: 0.5vw;
+}
+
+.nav h2:hover {
+  color: #26769C;
+  border: 1px solid #26769C;
+  border-radius: 0.8vw;
 }
 
 .product_left {
@@ -117,6 +176,28 @@ header {
   gap: 2vw;
   justify-content: baseline;
   flex-direction: column;
+}
+
+.pretty-box {
+  position: absolute;
+  right: 0;
+  padding: 1vw;
+  margin: 4vw 5vw 0 0;
+}
+
+.surfboard_button {
+  display: flex;
+}
+
+.pretty-text {
+  font-family: 'MilkyWalky';
+  font-size: 9vw;
+  color: #26769C;
+}
+
+.pretty-box-reverse {
+  position: absolute;
+  margin: 3vw 4vw 0 24vw;
 }
 
 .surfboard_picture {
@@ -144,6 +225,10 @@ header {
   font-size: 2vw;
   color: white;
   font-weight: 2px;
+}
+
+.custom-btn:hover, .equipment-custom-btn:hover {
+  background-color: #28576E;
 }
 
 /*Flipped layout*/
@@ -187,6 +272,10 @@ header {
   font-size: 2vw;
   color: white;
   font-weight: 2px;
+}
+
+.darker:hover {
+  filter: brightness(80%);
 }
 
 .footer {
