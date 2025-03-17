@@ -7,7 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #FFF0CB;
+    background-color: #FBF5E6 !important;
     margin: 0;
     padding: 0;
 }
@@ -37,6 +37,10 @@ header {
 .bi-list { /*velkost ikonky triciarky*/
     font-size: 30px;
     padding-left: 10px;
+}
+
+.bi-list:hover, .bi-heart:hover, .bi-person:hover, .bi-bag:hover {
+    color: #2F6781;
 }
 
 .bi-person {
@@ -75,28 +79,23 @@ header {
 }
 
 .product_photo1 {
-    height: 50vw;
-    width: 40vw;
-    object-fit: cover;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    margin-bottom: 1px;
-}
-
-.product_photo {
-    height: 50vw;
-    width: 40vw;
-    object-fit: cover;
-    margin-bottom: 1px;
 }
 
 .product_photo2 {
-    height: 50vw;
-    width: 40vw;
-    object-fit: cover;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
+
+.product_photo, .product_photo1, .product_photo2 {
+    height: 50vw;
+    width: 40vw;
+    object-fit: cover;
+    /* margin-bottom: 1px; */
+}
+
+
 
 /* DESCRIPTION */
 .product_description {
@@ -118,13 +117,13 @@ header {
     align-items: baseline;
 }
 
+.stars:hover {
+    color: #2F6781;
+}
+
 .reviews {
     font-size: min(1.8vw, 40vw);
     margin-left: 1.6vw;
-}
-
-.reviews:hover {
-    color: #26769C;
 }
 
 .star {
@@ -149,20 +148,19 @@ header {
     color: white;
     font-weight: 2px;
     text-align: center;
-    display: flex; /* Makes sure the icon aligns properly */
+    display: flex; 
     align-items: center;
     justify-content: center;
-    gap: 0.7vw; /* Space between text and icon */
-    min-width: 40px; /* Prevents button from getting too small */
+    gap: 0.7vw; 
+    min-width: 40px; 
 }
 
-/* Ensures the icon is always visible */
 .dropbtn i {
-    font-size: 1.5vw; /* Adjusted icon size */
+    font-size: 1.5vw; 
 }
 
 .dropbtn:hover, .fav-button:hover, .buy-button:hover{
-    background-color: #2F6781;
+    background-color: #26769C;
 }
 
 
@@ -213,18 +211,22 @@ header {
 }
 
 .bi-chevron-down {
-    font-size: 1.5vw; /* Adjusted icon size */
+    font-size: 1.5vw;
 }
-/* Dropdown button */
-.dropdown-btn {
+
+.dropdown-btn, .dropdown-btn-last {
     width: 100%;
     padding: 0.9vw 2vw;
     background-color: white;
     color: black;
-    border: 1px solid black;
+    border: 0.1vw solid black;
     font-size: 1.8vw;
     text-align: left;
 
+}
+
+.dropdown-btn {
+    border-bottom: 0;
 }
 
 /* Hide the checkbox */
@@ -247,21 +249,86 @@ header {
     margin-left: -20px;
 }
 
-/* When the checkbox is checked, show the dropdown content */
 .dropdown-toggle:checked + .dropdown-btn + .dropdown-content {
     display: block;
 }
 
+.dropdown-toggle:checked + .dropdown-btn-last + .dropdown-content {
+    display: block;
+}
 
-/* Optional: Add hover effect for the button */
-.dropdown-btn:hover {
-    background-color: #26769C;
+.dropdown-btn:hover, .dropdown-btn-last:hover {
+    background-color: #2F6781;
     color: white;
-    border: 1px solid white;
+    border: 0.1vw solid #2F6781;
+    border-bottom: 0;
 }
 
 .more-reviews:hover {
-    color: #26769C;
+    color: #2F6781;
+}
+
+/* RECOMMENDED SLIDER */
+.recommended {
+    margin-top: 3vw;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.recommended-product {
+    height: 25vw;
+  width: 18vw;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.image-block {
+    position: relative;
+    display: inline-block;
+}
+
+.overlay {
+    position: absolute;
+    /* top: 0px; 
+    left: 10px; 
+    width: 3vw;  */
+    transform: rotate(90deg);
+    top: 1.3vw;
+    left: 1vw;
+    height: 2.8vw;
+    width: auto;
+
+}
+
+.recommend-text {
+    font-weight: 100;
+    align-self: flex-start;
+    margin: 0 0 2vw 5vw;
+    font-size: 2.3vw;
+}
+
+.recommended-slider {
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+    width: max-content;
+    animation: slide 20s linear infinite;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 /* FOOTER */
