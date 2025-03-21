@@ -20,7 +20,9 @@
         </div>
         <div class="icons d-flex gap-3">
             <i class="bi bi-heart" ></i>
-            <i class="bi bi-person" ></i>
+            <a href="login.html">
+                <i class="bi bi-person" ></i>
+            </a>
             <i class="bi bi-bag" ></i>
         </div>
 
@@ -31,20 +33,50 @@
    
     <!-- Navigation + Search Bar-->
     <nav class="text-center my-3">
-        <div class="search-bar">
+        <div class="search-bar ">
             <input type="text" placeholder=" Search...">
             <i class="bi bi-search"></i>
         </div>
-        <div class = "navbars">
-        <button class="button_navbar">SURFBOARDS</button>
-        <button class="button_navbar">EQUIPMENT</button>
-        <button class="button_navbar">ACCESSORIES</button>
-    </div>
+        <div class="container">
+            <div class="row g-1">
+                <div class="col-12 col-sm-4">
+                    <button class="button_navbar">SURFBOARDS</button>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <button class="button_navbar">EQUIPMENT</button>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <button class="button_navbar">ACCESSORIES</button>
+                </div>
+            </div>
+
+            <div class="row justify-content-between">
+                <div class="col-auto ">  <!--filter button-->
+                    <button class="button_navbar_2 "><i class="bi bi-filter"></i> Filter</button>
+                </div>
+                <div class="col-auto"> <!-- dropdown menu - zoradenie -->
+                    <div class="dropdown">
+                        <button class="button_navbar_2  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sort by
+                        </button>
+                        <ul class="dropdown-menu" >
+                            <li><a class="dropdown-item" href="#">Most Popular</a></li>
+                            <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
+                            <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
+                            <li><a class="dropdown-item" href="#">A - Z</a></li>
+                            <li><a class="dropdown-item" href="#">Z - A</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FILTER MENU -->
     </nav>
-    
+    <div class="background_section"></div>
+
     <!-- PRODUCTS SECTION -->
     <div class="container my-4">
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <div class="row  row-cols-xs-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             <!-- Product Card -->
             <div class="col">
                 <div class="card produkt darker">
@@ -62,8 +94,69 @@
                         <p class="card-text text_cena">$1299.99</p>
                     </div>
                 </div>            
+            </div> 
+
+
+            <div class="col">
+                <div class="card produkt darker">
+                    <img src="images/products/red_border_surfboard.jpg" alt="Product picture" >
+                    <div class = "produkt-ikonky">
+                        <button class="button-ikonka">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <button class="button-ikonka">
+                            <i class="bi bi-bag" ></i>
+                        </button>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title text_produkt">Beach Cruiser</h5>
+                        <p class="card-text text_cena">$894.99</p>
+                    </div>
+                </div>            
             </div>
 
+            <div class="col">
+                <div class="card produkt darker">
+                    <img src="images/products/surfboard_green.jpg" alt="Product picture" >
+                    <div class = "produkt-ikonky">
+                        <button class="button-ikonka">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <button class="button-ikonka">
+                            <i class="bi bi-bag" ></i>
+                        </button>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
+                        <p class="card-text text_cena">$1299.99</p>
+                    </div>
+                </div>            
+            </div>
+
+            <!-- <div class="col">
+                <video autoplay loop muted playsinline controls width="100%">
+                    <source src="images/surf images videos/surf_vide_1.mp4" type="video/mp4" >
+                    Video unavailible
+                </video>
+            </div> -->
+            
+            <div class="col">
+                <div class="card produkt darker">
+                    <img src="images/products/light_blue_surfboard.jpg" alt="Product picture" >
+                    <div class = "produkt-ikonky">
+                        <button class="button-ikonka">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <button class="button-ikonka">
+                            <i class="bi bi-bag" ></i>
+                        </button>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
+                        <p class="card-text text_cena">$1299.99</p>
+                    </div>
+                </div>            
+            </div> 
 
             <div class="col">
                 <div class="card produkt darker">
@@ -135,6 +228,24 @@
                         <p class="card-text text_cena">$1299.99</p>
                     </div>
                 </div>            
+            </div> 
+
+            <div class="col">
+                <div class="card produkt darker">
+                    <img src="images/products/dark_blue_surfboard.jpg" alt="Product picture" >
+                    <div class = "produkt-ikonky">
+                        <button class="button-ikonka">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <button class="button-ikonka">
+                            <i class="bi bi-bag" ></i>
+                        </button>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
+                        <p class="card-text text_cena">$1299.99</p>
+                    </div>
+                </div>            
             </div>
 
             <div class="col">
@@ -225,7 +336,7 @@
                         <p class="card-text text_cena">$1299.99</p>
                     </div>
                 </div>            
-            </div>
+            </div> 
 
             <div class="col">
                 <div class="card produkt darker">
@@ -261,70 +372,24 @@
                         <p class="card-text text_cena">$1299.99</p>
                     </div>
                 </div>            
-            </div>
-
-            <div class="col">
-                <div class="card produkt darker">
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>            
-            </div>
-
-            <div class="col">
-                <div class="card produkt darker">
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>            
-            </div>
-
-            <div class="col">
-                <div class="card produkt darker">
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>            
-            </div>
+            </div> 
 
         </div>
     </div>
     
-    <!-- Video or Quote Section -->
-    <div class="container my-5 text-center">
-        <div class="p-4 bg-light">nejake video alebo citat</div>
+    <!-- ciselnik stranok -->
+    <div class="strankovanie">
+        <button class="strankovanie_sipka" ><i class="bi bi-chevron-left"></i></button>
+        <div >
+            <a href="#" class="stranka active">1</a>
+            <a href="#" class="stranka">2</a>
+            <a href="#" class="stranka">3</a>
+            <span class="dots">...</span>
+            <a href="#" class="stranka">10</a>
+        </div>
+        <button class="strankovanie_sipka" ><i class="bi bi-chevron-right"></i></button>
     </div>
-    
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-box">
