@@ -1,0 +1,190 @@
+@font-face {
+    font-family: 'MilkyWalky'; /* This is the name you'll reference the font with */
+    src: url('fonts/milky-walky/MilkyWalky-Regular.otf') format('opentype'); /* Path to the .otf font file */
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  body {
+    height: 100%;
+    font-family: 'MilkyWalky', sans-serif;
+    background-color: #FFF0CB;
+    padding-top: 90px;
+    overflow-x:hidden; /*zakaz posuvania na x-osi*/
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    z-index: 1000;/*header zostane on top a stranka bude skrolovana popod nu*/
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #a2c6d2;
+  }
+
+  .bi { /*velkost ikoniek*/
+    font-size: 23px;
+    font-weight: bold
+  }
+  
+  .bi-list { /*velkost ikonky triciarky*/
+    font-size: 30px;
+    padding-left: 10px;
+  }
+  
+  .bi-person {
+    font-size: 25px;
+    color: black;
+  }
+
+  .logo-container img {
+    height: 30px;
+    width: auto;
+    position: relative;
+    top: -7px;
+  }
+
+  .overlay-text { 
+    font-family: 'MilkyWalky';
+    position: absolute;
+    top: 10%;
+    left: 50%; 
+    z-index: 1000;
+    transform: translate(-50%, -50%); /* vycentrovanie */
+    color: #26769C;
+    /* color: #26769C; */
+    font-size: min(10vw, 80px); 
+  }
+
+  .homepage_link{
+    color: rgba(255, 255, 255, 0);
+  }
+  /*  */
+
+  .container{
+    margin-top: 20px;
+  }
+  .profile-img {
+    border-radius: 10%;
+    width: 100%;
+    border: 2px solid #26769C;
+  }
+  .edit_profile_btn{
+    width: 100%;
+    height: auto;
+    background-color: #66aaca;
+    color: #ffffff; 
+    border: none;
+    border-radius: 7px;
+    padding: 7px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .edit_profile_btn:hover{
+    background-color: #26769C;
+    font-weight: bold;
+  }
+  .odhlasit_btn{
+    width: 100%;
+    height: 40px;
+    background-color: #fcbd1d;
+    color: #ffffff; 
+    border: none;
+    border-radius: 7px;
+    padding: 7px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  .odhlasit_btn:hover{
+    background-color: #c48d00;
+  }
+
+  .card.my_card {
+    border: 2px solid #c48d00;
+    border-radius: 7px;
+    background-color:#FBF5E6; 
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  }
+  /* historia */
+
+  .custom-order-history {
+    border: 2px solid #26769C;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .product_order_image{
+    width: clamp(50px, 15vw, 150px);
+    height: auto;
+    /* object-fit: cover; */
+    border-radius: 5px;
+    margin-right: 15px;
+  }
+
+  .order_title {
+    font-size: 21px;
+    font-weight: bold;
+    color: #26769C;
+    /* margin: 0; */
+  }
+
+  .order_details {
+    font-size: clamp(12px, 2.5vw, 17px);
+    color: #555;
+    margin: 0;
+  }
+
+    /*footer*/
+  .footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #26769C;
+    color: white;
+    min-height: 200px;  
+    max-height: 28vh; 
+    padding: 2vw 0; 
+    width: 100%;
+    margin-top: 10vw;
+  }
+  
+  .footer_heading {
+    font-size: 2vw;
+  }
+  
+  .footer-info {
+    text-align: center;
+    font-size: 1.5vw;
+    font-weight: 300;
+  }
+  
+  .footer-box {
+    margin: 0 3vw;
+    width: 30%;
+    text-align: center;
+  }
+  
+  .share-info {
+    text-align: center;
+    font-size: 1.5vw;
+    font-weight: 300;
+  }
+  
+  .share {
+    font-size: 2.5vw;
+    margin-left: 0.5vw;
+  }
+  
+  
