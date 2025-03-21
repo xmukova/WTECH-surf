@@ -30,12 +30,81 @@ header {
   padding: 0;
   font-size: 23px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .bi-list { /*velkost ikonky triciarky*/
   font-size: 30px;
   padding-left: 10px;
 }
+
+/* PRODUCT OVERVIEW */
+.product-overview-container {
+  display: none;
+  position: fixed;
+  top: 60px; /* Adjust as needed */
+  left: 0;
+  background-color: #ffffff;
+  padding: 20px;
+  z-index: 999;
+  transition: all 0.3s ease-in-out; /* Optional: Smooth transition */
+}
+
+.product-overview {
+  max-width: 1200px;
+  height: fit-content;
+  margin: 1vw 0 0 1vw;
+}
+
+/* For phones (100% width and height on mobile) */
+@media (max-width: 480px) {
+  .product-overview-container {
+    width: 100vw; /* Full width on mobile */
+    height: 100vh; /* Full height on mobile */
+  }
+}
+
+/* For larger screens (Desktop view stays fixed) */
+@media (min-width: 481px) {
+  .product-overview-container {
+    width: 500px; /* Fixed width */
+    height: 900px; /* Fixed height */
+  }
+}
+
+.category {
+  margin-bottom: max(1.5vw, 20px);
+}
+
+.category:hover {
+  color: #26769C;
+}
+
+.product-overview ul ul li {
+  cursor: pointer;
+  margin-bottom: 0.5vw;
+}
+
+.product-overview ul ul li:hover {
+  color: #26769C;
+}
+
+/* acting of product overview */
+.product-overview ul {
+  list-style-type: none; /* Removes bullet points */
+  padding-left: 0; /* Removes left padding */
+}
+
+.product-overview li {
+  cursor: pointer; /* Makes it clear that the items are clickable */
+}
+
+/* Move subcategories to the right */
+.product-overview ul ul {
+  margin-left: 20px; /* Adjust the margin to move the subcategories */
+  margin-bottom: max(1.5vw, 20px);
+}
+
 
 .bi-person {
   font-size: 25px;
@@ -61,6 +130,7 @@ header {
 }
 
 .overlay-text { /*formatovanie nazvu eshopu*/
+  cursor: default;
   font-family: 'MilkyWalky';
   position: absolute;
   top: 15%;  
@@ -82,6 +152,7 @@ header {
   background-color: #C4E3E8; 
   border-radius: 10px; 
 
+  padding: 1vw;
   display: flex;
   justify-content: center; 
   align-items: center; 
@@ -93,7 +164,6 @@ header {
   font-size: 2vw; 
   font-weight: lighter; 
   text-align: center;
-  width: 30vw;
 }
 
 /* search bar */
@@ -105,6 +175,7 @@ header {
   position: absolute;
   margin: 2vw;
   justify-content: space-between;
+  align-items: center;
 }
 
 .bi-search {
@@ -156,6 +227,7 @@ header {
   padding: 0.3vw 1.3vw;
   border: 1px solid #FBF5E6;
   border-radius: 0.5vw;
+  cursor: pointer;
 }
 
 .nav h2:hover {
@@ -164,6 +236,350 @@ header {
   border-radius: 0.8vw;
 }
 
+/* PRODUCTS */
+/* RESPONSIVITY */
+
+/* On middle screens */
+@media (max-width: 700px) {
+  /* SEARCH */
+  .overlay-text { /*formatovanie nazvu eshopu*/
+    top: 10%;  
+    font-size: 7vw; /* Bude sa velkost dynamicky menit podla velkosti stranky */
+  }
+
+  .search-bar {
+    width: 30vw;
+    height: 4vw;
+  }
+  
+  .bi-search {
+    font-size: 2.1vw;
+  }
+  
+  .search-bar input {
+    font-size: 2.1vw;
+  }
+
+  /* BANNER CITAT */
+  .banner-text {
+    top: 103%;
+    width: 50vw;
+  }
+  
+  .text_on_banner {
+    font-size: 2.4vw; 
+    width: 40vw;
+  }
+
+  /* NAV */
+  .nav h2 {
+    font-size: 3vw;
+  }
+  
+  /* LEFT */
+  .surfboard_picture {
+    display: none;
+  }
+
+  .surfboard_products {
+    width: 100vw; /* Make sure the parent takes the full width of the screen */
+    height: 50vw; /* Remove fixed height to allow for responsive height */
+  }
+
+  .surfboard_product {
+    height: 40vw !important; 
+    width: 30vw !important; 
+  }
+
+  .custom-btn {
+    margin-left: 6vw !important;
+    margin-top: 1vw;
+    width: 12vw !important;
+    height: 7vw !important;
+    border-radius: 1vw !important;
+    font-size: 3vw !important;
+  }
+
+  .pretty-box {
+    margin: 1vw 7vw 0 0 !important;
+  }
+
+  /* RIGHT */
+  
+  .equipment_product {
+    height: 40vw !important; 
+    width: 30vw !important; 
+  }
+  
+  .equipment_picture {
+    display: none;
+  }
+  
+  .equipment_products {
+    width: 100vw;
+    height: 50vw;
+  }
+  
+  .equipment-custom-btn {
+    width: 8vw;
+    height: 4vw;
+    background-color: #26769C;
+    border: none;
+    border-radius: 0.6vw;
+    font-size: 2vw;
+    color: white;
+    font-weight: 2px;
+  }
+
+  .product_right {
+    padding-left: 2vw;
+  }
+
+  .equipment-custom-btn {
+    margin-left: 4vw !important;
+    margin-top: 1vw;
+    width: 12vw !important;
+    height: 7vw !important;
+    border-radius: 1vw !important;
+    font-size: 3vw !important;
+  }
+
+  .pretty-box-reverse {
+    right: 0;
+    padding: 1vw;
+    margin: -9vw 8vw 0 0 !important;
+  }
+
+  /* FOOTER */
+  .footer {
+    display: flex;
+    justify-content: flex-start !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    min-height: 200px;  /* Ensures it's never too small */
+    max-height: 28vh; 
+    padding: 0vw 0 !important; 
+  }
+  
+  .footer_heading {
+    font-size: 3vw !important;
+    font-weight: 200;
+  }
+  
+  .footer-info {
+    text-align: left;
+    font-size: 2vw !important;
+    margin-left: 4vw;
+    font-weight: 200 !important;
+  }
+  
+  .footer-box {
+    margin: 3vw 0vw !important;
+    width: 30% !important;
+    padding: 10px 5px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .share-info {
+    text-align: center;
+    font-size: 2vw !important;
+    font-weight: 200 !important;
+  }
+  
+  .share {
+    font-size: 3vw !important;
+    margin-left: 0.5vw;
+  }
+}
+
+/* On small screens */
+@media (max-width: 500px) {
+  /* SEARCH */
+  .overlay-text {
+    top: 10%;
+    font-size: 7vw;
+  }
+
+  .search-bar {
+    width: 7vw; 
+    height: 7vw;
+    border-radius: 20px;
+    display: flex;
+    justify-content: end;
+    overflow: hidden; /* Prevents overflowing content */
+    transition: width 0.5s ease; /* Animation for expanding the width */
+  }
+
+  .bi-search {
+    font-size: 4vw !important;
+    margin-right: 1.45vw !important;
+  }
+
+  /* Initially hide the input field */
+  .search-bar input {
+    display: none;
+    font-size: 3vw;
+    padding-left: 2vw;
+    transition: opacity 0.3s ease; /* Smooth opacity transition */
+  }
+
+  /* When the search bar expands */
+  .search-bar.expanded {
+    width: 30vw; 
+  }
+
+  .search-bar.expanded input {
+    display: block; /* Show the input when expanded */
+    opacity: 1; /* Make it visible */
+  }
+
+  /* BANNER CITAT */
+  .banner-text {
+    top: 103%;
+    width: 50vw;
+    height: 14vw;
+  }
+  
+  .text_on_banner {
+    font-size: 2.8vw;
+    width: 40vw;
+  }
+
+  /* NAV */
+  .nav {
+    margin: 12vw 10vw 0vw 10vw;
+    gap: 2vw;
+  }
+
+  .nav h2 {
+    font-size: 3.5vw;
+  }
+  /* LEFT */
+  .surfboard_picture {
+    display: none;
+  }
+
+  .three_products img:nth-child(n+3) {
+    display: none; /* Hide third product */
+  }
+
+  .three_products {
+    display: flex;
+    justify-content: center;
+    gap: 2vw;
+  }
+
+  .surfboard_products {
+    width: 100vw; 
+    height: auto; 
+  }
+
+  .surfboard_product {
+    height: 70vw !important; 
+    width: 45vw !important; 
+    margin-left: 0 !important;
+  }
+
+  .custom-btn {
+    margin-left: 6vw !important;
+    margin-top: 1vw;
+    width: 20vw !important;
+    height: 10vw !important;
+    border-radius: 1vw !important;
+    font-size: 5vw !important;
+    font-weight: 100;
+  }
+
+  .pretty-box {
+    margin: 72vw 7vw 0 0 !important;
+  }
+
+  /* RIGHT */
+  
+  .equipment_product {
+    height: 70vw !important; 
+    width: 45vw !important; 
+    margin-right: 0 !important;
+  }
+  
+  .equipment_picture {
+    display: none;
+  }
+  
+  .equipment_products {
+    width: 100vw;
+    height: auto;
+  }
+  
+  .equipment-custom-btn {
+    width: 8vw;
+    height: 4vw;
+    background-color: #26769C;
+    border: none;
+    border-radius: 0.6vw;
+    font-size: 2vw;
+    color: white;
+    font-weight: 2px;
+  }
+
+  .product_right {
+    padding-right: 2vw;
+  }
+
+  .equipment-custom-btn {
+    margin-left: 4vw !important;
+    margin-top: 1vw;
+    width: 20vw !important;
+    height: 10vw !important;
+    border-radius: 1vw !important;
+    font-size: 5vw !important;
+    font-weight: 100;
+  }
+
+  .pretty-box-reverse {
+    right: 0;
+    padding: 1vw;
+    margin: -9vw 8vw 0 0 !important;
+  }
+
+  /* FOOTER */
+  .footer {
+    flex-direction: column;
+    justify-content: center !important;
+    min-height: 120vw !important; 
+    padding: 3vw 3vw !important; 
+    margin-top: 7vw !important;
+  }
+  
+  .footer_heading {
+    font-size: 4vw !important;
+    font-weight: 100;
+  }
+  
+  .footer-info {
+    text-align: left !important;
+    font-size: 3.5vw !important;
+    font-weight: 100 !important;
+  }
+  
+  .footer-box {
+    width: 100% !important;
+    text-align: left !important;
+  }
+  
+  .share-info {
+    text-align: center !important;
+    font-size: 4vw !important;
+    font-weight: 100 !important;
+  }
+  
+  .share {
+    font-size: 6vw !important;
+  }
+}
+
+/* VLAVO */
 .product_left {
   margin-top: 2vw;
   display: flex;
@@ -178,33 +594,12 @@ header {
   flex-direction: column;
 }
 
-.pretty-box {
-  position: absolute;
-  right: 0;
-  padding: 1vw;
-  margin: 4vw 5vw 0 0;
-}
-
-.surfboard_button {
-  display: flex;
-}
-
-.pretty-text {
-  font-family: 'MilkyWalky';
-  font-size: 9vw;
-  color: #26769C;
-}
-
-.pretty-box-reverse {
-  position: absolute;
-  margin: 3vw 4vw 0 24vw;
-}
-
 .surfboard_picture {
   height: 40vw;
   width: 25vw;
   object-fit: cover;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .surfboard_product {
@@ -213,6 +608,7 @@ header {
   object-fit: cover;
   border-radius: 10px;
   margin-left: 2vw;
+  cursor: pointer;
 }
 
 .custom-btn {
@@ -247,6 +643,7 @@ header {
   object-fit: cover;
   border-radius: 10px;
   margin-right: 2vw;
+  cursor: pointer;
 }
 
 .equipment_picture {
@@ -254,6 +651,7 @@ header {
   width: 25vw;
   object-fit: cover;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .equipment_products {
@@ -278,6 +676,25 @@ header {
   filter: brightness(80%);
 }
 
+.pretty-box {
+  position: absolute;
+  right: 0;
+  padding: 1vw;
+  margin: 4vw 5vw 0 0;
+}
+
+.pretty-text {
+  font-family: 'MilkyWalky';
+  font-size: 9vw;
+  color: #26769C;
+}
+
+.pretty-box-reverse {
+  position: absolute;
+  margin: 3vw 4vw 0 24vw;
+}
+
+/* FOOTER */
 .footer {
   display: flex;
   justify-content: space-around;
@@ -306,6 +723,7 @@ header {
   margin: 0 3vw;
   width: 30%;
   text-align: center;
+  cursor: pointer;
 }
 
 .share-info {
