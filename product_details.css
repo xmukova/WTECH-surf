@@ -14,7 +14,6 @@ body {
 
 header {
     position: fixed;
-    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -39,6 +38,8 @@ header {
     padding-left: 10px;
 }
 
+
+
 .bi-list:hover, .bi-heart:hover, .bi-person:hover, .bi-bag:hover {
     color: #2F6781;
 }
@@ -54,21 +55,22 @@ header {
     top: -7px;
 }
 
-.overlay-text { /*formatovanie nazvu eshopu*/
+.overlay-text {
     font-family: 'MilkyWalky';
     position: absolute;
     top: 110%;  
     left: 50%; 
-    transform: translate(-50%, -50%); /* vycentrovanie */
+    transform: translate(-50%, -50%);
     color: #26769C;  
-    font-size: min(9vw, 70px); /* Bude sa velkost dynamicky menit podla velkosti stranky, ale nie prilis */
+    font-size: min(9vw, 60px);
+    transition: top 0.2s ease-out; /* Smooth movement */
 }
 
 /* PRODUCT DETAIL PHOTOS */
 .specific_product {
     display: flex;  /* Spreads items evenly, placing one on the left and one on the right */
     width: 100%; /* Ensures full width */
-    padding: 20px; /* Adds spacing */
+    padding: 70px 20px 20px 20px; /* Adds spacing */
 }
 
 .all_details {
@@ -160,7 +162,7 @@ header {
 }
 
 .dropbtn:hover, .fav-button:hover, .buy-button:hover{
-    background-color: #26769C;
+    background-color: #28576E;
 }
 
 
@@ -258,9 +260,9 @@ header {
 }
 
 .dropdown-btn:hover, .dropdown-btn-last:hover {
-    background-color: #2F6781;
+    background-color: #26769C;
     color: white;
-    border: 0.1vw solid #2F6781;
+    border: 0.1vw solid #26769C;
     border-bottom: 0;
 }
 
