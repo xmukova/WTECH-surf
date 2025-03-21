@@ -8,7 +8,6 @@
   body {
     height: 100%;
     font-family: 'MilkyWalky', sans-serif;
-    /* background-color: #FBF5E6; */
     background-color: #FFF0CB;
     padding-top: 90px;
     overflow-x:hidden; /*zakaz posuvania na x-osi*/
@@ -40,6 +39,7 @@
   
   .bi-person {
     font-size: 25px;
+    color: black;
   }
 
   .logo-container img {
@@ -57,54 +57,122 @@
     z-index: 1000;
     transform: translate(-50%, -50%); /* vycentrovanie */
     color: #26769C;
-    font-size: min(9vw, 70px); 
+    /* color: #26769C; */
+    font-size: min(10vw, 80px); 
   }
 
+/* .background_section {
+  position:absolute;
+  top: 0;
+  width:100%;
+  height: 300px; 
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 100%), 
+                    url('images/surf images videos/vlnky_2.jpg'); 
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  filter: blur(0px)
+} */
 
 /* NAVBAR */
-  .button_prihlasenie {
-    width: 100%;
-    background-color: white;
-    color: rgb(0, 0, 0); 
-    border: 1px solid rgb(230, 223, 223);
-    border-radius: 7px;
-    padding: 7px;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    }
-  .button_prihlasenie:hover {
-      background-color: black;
-      color: white;
-  }
+nav {
+  margin-top: 50px;  
+}
 
-  .navbars {
+.navbars {
     display: flex;
     justify-content: center; 
     gap: 10px; 
 }
 
-  .button_navbar {
+.button_navbar {
     width: 100%;
-    background-color: white;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
     color: #26769C; 
-    border: 1px solid rgb(255, 255, 255);
+    border: none;
     border-radius: 7px;
     padding: 7px;
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
-    }
-
-  .button_navbar:hover {
-      background-color: #26769C;
-      color: white;
-  }
-
-  nav {
-    margin-top: 50px;  
 }
 
+.button_navbar:hover {
+      background-color: #26769C;
+      color: white;
+}
+
+
+.button_navbar_2{
+  width: 170px;
+  height: 35px;
+  background-color: whitesmoke;
+  color: #66aaca; 
+  border: 1px solid #66aaca;
+  border-radius: 7px;
+  padding: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* font-weight: bold; */
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.button_navbar_2:hover {
+  background-color: #66aaca;
+  font-weight: bold;
+  color: white;
+}
+.dropdown-menu {
+  width: 100% ;
+}
+
+/* search bar */
+.search-bar {
+  display: flex;
+  border: 0.2vw solid #26769c;
+  border-radius: 1.8vw;
+  margin: 2vw;
+  margin-left: auto;
+  width: 20vw;
+  justify-content: space-between;
+  min-width: 200px;
+  max-width: 650px;
+  height: 3vw;
+  min-height: 30px;
+  max-height: 50px;
+  padding: 0.3vw;
+  box-shadow: 0 0 5px rgba(38, 118, 156, 0.6);
+  background-color: white;
+}
+
+.bi-search {
+  font-size: clamp(14px, 2vw, 25px);
+  color: #26769C;
+  margin-right: 1vw;
+  align-self: center;
+}
+
+.bi-search:hover{
+  transform: scale(1.2); /* zvacsi o 20% */
+  transition: transform 0.2s ease-in-out; /* plynuly prechod */
+}
+
+.search-bar input {
+  border: none;
+  background-color: transparent;
+  font-size: clamp(12px, 1.8vw, 20px);
+  font-weight: 100;
+  color: #26769C;
+  padding-left: 1vw;
+  width: 80%;
+  height: 100%;
+}
+
+.search-bar input:focus {
+  outline: none; 
+}
 
   .produkt-ikonky{
     position: absolute;
@@ -128,9 +196,9 @@
 }
 
 .button-ikonka:hover {
-    background-color: #ffffff; /* Modré pozadie pri hoveri */
-    color: #26769C; /* Ikona zmení farbu na bielu */
-    border: 1px solid #26769C; /* Biely obrys */
+    background-color: #ffffff; 
+    color: #26769C; 
+    border: 1px solid #26769C; 
 }
 
 .darker:hover {
@@ -146,6 +214,52 @@
 }
 
 
+.strankovanie {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.strankovanie_sipka {
+  background-color: #66aaca;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.stranka {
+  padding: 7px 7px;
+  text-decoration: none;
+  color: #66aaca;
+  border: 1px solid #66aaca;
+  border-radius: 7px;
+  font-weight: bold;
+}
+
+.stranka:hover,  
+.strankovanie_sipka:hover{
+  background-color: #26769C;
+  border:#26769C;
+  color: white;
+}
+
+.stranka.active{
+  background-color: #66aaca;
+  color: white;
+}
+
+.dots {
+  color: #66aaca;
+  padding: 0 5px;
+}
+
+
+
+
   /*footer*/
 .footer {
     display: flex;
@@ -153,7 +267,7 @@
     align-items: center;
     background-color: #26769C;
     color: white;
-    min-height: 200px;  /* Ensures it's never too small */
+    min-height: 200px;  
     max-height: 28vh; 
     padding: 2vw 0; 
     width: 100%;
