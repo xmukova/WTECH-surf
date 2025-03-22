@@ -38,18 +38,23 @@ header {
   padding-left: 10px;
 }
 
+
 /* PRODUCT OVERVIEW */
 .product-overview-container {
-  display: none;
   position: fixed;
-  top: 60px; /* Adjust as needed */
+  top: 60px; /* Below header */
   left: 0;
   background-color: #ffffff;
   padding: 20px;
   z-index: 999;
-  transition: all 0.3s ease-in-out; /* Optional: Smooth transition */
+  transform: translateX(-100%); /* Start off-screen to the left */
+  transition: transform 0.3s ease-in-out; /* Smooth sliding */
 }
 
+/* Class to show the container by sliding it in */
+.product-overview-container.visible {
+  transform: translateX(0); /* Slide to visible position */
+}
 .product-overview {
   max-width: 1200px;
   height: fit-content;
@@ -68,7 +73,7 @@ header {
 @media (min-width: 481px) {
   .product-overview-container {
     width: 500px; /* Fixed width */
-    height: 900px; /* Fixed height */
+    height: 100%; /* Fixed height */
   }
 }
 
@@ -104,7 +109,6 @@ header {
   margin-left: 20px; /* Adjust the margin to move the subcategories */
   margin-bottom: max(1.5vw, 20px);
 }
-
 
 .bi-person {
   font-size: 25px;
@@ -240,7 +244,7 @@ header {
 /* RESPONSIVITY */
 
 /* On middle screens */
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   /* SEARCH */
   .overlay-text { /*formatovanie nazvu eshopu*/
     top: 10%;  
@@ -356,21 +360,17 @@ header {
     justify-content: flex-start !important;
     justify-content: space-between !important;
     align-items: baseline !important;
-    min-height: 200px;  /* Ensures it's never too small */
-    max-height: 28vh; 
-    padding: 0vw 0 !important; 
+    padding: 1vw !important;
   }
   
   .footer_heading {
     font-size: 3vw !important;
-    font-weight: 200;
   }
   
   .footer-info {
     text-align: left;
     font-size: 2vw !important;
     margin-left: 4vw;
-    font-weight: 200 !important;
   }
   
   .footer-box {
@@ -384,7 +384,6 @@ header {
   .share-info {
     text-align: center;
     font-size: 2vw !important;
-    font-weight: 200 !important;
   }
   
   .share {
@@ -394,7 +393,7 @@ header {
 }
 
 /* On small screens */
-@media (max-width: 500px) {
+@media (max-width: 576px) {
   /* SEARCH */
   .overlay-text {
     top: 10%;
@@ -546,32 +545,28 @@ header {
   /* FOOTER */
   .footer {
     flex-direction: column;
-    justify-content: center !important;
-    min-height: 120vw !important; 
-    padding: 3vw 3vw !important; 
-    margin-top: 7vw !important;
+    padding: 7vw 5vw !important; 
+    margin-top: 9vw !important;
   }
   
   .footer_heading {
     font-size: 4vw !important;
-    font-weight: 100;
   }
   
   .footer-info {
     text-align: left !important;
     font-size: 3.5vw !important;
-    font-weight: 100 !important;
   }
   
   .footer-box {
     width: 100% !important;
     text-align: left !important;
+    margin-bottom: 5vw !important;
   }
   
   .share-info {
     text-align: center !important;
     font-size: 4vw !important;
-    font-weight: 100 !important;
   }
   
   .share {
@@ -691,7 +686,7 @@ header {
 
 .pretty-box-reverse {
   position: absolute;
-  margin: 3vw 4vw 0 24vw;
+  margin: 4vw 0 24vw;
 }
 
 /* FOOTER */
@@ -701,11 +696,11 @@ header {
   align-items: center;
   background-color: #26769C;
   color: white;
-  min-height: 200px;  /* Ensures it's never too small */
-  max-height: 28vh; 
-  padding: 2vw 0; 
+  height: auto; 
+  padding: 2vw; 
   width: 100%;
   margin-top: 5vw;
+  font-weight: 100;
 }
 
 .footer_heading {
@@ -716,7 +711,6 @@ header {
   text-align: left;
   font-size: 1.5vw;
   margin-left: 4vw;
-  font-weight: 300;
 }
 
 .footer-box {
@@ -729,7 +723,6 @@ header {
 .share-info {
   text-align: center;
   font-size: 1.5vw;
-  font-weight: 300;
 }
 
 .share {
