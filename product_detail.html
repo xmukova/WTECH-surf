@@ -14,7 +14,7 @@
     <!--Header-->
     <header class="d-flex justify-content-between align-items-center bg-light border-bottom">
         <div class="logo-container">
-            <img src="images/logo.png" alt="Logo" class="logo">
+            <a href="homepage.html"><img src="images/logo.png" alt="Logo" class="logo"></a>
             <i class="bi bi-list"></i>
         </div>
         <div class="icons d-flex gap-3">
@@ -24,14 +24,47 @@
         </div>
         <div class="overlay-text">Maui Surf</div>
     </header>
+    <!-- PRODUCT OVERVIEW -->
+    <div id="product-overview" class="product-overview-container">
+        <div class="product-overview">
+            <ul>
+                <li id="surfboards" class="category">SURFBOARDS</li>
+                    <ul id="surfboards-subcategories" style="display: none;">
+                        <li>Short-boards</li>
+                        <li>Middle-boards</li>
+                        <li>Long-boards</li>
+                    </ul>
+                <li id="equipment" class="category">EQUIPMENT</li>
+                    <ul id="equipment-subcategories" style="display: none;">
+                        <li>Neopren</li>
+                        <li>Fins</li>
+                        <li>Leashes</li>
+                        <li>Wax</li>
+                    </ul>
+                <li id="accessories" class="category">ACCESSORIES</li>
+                    <ul id="accessories-subcategories" style="display: none;">
+                        <li>T-shirts</li>
+                        <li>Hats</li>
+                        <li>UV protection</li>
+                    </ul>
+            </ul>
+        </div>
+    </div>
 
     <main>
         <div class="specific_product">
             <div class="all_details">
-                <img src="images/products/surfboard_darkgreen.jpg" alt="Dark green surfboard" class="product_photo1">
-                <img src="images/products/detail_side_green.jpg" alt="Dark green surfboard" class="product_photo">
-                <img src="images/products/detail_green_tail.jpg" alt="Dark green surfboard" class="product_photo">
-                <img src="images/products/detail_green.jpg" alt="Dark green surfboard" class="product_photo2">
+                <div class="carousel_container">
+                    <div class="carousel_track">
+                        <img src="images/products/surfboard_darkgreen.jpg" alt="Dark green surfboard" class="carousel_photo1">
+                        <img src="images/products/detail_side_green.jpg" alt="Dark green surfboard" class="carousel_photo">
+                        <img src="images/products/detail_green_tail.jpg" alt="Dark green surfboard" class="carousel_photo">
+                        <img src="images/products/detail_green.jpg" alt="Dark green surfboard" class="carousel_photo2">
+                    </div>
+                    <!-- Navigation icons -->
+                    <i class="bi bi-chevron-left carousel-prev" id="carousel-prev"></i>
+                    <i class="bi bi-chevron-right carousel-next" id="carousel-next"></i>
+                </div>
             </div>
             <div class="product_description">
                 <div class="product_name">Forest Green Surfboard</div>
@@ -58,19 +91,24 @@
                 <div class="dropdown">
                     <button type= "button" class="dropbtn" data-bs-toggle="dropdown" aria-expanded="false">Pick size <i class="bi bi-chevron-down"></i></button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Short <span style="padding-left: 10px;">5'8''</span></a></li>
+                        <li><a class="dropdown-item" >Short <span class="size">5'8''</span></a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Middle <span style="padding-left: 10px;">6'11''</a></li>
+                        <li><a class="dropdown-item" >Middle <span class="size">6'11''</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Long <span style="padding-left: 10px;">7'2''</a></li>
+                        <li><a class="dropdown-item" >Long <span class="size">7'2''</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Extra Long <span style="padding-left: 10px;">9'6''</a></li>
-                      </ul>
+                        <li><a class="dropdown-item" >Extra Long <span class="size">9'6''</a></li>
+                    </ul>
+                    <div class="number-picker">
+                        <input type="number" id="quantity" value="1" min="1">
+                    </div>
                 </div>
-
+                <div class="price">
+                    <p>1270,0$</p>
+                </div>
                 <div class="fav-buy">
                     <button class="fav-button"> <i class="bi bi-heart smaller" ></i></button>
-                    <button class="buy-button">More</button>
+                    <button class="buy-button">Buy</button>
                 </div>
 
                 <div class="dropdown-features">
@@ -79,8 +117,7 @@
                         <input type="checkbox" id="dropdown-toggle-1" class="dropdown-toggle">
                         <label for="dropdown-toggle-1" class="dropdown-btn">Features <i class="bi bi-chevron-down"></i></label>
                         <div class="dropdown-content">
-                            <p><strong>Features:</strong></p>
-                            <ul class="smaller-text">
+                            <ul>
                                 <li> High-quality dark forest green finish</li>
                                 <li> Ideal for both beginners and experienced surfers</li>
                                 <li> Premium craftsmanship and durability</li>
@@ -93,7 +130,6 @@
                         <input type="checkbox" id="dropdown-toggle-2" class="dropdown-toggle">
                         <label for="dropdown-toggle-2" class="dropdown-btn">Description <i class="bi bi-chevron-down"></i></label>
                         <div class="dropdown-content">
-                            <p><strong>Description:</strong></p>
                             <p>Built to withstand the harshest ocean conditions, the Forest Green Surfboard features a durable
                             fiberglass exterior that enhances its strength while remaining lightweight. Whether you're carving sharp turns or gliding
                             effortlessly across the water, this board offers the ideal balance of performance and comfort.
@@ -168,49 +204,49 @@
             <p class="recommend-text">We think you will like</p>
             <div class="slider-wrapper">
                 <div class="recommended-slider">
-                    <img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product">
+                    <img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product darker">
+                    <img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product darker">
+                    <img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product darker">
 
                     <!-- NEW -->
                     <div class="image-block">
-                        <img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
+                        <img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
                         <img src="images/new.png" alt="Overlay" class="overlay">
                     </div>
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product">
+                    <img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker">
+                    <img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker">
 
                     <!-- NEW -->
                     <div class="image-block">
-                        <img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
-                    </div>
-                    <!-- NEW -->
-                    <div class="image-block">
-                        <img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
-                    </div>
-
-                    <img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product">
-
-                    <!-- NEW -->
-                    <div class="image-block">
-                        <img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
-                    </div>
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product">
-
-                    <!-- NEW -->
-                    <div class="image-block">
-                        <img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
+                        <img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
                         <img src="images/new.png" alt="Overlay" class="overlay">
                     </div>
                     <!-- NEW -->
                     <div class="image-block">
-                        <img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
+                        <img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
+                        <img src="images/new.png" alt="Overlay" class="overlay">
+                    </div>
+
+                    <img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product darker">
+                    <img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product darker">
+                    <img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product darker">
+
+                    <!-- NEW -->
+                    <div class="image-block">
+                        <img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
+                        <img src="images/new.png" alt="Overlay" class="overlay">
+                    </div>
+                    <img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker">
+                    <img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker">
+
+                    <!-- NEW -->
+                    <div class="image-block">
+                        <img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
+                        <img src="images/new.png" alt="Overlay" class="overlay">
+                    </div>
+                    <!-- NEW -->
+                    <div class="image-block">
+                        <img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
                         <img src="images/new.png" alt="Overlay" class="overlay">
                     </div>
                 </div>
@@ -233,7 +269,7 @@
                 <p>Return & Delivery<br>Reviews<br>About us</p>
             </div>
         </div>
-        <div class="footer-box">
+        <div class="footer-box last-box">
             <div class="share-info">
                 <p>Share your experience with your friends on socials</p>
                 <i class="bi bi-facebook share"></i>
@@ -248,4 +284,3 @@
     <script src="product_details.js"></script>
 </body>
 </html>
-
