@@ -47,6 +47,9 @@ header {
     height: fit-content;
     margin: 1vw 0 0 1vw;
 }
+.subcategory {
+    display: none; /* Hides subcategories by default */
+  }
   
   /* For phones (100% width and height on mobile) */
 @media (max-width: 480px) {
@@ -70,6 +73,17 @@ header {
   
 .category:hover {
     color: #26769C;
+}
+
+.thin {
+    font-weight: 100;
+}
+
+/* REFERENCES */
+.product-overview-container a, .icons a {
+    text-decoration: none;
+    color: inherit;
+    font: inherit;
 }
   
 .product-overview ul ul li {
@@ -127,12 +141,18 @@ header {
     cursor: pointer;
 }
 
+.overlay-link {
+    position: absolute;
+    top: 110%; /* Adjusted to match your intent */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-decoration: none;
+    color: inherit;
+    font: inherit;
+}
+
 .overlay-text {
     font-family: 'MilkyWalky';
-    position: absolute;
-    top: 110%;  
-    left: 50%; 
-    transform: translate(-50%, -50%);
     color: #26769C;  
     font-size: min(9vw, 60px);
     transition: top 0.2s ease-out; /* Smooth movement */
@@ -162,6 +182,7 @@ header {
     width: 40vw;
     object-fit: cover;
     display: block;
+    cursor: pointer;
 }
 .carousel_photo1 {
     border-top-left-radius: 10px;
@@ -185,6 +206,32 @@ header {
 
 .carousel-prev, .carousel-next {
     display: none; /* Hidden on desktop/tablet */
+}
+
+/* MAKE PICTURE BIGGER - DETAIL */
+.image-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7); 
+    z-index: 2000; 
+    justify-content: center;
+    align-items: center;
+}
+
+.image-overlay.active {
+    display: flex; /* Show when active */
+}
+
+.enlarged-image {
+    max-width: 90vw; /* Limit width to 80% of viewport */
+    max-height: 90vh; /* Limit height to 80% of viewport */
+    object-fit: contain; /* Maintain aspect ratio */
+    border-radius: 10px; /* Match carousel styling */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Optional: subtle shadow */
 }
 
 /* DESCRIPTION */
@@ -237,33 +284,73 @@ header {
     font-weight: 2px;
 }
 
-.dropbtn {
-    background-color: #26769C;
-    border: none;
-    border-radius: 0.6vw;
-    color: white;
-    display: flex; 
+.size_quantity {
+    display: flex;
     align-items: center;
-    gap: 1vw; 
-    padding: 1vw;
-    min-width: 40px; 
+    gap: 1.5vw;
 }
 
-.dropbtn i {
-    font-size: 2vw; 
+select[name="select_size"], .number-picker input[type="number"] {
+    width: auto;
+    height: auto;
+    padding: 0.5vw 1vw;
+    border: solid 1.5px #26769C;
+    border-radius: min(0.5vw, 27px);
+    padding-left: 1vw;
+    align-items: center;
+    font-size: 1.6vw;
+    font-weight: 100;
+    background-color: white;
+    color: #333;
+    appearance: none; /* Removes default styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Add custom dropdown arrow for select */
+.size_form {
+    position: relative;
+    display: inline-block;
+}
+
+select[name="select_size"] {
+    padding-right: 2vw; /* Space for arrow */
+}
+
+.size_form::after {
+    content: '▼';
+    position: absolute;
+    right: 0.8vw;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #26769C;
+    font-size: 1vw;
+}
+
+/* Focus states */
+select[name="select_size"]:focus,
+.number-picker input[type="number"]:focus {
+    outline: none;
+    box-shadow: 0 0 3px #26769C;
+}
+
+/* Number picker arrows */
+.number-picker input[type="number"]::-webkit-inner-spin-button {
+    opacity: 1;
+    margin-left: 0.5vw;
 }
 
 .dropdown-item {
     font-weight: 100 !important;
 }
 
-.dropbtn:hover, .fav-button:hover, .buy-button:hover{
+.fav-button:hover, .buy-button:hover{
     background-color: #28576E;
 }
 
 #quantity {
     width: max(6vw, 50px);
-    border: solid 2px #26769C;
     border-radius: min(0.5vw, 27px);
     padding-left: 1vw;
 }
@@ -271,11 +358,8 @@ header {
 #quantity:focus {
     outline: none;
     box-shadow: none;;
-  }
-
-.number-picker input[type="number"]::-webkit-inner-spin-button {
-    opacity: 1;
 }
+
 
 .price {
     display: flex;
@@ -349,10 +433,6 @@ header {
     display: none;
 }
 
-.size {
-    padding-left: 20px;
-}
-
 .dropdown-content {
     display: none;
     padding: 3vw;
@@ -410,9 +490,6 @@ header {
 
 .overlay {
     position: absolute;
-    /* top: 0px; 
-    left: 10px; 
-    width: 3vw;  */
     transform: rotate(90deg);
     top: 1.3vw;
     left: 1vw;
@@ -474,6 +551,30 @@ header {
         margin-top: 10px;
     }
 
+    /* PICK SIZE, KS*/
+    select[name="select_size"], .number-picker input[type="number"] {
+        border: solid 1px #26769C;
+        font-size: 2vw;
+        font-weight: 100;
+    }
+
+    /* Add custom dropdown arrow for select */
+    .size_form {
+        position: relative;
+        display: inline-block;
+    }
+
+    .size_form::after {
+        content: '▼';
+        right: 0.9vw;
+        font-size: 1.6vw;
+    }
+
+    select[name="select_size"]:focus,
+    .number-picker input[type="number"]:focus {
+        box-shadow: 0 0 1.4px #26769C;
+    }
+    
     /* RECMMENDATION */
     .recommended-product {
         height: 30vw;
@@ -560,6 +661,7 @@ header {
         width: 90vw;
         object-fit: cover;
         border-radius: 10px;
+        cursor: default;
     }
 
     .carousel-prev, .carousel-next {
@@ -583,6 +685,11 @@ header {
 
     .carousel-prev:hover, .carousel-next:hover {
         color: #2F6781;
+    }
+
+    /* BIG OVERLAY DISABLE */
+    .image-overlay {
+        display: none !important;
     }
 
     /* PRODUCT DESCRIPTION */
@@ -609,30 +716,19 @@ header {
     }
 
     /* PICK SIZE */
-    .dropdown {
-        gap: 5vw;
+    .size_quantity {
+        gap: 1.5vw;
     }
-    .dropbtn {
-        padding: 3vw;
-        height: 10vw;
-        font-size: max(4vw, 18px);
-        gap: 2vw;
-    }
-
-    .dropdown-item {
-        font-size: 15px;
+    select[name="select_size"], .number-picker input[type="number"] {
+        font-size: clamp(14px, 3.5vw, 18px);
+        font-weight: 100;
+        padding: 0.8vw 1vw 0.8vw 2vw;
     }
 
-    .dropbtn i {
-        font-size: 4vw;
-    }
-    #quantity {
-        width: max(7vw, 60px);
-        height: 7vw;
-        border: solid 2px #26769C;
-        border-radius: min(0.5vw, 27px);
-        padding-left: 1vw;
-        font-size: 3.4vw;
+    .size_form::after {
+        content: '▼';
+        right: 1vw;
+        font-size: 2vw;
     }
 
     .price {
@@ -721,6 +817,13 @@ header {
         font-size: 6vw !important;
     }
 }
+
+@media (max-width: 375px) {
+    .overlay-text {
+        display: none;
+    }
+}
+
 
 /* FOOTER */
 .footer {
