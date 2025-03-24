@@ -18,38 +18,50 @@
             <i class="bi bi-list"></i>
         </div>
         <div class="icons d-flex gap-3">
-            <i class="bi bi-heart" ></i>
-            <i class="bi bi-person" ></i>
-            <i class="bi bi-bag" ></i>
+            <a href="favorites.html">
+                <i class="bi bi-heart icon_click" ></i>
+            </a>
+            <a href="login.html">
+                <i class="bi bi-person icon_click" ></i>
+            </a>
+            <a href="shopping_cart1.html ">
+                <i class="bi bi-bag icon_click" ></i>
+            </a>
         </div>
-        <div class="overlay-text">Maui Surf</div>
+        <a href="homepage.html" class="overlay-link"><div class="overlay-text">Maui Surf</div></a>
+
+        <!-- PRODUCT OVERVIEW -->
+        <div id="product-overview" class="product-overview-container">
+            <div class="product-overview">
+                <ul>
+                    <li id="surfboards" class="category">SURFBOARDS</li>
+                        <ul id="surfboards-subcategories" class="subcategory">
+                            <a href="products.html"><li>All</li></a>
+                            <a href="products.html"><li>Short-boards</li></a>
+                            <a href="products.html"><li>Middle-boards</li></a>
+                            <a href="products.html"><li>Long-boards</li></a>
+                        </ul>
+                    <li id="equipment" class="category">EQUIPMENT</li>
+                        <ul id="equipment-subcategories" class="subcategory">
+                            <a href="products.html"><li>All</li></a>
+                            <a href="products.html"><li>Neopren</li></a>
+                            <a href="products.html"><li>Fins</li></a>
+                            <a href="products.html"><li>Leashes</li></a>
+                        </ul>
+                    <li id="accessories" class="category">ACCESSORIES</li>
+                        <ul id="accessories-subcategories" class="subcategory">
+                            <a href="products.html"><li>All</li></a>
+                            <a href="products.html"><li>T-shirts</li></a>
+                            <a href="products.html"><li>Hats</li></a>
+                        </ul>
+                    <li id="favourites" class="category thin">FAVOURITES</li>
+                    <a href="login.html"><li id="profile" class="category thin">PROFILE</li></a>
+                    <a href="shopping_cart1.html"><li id="shopping_bag" class="category thin">SHOPPING BAG</li></a>
+                </ul>
+            </div>
+        </div>
     </header>
-    <!-- PRODUCT OVERVIEW -->
-    <div id="product-overview" class="product-overview-container">
-        <div class="product-overview">
-            <ul>
-                <li id="surfboards" class="category">SURFBOARDS</li>
-                    <ul id="surfboards-subcategories" style="display: none;">
-                        <li>Short-boards</li>
-                        <li>Middle-boards</li>
-                        <li>Long-boards</li>
-                    </ul>
-                <li id="equipment" class="category">EQUIPMENT</li>
-                    <ul id="equipment-subcategories" style="display: none;">
-                        <li>Neopren</li>
-                        <li>Fins</li>
-                        <li>Leashes</li>
-                        <li>Wax</li>
-                    </ul>
-                <li id="accessories" class="category">ACCESSORIES</li>
-                    <ul id="accessories-subcategories" style="display: none;">
-                        <li>T-shirts</li>
-                        <li>Hats</li>
-                        <li>UV protection</li>
-                    </ul>
-            </ul>
-        </div>
-    </div>
+    
 
     <main>
         <div class="cart-heading">
@@ -63,10 +75,10 @@
         <div class="bag">
             <div class="products">
                 <div class="product">
-                    <img src="images/products/cap_blue.jpg" alt="Blue cap" class="cart_product darker">
+                    <a href="product_detail.html"><img src="images/products/cap_blue.jpg" alt="Blue cap" class="cart_product darker"></a>
                     <div class="description">
                         <div class="name-remove">
-                           <p class="bold name">Maui Blue Cap</p>
+                           <a href="product_detail.html"><p class="bold name">Maui Blue Cap</p></a>
                            <div class="remove-btn">
                                 <button type="button" class="btn-close" aria-label="Close"></button> 
                                 <p>remove</p>
@@ -91,10 +103,10 @@
                     </div>
                 </div>
                 <div class="product">
-                    <img src="images/products/cap.jpg" alt="Blue cap" class="cart_product darker">
+                    <a href="product_detail.html"><img src="images/products/cap.jpg" alt="Blue cap" class="cart_product darker"></a>
                     <div class="description">
                         <div class="name-remove">
-                            <p class="bold name">Maui Brown Cap</p>
+                            <a href="product_detail.html"><p class="bold name">Maui Brown Cap</p></a>
                             <div class="remove-btn">
                                  <button type="button" class="btn-close" aria-label="Close"></button> 
                                  <p>remove</p>
@@ -119,10 +131,10 @@
                     </div>
                 </div>
                 <div class="product">
-                    <img src="images/products/black_shirt.jpg" alt="Blue cap" class="cart_product darker">
+                    <a href="product_detail.html"><img src="images/products/black_shirt.jpg" alt="Blue cap" class="cart_product darker"></a>
                     <div class="description">
                         <div class="name-remove">
-                            <p class="bold name">Merch Shirt Black</p>
+                            <a href="product_detail.html"><p class="bold name">Merch Shirt Black</p></a>
                             <div class="remove-btn">
                                  <button type="button" class="btn-close" aria-label="Close"></button> 
                                  <p>remove</p>
@@ -151,8 +163,8 @@
                 <div class="final-info">
                     <p class="total"><span class="bold2">Total: </span>83.00$</p>
                 </div>
-                <button class="shop-button">Continue Shopping</button>
-                <button class="checkout-button">Checkout</button>
+                <a href="products.html"><button class="shop-button">Continue Shopping</button></a>
+                <a href="shopping_cart2.html"><button class="checkout-button">Checkout</button></a>
             </div>
         </div>
     </main>
