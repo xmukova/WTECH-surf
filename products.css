@@ -8,11 +8,12 @@
   body {
     height: 100%;
     font-family: 'MilkyWalky', sans-serif;
-    background-color: #FFF0CB;
+    /* background-color: #FFF0CB; */
+    background-color: #FBF5E6 !important;
     padding-top: 90px;
     overflow-x:hidden; /*zakaz posuvania na x-osi*/
   }
-
+/* HEADER */
   header {
     position: fixed;
     top: 0;
@@ -42,6 +43,10 @@
     color: black;
   }
 
+  .icon_click:hover {
+    color: #26769C;
+  }
+
   .logo-container img {
     height: 30px;
     width: auto;
@@ -49,6 +54,78 @@
     top: -7px;
   }
 
+  /* PRODUCT OVERVIEW */
+/* PRODUCT OVERVIEW */
+.product-overview-container {
+  position: fixed;
+  top: 60px; /* Below header */
+  left: 0;
+  background-color: #ffffff;
+  padding: 20px;
+  z-index: 999;
+  transform: translateX(-100%); /* Start off-screen to the left */
+  transition: transform 0.3s ease-in-out; /* Smooth sliding */
+}
+
+/* Class to show the container by sliding it in */
+.product-overview-container.visible {
+  transform: translateX(0); /* Slide to visible position */
+}
+.product-overview {
+  max-width: 1200px;
+  height: fit-content;
+  margin: 1vw 0 0 1vw;
+}
+
+/* For phones (100% width and height on mobile) */
+@media (max-width: 480px) {
+  .product-overview-container {
+    width: 100vw; /* Full width on mobile */
+    height: 100vh; /* Full height on mobile */
+  }
+}
+
+/* For larger screens (Desktop view stays fixed) */
+@media (min-width: 481px) {
+  .product-overview-container {
+    width: 500px; /* Fixed width */
+    height: 100%; /* Fixed height */
+  }
+}
+
+.category {
+  margin-bottom: max(1.5vw, 20px);
+}
+
+.category:hover {
+  color: #26769C;
+}
+
+.product-overview ul ul li {
+  cursor: pointer;
+  margin-bottom: 0.5vw;
+}
+
+.product-overview ul ul li:hover {
+  color: #26769C;
+}
+
+/* acting of product overview */
+.product-overview ul {
+  list-style-type: none; /* Removes bullet points */
+  padding-left: 0; /* Removes left padding */
+}
+
+.product-overview li {
+  cursor: pointer; /* Makes it clear that the items are clickable */
+}
+
+/* Move subcategories to the right */
+.product-overview ul ul {
+  margin-left: 20px; /* Adjust the margin to move the subcategories */
+  margin-bottom: max(1.5vw, 20px);
+}
+/* NAZOV NADPIS */
   .overlay-text { 
     font-family: 'MilkyWalky';
     position: absolute;
@@ -59,6 +136,22 @@
     color: #26769C;
     /* color: #26769C; */
     font-size: min(10vw, 80px); 
+  }
+
+  .overlay-text a {
+    text-decoration: none;  
+    color: inherit;          
+    font: inherit;           
+  }
+/* KLIKACKY NAVBAR */
+  .icons a{
+    text-decoration: none;  
+    color: inherit;          
+    font: inherit; 
+  }
+
+  .link_neviditelny{
+    color: rgba(255, 255, 255, 0);
   }
 
 /* .background_section {
@@ -168,12 +261,13 @@ nav {
   padding-left: 1vw;
   width: 80%;
   height: 100%;
+  backdrop-filter: blur(5px);
 }
 
 .search-bar input:focus {
   outline: none; 
 }
-
+/* PRODUKT */
   .produkt-ikonky{
     position: absolute;
     top: 10px; 
@@ -212,8 +306,7 @@ nav {
 .text_cena {
   font-size: clamp(10px, 2.5vw, 15px);
 }
-
-
+/* CISELNIK STRANKOVANIA */
 .strankovanie {
   display: flex;
   align-items:center;
@@ -258,8 +351,6 @@ nav {
 }
 
 
-
-
   /*footer*/
 .footer {
     display: flex;
@@ -300,5 +391,3 @@ nav {
     font-size: 2.5vw;
     margin-left: 0.5vw;
   }
-  
-  
