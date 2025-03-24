@@ -1,7 +1,7 @@
 // MAUI SCROLL
 window.addEventListener("scroll", function () {
     let scrollPosition = window.scrollY;
-    let text = document.querySelector(".overlay-text");
+    let link = document.querySelector(".overlay-link"); // Target the <a> instead
     let header = document.querySelector("header");
     
     let targetTop = 60; // The position inside the header where text should stay
@@ -9,9 +9,9 @@ window.addEventListener("scroll", function () {
 
     // Stop moving when it reaches the header
     if (newTop <= targetTop) {
-        text.style.top = `${targetTop}%`;
+        link.style.top = `${targetTop}%`;
     } else {
-        text.style.top = `${newTop}%`;
+        link.style.top = `${newTop}%`;
     }
 });
 
@@ -50,6 +50,29 @@ if (window.matchMedia('(max-width: 576px)').matches) {
         window.addEventListener('resize', updateCarousel);
     }
 }
+
+// PHOTO BIG OVERLAY
+const carouselImages = document.querySelectorAll('.carousel_photo, .carousel_photo1, .carousel_photo2');
+const imageOverlay = document.getElementById('imageOverlay');
+const enlargedImage = document.getElementById('enlargedImage');
+
+// Add click event to each carousel image
+carouselImages.forEach(image => {
+    image.addEventListener('click', () => {
+        // Set the enlarged image source to the clicked image's source
+        enlargedImage.src = image.src;
+        // Show the overlay
+        imageOverlay.classList.add('active');
+    });
+});
+
+// Close the overlay when clicking outside the image
+imageOverlay.addEventListener('click', (e) => {
+    // Check if the click was on the overlay background (not the image)
+    if (e.target === imageOverlay) {
+        imageOverlay.classList.remove('active');
+    }
+});
 
 // PRODUCT OVERVIEW
 const biListIcon = document.querySelector('.bi-list');
@@ -95,29 +118,27 @@ if (favButton) {
 }
 
 // Navigate to homepage when clicking overlay-text
-const overlayText = document.querySelector('.overlay-text');
-if (overlayText) {
-    overlayText.addEventListener('click', function () {
-        window.location.href = 'homepage.html'; // Redirect to homepage.html
-    });
-}
+// const overlayText = document.querySelector('.overlay-text');
+// if (overlayText) {
+//     overlayText.addEventListener('click', function () {
+//         window.location.href = 'homepage.html'; // Redirect to homepage.html
+//     });
+// }
 
-// Navigate to cart when clicking bag
-const myBag = document.querySelector('.bi-bag');
-if (myBag) {
-    myBag.addEventListener('click', function () {
-        window.location.href = 'shopping_cart.html'; // Redirect to homepage.html
-    });
-}
+// // Navigate to cart when clicking bag
+// const myBag = document.querySelector('.bi-bag');
+// if (myBag) {
+//     myBag.addEventListener('click', function () {
+//         window.location.href = 'shopping_cart1.html'; // Redirect to homepage.html
+//     });
+// }
 
-// Click on product
-const productClicks = document.querySelectorAll('.recommended-product');
-if (productClicks.length > 0) {
-    productClicks.forEach(product => {
-        product.addEventListener('click', function () {
-            window.location.href = 'product_detail.html';
-        });
-    });
-} else {
-    console.warn('No elements with class .surfboard_product or .surfboard_picture found.');
-}
+// // Click on product
+// const productClicks = document.querySelectorAll('.recommended-product');
+// if (productClicks.length > 0) {
+//     productClicks.forEach(product => {
+//         product.addEventListener('click', function () {
+//             window.location.href = 'product_detail.html';
+//         });
+//     });
+// }
