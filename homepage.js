@@ -16,16 +16,16 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Click on product
-  const productClicks = document.querySelectorAll('.surfboard_product, .surfboard_picture, .equipment_product, .equipment_picture');
-  if (productClicks.length > 0) {
-      productClicks.forEach(product => {
-          product.addEventListener('click', function () {
-              window.location.href = 'product_detail.html';
-          });
-      });
-  } else {
-      console.warn('No elements with class .surfboard_product or .surfboard_picture found.');
-  }
+//   const productClicks = document.querySelectorAll('.surfboard_product, .surfboard_picture, .equipment_product, .equipment_picture');
+//   if (productClicks.length > 0) {
+//       productClicks.forEach(product => {
+//           product.addEventListener('click', function () {
+//               window.location.href = 'product_detail.html';
+//           });
+//       });
+//   } else {
+//       console.warn('No elements with class .surfboard_product or .surfboard_picture found.');
+//   }
 
   // PRODUCT OVERVIEW
   const biListIcon = document.querySelector('.bi-list');
@@ -63,10 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
   toggleSubcategories('accessories', 'accessories-subcategories');
 
   // Navigate to cart when clicking bag
-    const myBag = document.querySelector('.bi-bag');
-    if (myBag) {
-        myBag.addEventListener('click', function () {
-            window.location.href = 'shopping_cart.html'; // Redirect to homepage.html
-        });
-    }
+    // const myBag = document.querySelector('.bi-bag');
+    // if (myBag) {
+    //     myBag.addEventListener('click', function () {
+    //         window.location.href = 'shopping_cart1.html'; // Redirect to homepage.html
+    //     });
+    // }
 });
