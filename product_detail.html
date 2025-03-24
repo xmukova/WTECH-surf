@@ -18,39 +18,49 @@
             <i class="bi bi-list"></i>
         </div>
         <div class="icons d-flex gap-3">
-            <i class="bi bi-heart" ></i>
-            <i class="bi bi-person" ></i>
-            <i class="bi bi-bag" ></i>
+            <a href="favorites.html">
+                <i class="bi bi-heart icon_click" ></i>
+            </a>
+            <a href="login.html">
+                <i class="bi bi-person icon_click" ></i>
+            </a>
+            <a href="shopping_cart1.html ">
+                <i class="bi bi-bag icon_click" ></i>
+            </a>
         </div>
-        <div class="overlay-text">Maui Surf</div>
+        <a href="homepage.html" class="overlay-link"><div class="overlay-text">Maui Surf</div></a>
+        <!-- PRODUCT OVERVIEW -->
+        <div id="product-overview" class="product-overview-container">
+            <div class="product-overview">
+                <ul>
+                    <li id="surfboards" class="category">SURFBOARDS</li>
+                        <ul id="surfboards-subcategories" class="subcategory">
+                            <a href="products.html"><li>All</li></a>
+                            <a href="products.html"><li>Short-boards</li></a>
+                            <a href="products.html"><li>Middle-boards</li></a>
+                            <a href="products.html"><li>Long-boards</li></a>
+                        </ul>
+                    <li id="equipment" class="category">EQUIPMENT</li>
+                        <ul id="equipment-subcategories" class="subcategory">
+                            <a href="products.html"><li>All</li></a>
+                            <a href="products.html"><li>Neopren</li></a>
+                            <a href="products.html"><li>Fins</li></a>
+                            <a href="products.html"><li>Leashes</li></a>
+                        </ul>
+                    <li id="accessories" class="category">ACCESSORIES</li>
+                        <ul id="accessories-subcategories" class="subcategory">
+                            <a href="products.html"><li>All</li></a>
+                            <a href="products.html"><li>T-shirts</li></a>
+                            <a href="products.html"><li>Hats</li></a>
+                        </ul>
+                    <li id="favourites" class="category thin">FAVOURITES</li>
+                    <a href="login.html"><li id="profile" class="category thin">PROFILE</li></a>
+                    <a href="shopping_cart1.html"><li id="shopping_bag" class="category thin">SHOPPING BAG</li></a>
+                </ul>
+            </div>
+        </div>
     </header>
-    <!-- PRODUCT OVERVIEW -->
-    <div id="product-overview" class="product-overview-container">
-        <div class="product-overview">
-            <ul>
-                <li id="surfboards" class="category">SURFBOARDS</li>
-                    <ul id="surfboards-subcategories" style="display: none;">
-                        <li>Short-boards</li>
-                        <li>Middle-boards</li>
-                        <li>Long-boards</li>
-                    </ul>
-                <li id="equipment" class="category">EQUIPMENT</li>
-                    <ul id="equipment-subcategories" style="display: none;">
-                        <li>Neopren</li>
-                        <li>Fins</li>
-                        <li>Leashes</li>
-                        <li>Wax</li>
-                    </ul>
-                <li id="accessories" class="category">ACCESSORIES</li>
-                    <ul id="accessories-subcategories" style="display: none;">
-                        <li>T-shirts</li>
-                        <li>Hats</li>
-                        <li>UV protection</li>
-                    </ul>
-            </ul>
-        </div>
-    </div>
-
+    
     <main>
         <div class="specific_product">
             <div class="all_details">
@@ -89,18 +99,18 @@
                     offers added buoyancy for an easy paddling experience.
                 </div>
                 <div class="dropdown">
-                    <button type= "button" class="dropbtn" data-bs-toggle="dropdown" aria-expanded="false">Pick size <i class="bi bi-chevron-down"></i></button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" >Short <span class="size">5'8''</span></a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" >Middle <span class="size">6'11''</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" >Long <span class="size">7'2''</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" >Extra Long <span class="size">9'6''</a></li>
-                    </ul>
-                    <div class="number-picker">
-                        <input type="number" id="quantity" value="1" min="1">
+                    <div class="size_quantity">
+                        <form class="size_form">
+                            <select name="select_size" id="sizes">
+                                <option value="S">Short &nbsp;&nbsp;5'8''</option>
+                                <option value="M">Middle &nbsp;&nbsp;6'11''</option>
+                                <option value="L">Long &nbsp;&nbsp;7'2''</option>
+                                <option value="XL">Extra Long &nbsp;&nbsp;9'6''</option>
+                            </select>
+                        </form>
+                        <div class="number-picker">
+                            <input type="number" id="quantity" value="1" min="1">
+                        </div>
                     </div>
                 </div>
                 <div class="price">
@@ -204,50 +214,50 @@
             <p class="recommend-text">We think you will like</p>
             <div class="slider-wrapper">
                 <div class="recommended-slider">
-                    <img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product darker">
-                    <img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product darker">
-                    <img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product darker">
+                    <a href="product_detail.html"><img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                    <a href="product_detail.html"><img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                    <a href="product_detail.html"><img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
 
                     <!-- NEW -->
                     <div class="image-block">
-                        <img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
+                        <a href="product_detail.html"><img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
                     </div>
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker">
-                    <img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker">
+                    <a href="product_detail.html"><img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                    <a href="product_detail.html"><img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
 
                     <!-- NEW -->
                     <div class="image-block">
-                        <img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
+                        <a href="product_detail.html"><img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
                     </div>
                     <!-- NEW -->
                     <div class="image-block">
-                        <img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
+                        <a href="product_detail.html"><img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
                     </div>
 
-                    <img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product darker">
-                    <img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product darker">
-                    <img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product darker">
-
-                    <!-- NEW -->
-                    <div class="image-block">
-                        <img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
-                    </div>
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker">
-                    <img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker">
+                    <a href="product_detail.html"><img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                    <a href="product_detail.html"><img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                    <a href="product_detail.html"><img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
 
                     <!-- NEW -->
                     <div class="image-block">
-                        <img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
+                        <a href="product_detail.html"><img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
+                    </div>
+                    <a href="product_detail.html"><img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                    <a href="product_detail.html"><img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+
+                    <!-- NEW -->
+                    <div class="image-block">
+                        <a href="product_detail.html"><img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
                     </div>
                     <!-- NEW -->
                     <div class="image-block">
-                        <img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
+                        <a href="product_detail.html"><img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
                     </div>
                 </div>
             </div>
@@ -279,6 +289,10 @@
             </div>
         </div>
     </footer>
+
+    <div class="image-overlay" id="imageOverlay">
+        <img src="" alt="Enlarged view" class="enlarged-image" id="enlargedImage">
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="product_details.js"></script>
