@@ -42,18 +42,17 @@ header {
 /* PRODUCT OVERVIEW */
 .product-overview-container {
   position: fixed;
-  top: 60px; /* Below header */
+  top: 60px; 
   left: 0;
   background-color: #ffffff;
   padding: 20px;
   z-index: 999;
-  transform: translateX(-100%); /* Start off-screen to the left */
-  transition: transform 0.3s ease-in-out; /* Smooth sliding */
+  transform: translateX(-100%); 
+  transition: transform 0.3s ease-in-out; 
 }
 
-/* Class to show the container by sliding it in */
 .product-overview-container.visible {
-  transform: translateX(0); /* Slide to visible position */
+  transform: translateX(0); 
 }
 .product-overview {
   max-width: 1200px;
@@ -61,19 +60,21 @@ header {
   margin: 1vw 0 0 1vw;
 }
 
-/* For phones (100% width and height on mobile) */
+.subcategory {
+  display: none; 
+}
+
 @media (max-width: 480px) {
   .product-overview-container {
-    width: 100vw; /* Full width on mobile */
-    height: 100vh; /* Full height on mobile */
+    width: 100vw; 
+    height: 100vh; 
   }
 }
 
-/* For larger screens (Desktop view stays fixed) */
 @media (min-width: 481px) {
   .product-overview-container {
-    width: 500px; /* Fixed width */
-    height: 100%; /* Fixed height */
+    width: 500px; 
+    height: 100%; 
   }
 }
 
@@ -83,6 +84,10 @@ header {
 
 .category:hover {
   color: #26769C;
+}
+
+.thin {
+  font-weight: 100;
 }
 
 .product-overview ul ul li {
@@ -96,17 +101,17 @@ header {
 
 /* acting of product overview */
 .product-overview ul {
-  list-style-type: none; /* Removes bullet points */
-  padding-left: 0; /* Removes left padding */
+  list-style-type: none; 
+  padding-left: 0; 
 }
 
 .product-overview li {
-  cursor: pointer; /* Makes it clear that the items are clickable */
+  cursor: pointer; 
 }
 
 /* Move subcategories to the right */
 .product-overview ul ul {
-  margin-left: 20px; /* Adjust the margin to move the subcategories */
+  margin-left: 20px; 
   margin-bottom: max(1.5vw, 20px);
 }
 
@@ -240,8 +245,6 @@ header {
   border-radius: 0.8vw;
 }
 
-/* PRODUCTS */
-/* RESPONSIVITY */
 
 /* On middle screens */
 @media (max-width: 768px) {
@@ -286,8 +289,8 @@ header {
   }
 
   .surfboard_products {
-    width: 100vw; /* Make sure the parent takes the full width of the screen */
-    height: 50vw; /* Remove fixed height to allow for responsive height */
+    width: 100vw; 
+    height: 50vw; 
   }
 
   .surfboard_product {
@@ -407,7 +410,7 @@ header {
     display: flex;
     justify-content: end;
     overflow: hidden; /* Prevents overflowing content */
-    transition: width 0.5s ease; /* Animation for expanding the width */
+    transition: width 0.5s ease; 
   }
 
   .bi-search {
@@ -429,8 +432,8 @@ header {
   }
 
   .search-bar.expanded input {
-    display: block; /* Show the input when expanded */
-    opacity: 1; /* Make it visible */
+    display: block; 
+    opacity: 1; 
   }
 
   /* BANNER CITAT */
@@ -459,7 +462,7 @@ header {
     display: none;
   }
 
-  .three_products img:nth-child(n+3) {
+  .three_products a:nth-child(n+3) {
     display: none; /* Hide third product */
   }
 
@@ -669,6 +672,13 @@ header {
 
 .darker:hover {
   filter: brightness(80%);
+}
+
+/* REFERENCES */
+.nav a, .product-overview-container a, .icons a {
+    text-decoration: none;
+    color: inherit;
+    font: inherit;
 }
 
 .pretty-box {
