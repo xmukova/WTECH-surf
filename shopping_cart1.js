@@ -30,19 +30,19 @@ toggleSubcategories('equipment', 'equipment-subcategories');
 toggleSubcategories('accessories', 'accessories-subcategories');
 
 // Navigate to homepage when clicking overlay-text
-const overlayText = document.querySelector('.overlay-text');
-if (overlayText) {
-    overlayText.addEventListener('click', function () {
-        window.location.href = 'homepage.html'; // Redirect to homepage.html
-    });
-}
+// const overlayText = document.querySelector('.overlay-text');
+// if (overlayText) {
+//     overlayText.addEventListener('click', function () {
+//         window.location.href = 'homepage.html'; // Redirect to homepage.html
+//     });
+// }
 
-// Navigate to product details when clicking products
-const productClicks = document.querySelectorAll('.cart_product, .name');
-if (productClicks.length > 0) {
-    productClicks.forEach(product => {
-        product.addEventListener('click', function () {
-            window.location.href = 'product_detail.html';
-        });
-    });
-}
+// // Navigate to product details when clicking products
+// const productClicks = document.querySelectorAll('.cart_product, .name');
+// if (productClicks.length > 0) {
+//     productClicks.forEach(product => {
+//         product.addEventListener('click', function () {
+//             window.location.href = 'product_detail.html';
+//         });
+//     });
+// }
