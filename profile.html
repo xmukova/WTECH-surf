@@ -14,207 +14,210 @@
     <!-- Header -->
     <header class="d-flex justify-content-between align-items-center bg-light border-bottom">
         <div class="logo-container">
-            <a href="homepage.html" class = "homepage_link">
+            <a href="homepage.html" class = "link_neviditelny">
                 <img src="images/logo.png" alt="Logo" class="logo">
             </a>    
-            <i class="bi bi-list"></i>
+            <i class="bi bi-list icon_click"></i>
         </div>
         <div class="icons d-flex gap-3">
-            <i class="bi bi-heart" ></i>
-            <a href="login.html">
-                <i class="bi bi-person" ></i>
+            <a href="favorites.html">
+                <i class="bi bi-heart icon_click" ></i>
             </a>
-            <i class="bi bi-bag" ></i>
+            <a href="login.html">
+                <i class="bi bi-person icon_click" ></i>
+            </a>
+            <a href="shopping_cart1.html ">
+                <i class="bi bi-bag icon_click" ></i>
+            </a>
+        </div>
+        <!-- PRODUCT OVERVIEW -->
+        <div id="product-overview" class="product-overview-container">
+            <div class="product-overview">
+                <ul>
+                    <li id="surfboards" class="category">SURFBOARDS</li>
+                        <ul id="surfboards-subcategories" style="display: none;">
+                            <a href="products.html"><li>All</li></a>
+                            <a href="products.html"><li>Short-boards</li></a>
+                            <a href="products.html"><li>Middle-boards</li></a>
+                            <a href="products.html"><li>Long-boards</li></a>
+                        </ul>
+                    <li id="equipment" class="category">EQUIPMENT</li>
+                        <ul id="equipment-subcategories" style="display: none;">
+                            <a href="products.html"><li>All</li></a>
+                            <a href="products.html"><li>Neopren</li></a>
+                            <a href="products.html"><li>Fins</li></a>
+                            <a href="products.html"><li>Leashes</li></a>
+                        </ul>
+                    <li id="accessories" class="category">ACCESSORIES</li>
+                        <ul id="accessories-subcategories" style="display: none;">
+                            <a href="products.html"><li>All</li></a>
+                            <a href="products.html"><li>T-shirts</li></a>
+                            <a href="products.html"><li>Hats</li></a>
+                        </ul>
+                    <li id="favourites" class="category thin">FAVOURITES</li>
+                    <a href="profile.html"><li id="profile" class="category thin">PROFILE</li></a>
+                    <a href="shopping_cart1.html"><li id="shopping_bag" class="category thin">SHOPPING BAG</li></a>
+                </ul>
+            </div>
         </div>
     </header>
 
-    <div class="store-name text-center overlay-text">Maui Surf</div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4 order-sm-2">
-                <div class="profil_info">
-                    <img src="images/surf images videos/pc1.jpg" alt="Profile image" class="profile-img mb-3">
-                    <h2>Meno Priezvisko</h2>
-                
-                </div>
-                <button class="odhlasit_btn">Log out</button>
+    <main>
+        <div class="store-name text-center overlay-text">
+            <a href="homepage.html">
+                Maui Surf
+            </a>
+        </div>
 
-                <div class="card my_card">
-                    <div class="card-body">
-                        <h5 class="card-title">Profile details</h5>
-                        <ul class="list-unstyled">
-                            <li><strong>Email:</strong> meno.priezvisko@email.com</li>
-                            <li><strong>Phone:</strong> +421 987 654 321</li>
-                            <li><strong>Country:</strong> Country</li>
-                        </ul>
-                    </div>
-                </div>
-                <button class="edit_profile_btn" >
-                    <i class="fas fa-edit"></i>Edit Profile
-                </button>
-                <button class="edit_profile_btn">Change password</button>
-            </div>
-
-            <!-- Historia objednávok -->
-            <div class="col-sm-8">
-                <div class="">
-                    <h3 >Your orders</h3>
-                    <ul class="list-group">
-                        <!-- Objednávka 1 -->
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <img src="images/products/surfboard_green.jpg" alt="Product" class="product_order_image">
-                                <div class="order_info">
-                                    <p class="order_title">Wave Rider Pro</p>
-                                    <p class="order_details">Size: <strong>Long 7'2''</strong> | Amount: <strong>1 pc</strong></p>
-                                    <p class="order_details">Prize: <strong>$1299.99</strong></p>
-                                </div>
-                                <span class="badge bg-success">Delivered</span>
-                            </div>
-                        </li>
-        
-                        <!-- Objednávka 2 -->
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <img src="images/products/red_border_surfboard.jpg" alt="Product" class="product_order_image">
-                                <div class="order_info">
-                                    <p class="order_title">Wave Rider</p>
-                                    <p class="order_details">Size: <strong>Long 7'2''</strong> | Amount: <strong>1 pc</strong></p>
-                                    <p class="order_details">Prize: <strong>$849.99</strong></p>
-                                </div>
-                                <span class="badge bg-danger">Cancelled</span>
-                            </div>
-                        </li>
-                        <!-- Objednávka 3 -->
-                        <li class="list-group-item">
-                            <div class="d-flex  align-items-center">
-                                <img src="images/products/dark_blue_surfboard.jpg" alt="Product" class="product_order_image">
-                                <div class="order_info">
-                                    <p class="order_title">Blue Ocean</p>
-                                    <p class="order_details">Size: <strong>Long 7'2''</strong> | Amount: <strong>1 pc</strong></p>
-                                    <p class="order_details">Prize: <strong>$849.99</strong></p>
-                                </div>
-                                <span class="badge bg-warning">On the way</span>
-                            </div>
-                        </li>
-       
-                        <li class="list-group-item">
-                            <div class="d-flex align-items-center">
-                                <img src="images/products/light_blue_surfboard.jpg" alt="Product" class="product_order_image">
-                                <div class="order_info">
-                                    <p class="order_title">Pro Surf</p>
-                                    <p class="order_details">Size: <strong>Long 7'2''</strong> | Amount: <strong>1 pc</strong></p>
-                                    <p class="order_details">Prize: <strong>$1299.99</strong></p>
-                                </div>
-                                <span class="badge bg-success">Delivered</span>
-                            </div>
-                        </li>
-                    </ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 order-sm-2">
+                    <div class="profil_info">
+                        <img src="images/surf images videos/pc1.jpg" alt="Profile image" class="profile-img mb-3">
+                        <h2>Meno Priezvisko</h2>
                     
+                    </div>
+                    <button class="odhlasit_btn">Log out</button>
+
+                    <div class="card my_card">
+                        <div class="card-body">
+                            <h5 class="card-title">Profile details</h5>
+                            <ul class="list-unstyled">
+                                <li><strong>Email:</strong> meno.priezvisko@email.com</li>
+                                <li><strong>Phone:</strong> +421 987 654 321</li>
+                                <li><strong>Country:</strong> Country</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="edit_profile_btn" >
+                        <i class="fas fa-edit"></i>Edit Profile
+                    </button>
+                    <button class="edit_profile_btn">Change password</button>
+                </div>
+
+                <!-- Historia objednávok -->
+                <div class="col-sm-8">
+                    <div class="">
+                        <h3 >Your orders</h3>
+                        <ul class="list-group">
+                            <!-- Objednávka 1 -->
+                            <li class="list-group-item">
+                                <div class="d-flex align-items-center">
+                                    <img src="images/products/surfboard_green.jpg" alt="Product" class="product_order_image">
+                                    <div class="order_info">
+                                        <p class="order_title">Wave Rider Pro</p>
+                                        <p class="order_details">Size: <strong>Long 7'2''</strong> | Amount: <strong>1 pc</strong></p>
+                                        <p class="order_details">Prize: <strong>$1299.99</strong></p>
+                                    </div>
+                                    <span class="badge bg-success">Delivered</span>
+                                </div>
+                            </li>
+            
+                            <!-- Objednávka 2 -->
+                            <li class="list-group-item">
+                                <div class="d-flex align-items-center">
+                                    <img src="images/products/red_border_surfboard.jpg" alt="Product" class="product_order_image">
+                                    <div class="order_info">
+                                        <p class="order_title">Wave Rider</p>
+                                        <p class="order_details">Size: <strong>Long 7'2''</strong> | Amount: <strong>1 pc</strong></p>
+                                        <p class="order_details">Prize: <strong>$849.99</strong></p>
+                                    </div>
+                                    <span class="badge bg-danger">Cancelled</span>
+                                </div>
+                            </li>
+                            <!-- Objednávka 3 -->
+                            <li class="list-group-item">
+                                <div class="d-flex  align-items-center">
+                                    <img src="images/products/dark_blue_surfboard.jpg" alt="Product" class="product_order_image">
+                                    <div class="order_info">
+                                        <p class="order_title">Blue Ocean</p>
+                                        <p class="order_details">Size: <strong>Long 7'2''</strong> | Amount: <strong>1 pc</strong></p>
+                                        <p class="order_details">Prize: <strong>$849.99</strong></p>
+                                    </div>
+                                    <span class="badge bg-warning">On the way</span>
+                                </div>
+                            </li>
+        
+                            <li class="list-group-item">
+                                <div class="d-flex align-items-center">
+                                    <img src="images/products/light_blue_surfboard.jpg" alt="Product" class="product_order_image">
+                                    <div class="order_info">
+                                        <p class="order_title">Pro Surf</p>
+                                        <p class="order_details">Size: <strong>Long 7'2''</strong> | Amount: <strong>1 pc</strong></p>
+                                        <p class="order_details">Prize: <strong>$1299.99</strong></p>
+                                    </div>
+                                    <span class="badge bg-success">Delivered</span>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="recommended">
-            <p class="recommend-text">We think you will like</p>
-            <div class="slider-wrapper">
-                <div class="recommended-slider">
-                    <img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product">
-
-                    <!-- NEW -->
-                    <div class="image-block">
-                        <img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
-                    </div>
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product">
-
-                    <!-- NEW -->
-                    <div class="image-block">
-                        <img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
-                    </div>
-                    <!-- NEW -->
-                    <div class="image-block">
-                        <img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
-                    </div>
-
-                    <img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product">
-
-                    <!-- NEW -->
-                    <div class="image-block">
-                        <img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
-                    </div>
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product">
-                    <img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product">
-
-                    <!-- NEW -->
-                    <div class="image-block">
-                        <img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
-                    </div>
-                    <!-- NEW -->
-                    <div class="image-block">
-                        <img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product">
-                        <img src="images/new.png" alt="Overlay" class="overlay">
-                    </div>
-                </div>
-            </div>
-        </div>
-     
-    </div>
-
-    <div class="motivation">
-        <img src="images/surf images videos/pc5.jpg" alt="Motivation Picture" class="motivation_img">
-        <div class="citat">"You cant't stop the waves but you can learn to surf"</div>
-    </div>
+            <div class="recommended">
+                <p class="recommend-text">We think you will like</p>
+                <div class="slider-wrapper">
+                    <div class="recommended-slider">
+                        <a href="product_detail.html"><img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
     
-
-    <!-- Modal na úpravu profilu -->
-    <!-- <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editProfileModalLabel">Upravit profil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Meno</label>
-                            <input type="text" class="form-control" id="username" value="Ján Novák">
+                        <!-- NEW -->
+                        <div class="image-block">
+                            <a href="product_detail.html"><img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                            <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" value="jan.novak@email.com">
+                        <a href="product_detail.html"><img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+    
+                        <!-- NEW -->
+                        <div class="image-block">
+                            <a href="product_detail.html"><img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                            <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
                         </div>
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Telefón</label>
-                            <input type="text" class="form-control" id="phone" value="+421 987 654 321">
+                        <!-- NEW -->
+                        <div class="image-block">
+                            <a href="product_detail.html"><img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                            <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
                         </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Adresa</label>
-                            <input type="text" class="form-control" id="address" value="Hlavná 123, Bratislava">
+    
+                        <a href="product_detail.html"><img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/products/surfboard_green.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/products/surfboard_whitegreen.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+    
+                        <!-- NEW -->
+                        <div class="image-block">
+                            <a href="product_detail.html"><img src="images/products/bee_yellow_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                            <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušiť</button>
-                    <button type="button" class="btn btn-primary">Uložiť zmeny</button>
+                        <a href="product_detail.html"><img src="images/products/dark_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+                        <a href="product_detail.html"><img src="images/products/light_blue_surfboard.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
+    
+                        <!-- NEW -->
+                        <div class="image-block">
+                            <a href="product_detail.html"><img src="images/products/darkred_whiteborder_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                            <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
+                        </div>
+                        <!-- NEW -->
+                        <div class="image-block">
+                            <a href="product_detail.html"><img src="images/products/red_border_surfboard.jpg" alt="yellow surfboard" class="recommended-product darker"></a>
+                            <a href="product_detail.html"><img src="images/new.png" alt="Overlay" class="overlay"></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div> 
-    </div> -->
+        
+        </div>
 
+        <div class="motivation">
+            <img src="images/surf images videos/pc5.jpg" alt="Motivation Picture" class="motivation_img">
+            <div class="citat">"You cant't stop the waves but you can learn to surf"</div>
+        </div>
 
+    </main>
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-box">
@@ -241,6 +244,6 @@
         </footer>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+        <script src="products.js"></script>
 </body>
 </html>
