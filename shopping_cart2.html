@@ -28,7 +28,7 @@
                 <i class="bi bi-bag icon_click" ></i>
             </a>
         </div>
-        <div class="overlay-text">Maui Surf</div>
+        <a href="homepage.html" class="overlay-link"><div class="overlay-text">Maui Surf</div></a>
         <!-- PRODUCT OVERVIEW -->
         <div id="product-overview" class="product-overview-container">
             <div class="product-overview">
@@ -81,8 +81,10 @@
                         <input type="tel" name="phone" placeholder="Phone Number" required>
                         <div class="shipping-method">
                             <p>Shipping Method</p>
-                            <label><input type="checkbox" name="shipping" value="standard" required> Standard Shipping</label>
-                            <label><input type="checkbox" name="shipping" value="express"> Express Shipping</label>
+                            <div class="shipping-radios">
+                                <label><input type="radio" name="shipping" value="standard" required> Standard Shipping <span>3,99$</span></label>
+                                <label><input type="radio" name="shipping" value="express"> Express Shipping <span>6,99$</span></label>
+                            </div>
                         </div>
                     </div>
                     <div class="address">
@@ -94,17 +96,20 @@
                         <input type="text" name="postalCode" placeholder="Postal Code" required>
                         <select name="country" required>
                             <option value="" disabled selected>Country</option>
-                            <option value="US">United States</option>
-                            <option value="CA">Canada</option>
+                            <option value="SK">Slovakia</option>
+                            <option value="CZ">Czech Republic</option>
+                            <option value="AU">Austria</option>
+                            <option value="DE">Germany</option>
                             <option value="UK">United Kingdom</option>
-                            <option value="AU">Australia</option>
+                            <option value="AS">Australia</option>
                         </select>
                     </div>
                 </form>
             </div>
             <div class="buttons">
                 <div class="final-info">
-                    <p class="total"><span class="bold2">Total: </span>83.00$</p>
+                    <p class="shipping-cost"><span class="bold2">Shipping: </span>3.99$</p>
+                    <p class="total"><span class="bold2">Total: </span>86.99$</p>
                 </div>
                 <a href="shopping_cart1.html"><button class="shop-button">Go Back</button></a>
                 <button type="submit" form="checkout-form" class="checkout-button" disabled>Continue</button>
