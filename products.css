@@ -148,13 +148,17 @@
   position: absolute;
   /* overflow-y: auto; */
   top: 60px;
-  right: -320px;
+  right: 0px;
   width: 320px;
   height: auto;
   background: white;
   padding: 20px;
   transition: right 0.3s ease-in-out;
   z-index: 1001;
+  visibility: hidden;
+}
+.filter-sidebar.visible{
+  visibility: visible;
 } 
 .overlay{
   display: none;
