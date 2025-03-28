@@ -38,22 +38,20 @@ const filterButton = document.getElementById('filter_start');
 const filterMenu = document.getElementById('filter-menu');
 const closeButton = document.getElementById('close_filter');
 const efekt = document.getElementById('efekt');
-filterButton.addEventListener('click', () => {
-    filterMenu.style.right = '0'; // Slide the filter menu into view
-    efekt.style.display = 'block'; // Show the overlay
-    filterMenu.classList.add('filter-open'); // Add the class to show the overlay
+
+
+// Open the filter menu when clicking the "Open Filters" button
+filterButton.addEventListener("click", function() {
+    filterMenu.classList.add("visible");  // Add class to make it visible
+    efekt.style.display = "block"; // Show the overlay
 });
 
-// Hide the filter menu and overlay when the close button is clicked
-closeButton.addEventListener('click', () => {
-    filterMenu.style.right = '-320px'; // Slide the filter menu out of view
-    efekt.style.display = 'none'; // Hide the overlay
-    filterMenu.classList.remove('filter-open'); // Remove the class to hide the overlay
-});
+// Close the filter menu when clicking the "close_filter" button or overlay
+closeButton.addEventListener("click", closeFilterMenu);
+efekt.addEventListener("click", closeFilterMenu);
 
-// Optionally, you can also close the filter menu when the user clicks on the overlay
-efekt.addEventListener('click', () => {
-    filterMenu.style.right = '-320px'; // Slide the filter menu out of view
-    efekt.style.display = 'none'; // Hide the overlay
-    filterMenu.classList.remove('filter-open'); // Remove the class to hide the overlay
-});
+// Function to close the filter menu
+function closeFilterMenu() {
+    filterMenu.classList.remove("visible");  // Remove class to hide it
+    efekt.style.display = "none"; // Hide the overlay
+}
