@@ -1,4 +1,4 @@
-// PRODUCT OVERVIEW
+// PRODUCT OVERVIEW------------------------------------------------------------------------------------------------------------------------
 const biListIcon = document.querySelector('.bi-list');
 const productOverviewContainer = document.getElementById('product-overview');
 
@@ -10,7 +10,6 @@ if (biListIcon && productOverviewContainer) {
     console.warn('Product overview elements (.bi-list or #product-overview) not found.');
 }
 
-// bi-list (subcategory toggle)
 function toggleSubcategories(categoryId, subcategoryId) {
     const category = document.getElementById(categoryId);
     const subcategories = document.getElementById(subcategoryId);
@@ -32,26 +31,28 @@ toggleSubcategories('equipment', 'equipment-subcategories');
 toggleSubcategories('accessories', 'accessories-subcategories');
 
 
-// FILTER PRODUCTS
-// Get references to the elements
+// FILTER PRODUCTS--------------------------------------------------------------------------------------------------------------------------
 const filterButton = document.getElementById('filter_start'); 
 const filterMenu = document.getElementById('filter-menu');
 const closeButton = document.getElementById('close_filter');
 const efekt = document.getElementById('efekt');
 
-
-// Open the filter menu when clicking the "Open Filters" button
 filterButton.addEventListener("click", function() {
-    filterMenu.classList.add("visible");  // Add class to make it visible
-    efekt.style.display = "block"; // Show the overlay
+    filterMenu.classList.add("visible");  
+    efekt.style.display = "block"; 
 });
 
-// Close the filter menu when clicking the "close_filter" button or overlay
 closeButton.addEventListener("click", closeFilterMenu);
 efekt.addEventListener("click", closeFilterMenu);
 
-// Function to close the filter menu
 function closeFilterMenu() {
-    filterMenu.classList.remove("visible");  // Remove class to hide it
-    efekt.style.display = "none"; // Hide the overlay
+    filterMenu.classList.remove("visible");  
+    efekt.style.display = "none"; 
 }
+
+// REMOVE FROM FAVORITES----------------------------------------------------------------------------------------------------------------------
+function deletePhoto(button) {
+    const produkt = button.closest('.col');
+    produkt.remove();
+}
+
