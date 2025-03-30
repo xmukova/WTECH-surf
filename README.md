@@ -1,7 +1,5 @@
 # WTECH-surf
 e-shop so surferskými potrebami
+1 FAZA odovzdania - v main repozitari - commit 1. faza
 
-MAIN BRANCH - hotové celky
-
-
-Priebežná práca BRANCH - sem si ukladáme postupne rozpracované veci, tak ako sme na nich pracovali
+Priebeznu pracu sme ukladali do repozitarov HTML, CSS a JS
