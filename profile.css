@@ -212,9 +212,8 @@ margin-bottom: max(1.5vw, 20px);
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   }
   /* historia */
-
   .product_order_image{
-    width: clamp(50px, 20vw, 170px);
+    width: clamp(90px, 20vw, 170px);
     height: auto;
     border-radius: 5px;
     margin-right: 15px;
@@ -558,11 +557,52 @@ display: block;
 }
 
 
+
+/* Delete overlay */
+.overlay-delete {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 30%;
+  min-width: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.sure-buttons{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.delete-yes {
+  padding: 10px;
+  background: #b81323;
+  color: white;
+  border-radius: 10px;
+  border:none;
+}
+.delete-yes:hover{
+  transform: scale(1.1); /* zvacsi o 10% */
+  transition: transform 0.2s ease-in-out; /* plynuly prechod */
+}
+.delete-no {
+  padding: 10px;
+  background: gray;
+  color: white;
+  border-radius: 10px;
+  border:none;
+}
+.delete-no:hover{
+  transform: scale(1.1); /* zvacsi o 10% */
+  transition: transform 0.2s ease-in-out; /* plynuly prechod */
+}
+
 /* Zobrazenie produktov */
 .delete-product {
-  position: absolute;
-  top: 15px;
-  right: 15px;
   background: none;
   border: none;
   padding: 0;
@@ -577,9 +617,6 @@ display: block;
   transition: transform 0.2s ease-in-out; /* plynuly prechod */
 }
 .change-btn{
-  position: absolute;
-  right: 60px;
-  top: 15px;
   width: clamp(80px, 20vw, 100px);
   height: 43px;
   justify-content: center;
@@ -595,14 +632,14 @@ display: block;
 }
 
 .product_title {
-  font-size: 21px;
+  font-size: clamp(17px, 5vw,22px);
   font-weight: bold;
   color: #26769C;
   margin-bottom: 10px;
 }
 
-p.product_details {
-  font-size: clamp(15px, 2.4vw, 17px);
+.product_details {
+  font-size: clamp(15px, 2.5vw, 17px);
   color: #555;
   margin-left: 0;
   line-height:  1;
@@ -612,4 +649,15 @@ p.product_details {
   position: absolute;
   top:55px;
   overflow: none;
+}
+
+.order_info {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.admin_button {
+  margin-left: auto;
 }
