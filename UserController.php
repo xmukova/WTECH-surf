@@ -62,6 +62,11 @@ class UserController extends Controller{
         }
     }
 
+    public function profile(){
+        $user = Auth::user(); 
+        return view('profile', compact('user'));
+    }
+
     public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate();
