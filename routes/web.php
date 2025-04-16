@@ -53,5 +53,6 @@ Route::get('/shopping_cart3', function () {
 
 
 
-Route::post('/register', [UserController::class, 'register'])->name('register');
-Route::post('/login', [UserController::class, 'login'])->name('login');
+use App\Http\Controllers\ProductController;
+
+Route::get('/product/{id}', [ProductController::class, 'detail']);
