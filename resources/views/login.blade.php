@@ -24,12 +24,25 @@
         <!-- Log In-->
         <div class="prihlasovacky_box col-md-5 p-5 rounded shadow-sm">
             <h2 class="text-center">LOG IN</h2>
-            <form>  <!--prihlasovacie udaje-->
+            @if ($errors->has('email') || $errors->has('password'))
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->get('email') as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        @foreach ($errors->get('password') as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form  method="POST" action="{{ route('login') }}">  <!--prihlasovacie udaje-->
+                @csrf
                 <div class="mb-2">
-                    <input type="email" class="form-control" placeholder="e-mail..." required>
+                    <input type="email" name='email' class="form-control" placeholder="e-mail..." required>
                 </div>
                 <div class="mb-2">
-                    <input type="password" class="form-control" placeholder="password..." required>
+                    <input type="password" name='password' class="form-control" placeholder="password..." required>
                 </div>
                 <button type="submit" class="button_prihlasenie">Log In</button>
                 <a href="#" class="forgotten_password">Forgotten password</a>
@@ -39,21 +52,43 @@
         <!-- Register-->
         <div class="prihlasovacky_box col-md-5 p-5 rounded shadow-sm ms-md-4 mt-4 mt-md-0">
             <h2 class="text-center">REGISTER</h2>
-            <form>
+            @if ($errors->has('name') || $errors->has('phone_number') || $errors->has('country') || $errors->has('password_confirmation'))
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->get('name') as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        @foreach ($errors->get('phone_number') as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        @foreach ($errors->get('country') as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                        @foreach ($errors->get('password_confirmation') as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
                 <div class="mb-2 ">
-                    <input type="text" class="form-control" placeholder="Name" required>
+                    <input type="text" name="name" class="form-control" placeholder="Name" required>
                 </div>
                 <div class="mb-2">
-                    <input type="email" class="form-control" placeholder="e-mail" required>
+                    <input type="email" name="email" class="form-control" placeholder="e-mail" required>
                 </div>
                 <div class="mb-2">
-                    <input type="tel" class="form-control" placeholder="Phone number" required>
+                    <input type="tel" name="phone_number" class="form-control" placeholder="Phone number" required>
                 </div>
                 <div class="mb-2">
-                    <input type="text" class="form-control" placeholder="Country" required>
+                    <input type="text" name="country" class="form-control" placeholder="Country" required>
                 </div>
                 <div class="mb-2">
-                    <input type="password" class="form-control" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                </div>
+                <div class="mb-2">
+                    <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password" required>
                 </div>
                 <button type="submit" class="button_prihlasenie">Register</button>
             </form>
