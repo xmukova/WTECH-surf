@@ -39,8 +39,7 @@ class UserController extends Controller{
     }
 
 
-    public function login(Request $request)
-    {
+    public function login(Request $request){
         // Validácia prihlasovacích údajov
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -49,7 +48,7 @@ class UserController extends Controller{
 
         if ($validator->fails()) {
             return redirect()->route('login')
-                ->withErrors($validator)
+                ->withErrors($validator, 'login')
                 ->withInput();
         }
 
@@ -58,10 +57,21 @@ class UserController extends Controller{
             return redirect()->route('homepage');
         } else {
             return redirect()->route('login')
-                ->withErrors(['email' => 'Invalid email or password'])
+                ->withErrors(['email' => 'Invalid email or password'], 'login')
                 ->withInput();
         }
     }
 
+    public function profile(){
+        $user = Auth::user(); 
+        return view('profile', compact('user'));
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('homepage');
+    }
 
 }

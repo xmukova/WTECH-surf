@@ -24,13 +24,10 @@
         <!-- Log In-->
         <div class="prihlasovacky_box col-md-5 p-5 rounded shadow-sm">
             <h2 class="text-center">LOG IN</h2>
-            @if ($errors->has('email') || $errors->has('password'))
+            @if ($errors->login->any())
                 <div class="alert alert-danger">
                     <ul>
-                        @foreach ($errors->get('email') as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                        @foreach ($errors->get('password') as $error)
+                        @foreach ($errors->login->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
@@ -52,19 +49,10 @@
         <!-- Register-->
         <div class="prihlasovacky_box col-md-5 p-5 rounded shadow-sm ms-md-4 mt-4 mt-md-0">
             <h2 class="text-center">REGISTER</h2>
-            @if ($errors->has('name') || $errors->has('phone_number') || $errors->has('country') || $errors->has('password_confirmation'))
+            @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
-                        @foreach ($errors->get('name') as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                        @foreach ($errors->get('phone_number') as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                        @foreach ($errors->get('country') as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                        @foreach ($errors->get('password_confirmation') as $error)
+                        @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>

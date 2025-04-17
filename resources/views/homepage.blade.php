@@ -25,9 +25,9 @@
     </div>
 
     <div class="nav">
-        <a href="{{ route('products') }}"><h2>SURFBOARDS</h2></a>
-        <a href="{{ route('products') }}"><h2>EQUIPMENT</h2></a>
-        <a href="{{ route('products') }}"><h2>ACCESSORIES</h2></a>
+        <a href="{{ route('products.byCategory', ['category' => 'Surfboards']) }}"><h2>SURFBOARDS</h2></a>
+        <a href="{{ route('products.byCategory', ['category' => 'Equipment']) }}"><h2>EQUIPMENT</h2></a>
+        <a href="{{ route('products.byCategory', ['category' => 'Accessories']) }}"><h2>ACCESSORIES</h2></a>
     </div>
     <!--Products-->
     <div class="products">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="surfboard_button">
-                    <a href="{{ route('products') }}"><button class="custom-btn">More</button></a>
+                    <a href="{{ route('products.byCategory', ['category' => 'Surfboards']) }}"><button class="custom-btn">More</button></a>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
                     <a href="{{ route('product_detail') }}"><img src="images/products/leash2.jpg" alt="Surfboard leash strong" class="equipment_product darker"></a>
                 </div>
                 <div class="surfboard_button">
-                    <a href="{{ route('products') }}"><button class="equipment-custom-btn">More</button></a>
+                    <a href="{{ route('products.byCategory', ['category' => 'Equipment']) }}"><button class="equipment-custom-btn">More</button></a>
                     <div class="pretty-box-reverse">
                         <p class="pretty-text">Equipment</p>
                     </div>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="surfboard_button">
-                    <a href="{{ route('products') }}"><button class="custom-btn">More</button></a>
+                    <a href="{{ route('products.byCategory', ['category' => 'Accessories']) }}"><button class="custom-btn">More</button></a>
                 </div>
             </div>
         </div>

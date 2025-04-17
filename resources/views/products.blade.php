@@ -26,13 +26,19 @@
     <div class="container">
         <div class="row g-1">
             <div class="col-12 col-sm-4">
-                <button class="button_navbar">SURFBOARDS</button>
+                <a href="{{ route('products.byCategory', ['category' => 'surfboards']) }}">
+                    <button class="button_navbar">SURFBOARDS</button>
+                </a>
             </div>
             <div class="col-12 col-sm-4">
-                <button class="button_navbar">EQUIPMENT</button>
+                <a href="{{ route('products.byCategory', ['category' => 'equipment']) }}">
+                    <button class="button_navbar">EQUIPMENT</button>
+                </a>
             </div>
             <div class="col-12 col-sm-4">
-                <button class="button_navbar">ACCESSORIES</button>
+                <a href="{{ route('products.byCategory', ['category' => 'accessories']) }}">
+                    <button class="button_navbar">ACCESSORIES</button>
+                </a>
             </div>
         </div>
 
@@ -153,7 +159,31 @@
 <div class="container my-4">
     <div class="row  row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         <!-- Product Card -->
-        <div class="col">
+        @foreach($products as $product)
+            <div class="col">
+                <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny" aria-label="Product details">
+                    <div class="card darker">
+                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
+                        <div class="produkt-ikonky">
+                            <button class="button-ikonka" aria-label="Add to favorites">
+                                <i class="bi bi-heart"></i>
+                            </button>
+                            <button class="button-ikonka" aria-label="Add to cart">
+                                <i class="bi bi-bag"></i>
+                            </button>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title text_produkt">{{ $product->name }}</h5>
+                            <p class="card-text text_cena">${{ number_format($product->price, 2) }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endforeach
+
+
+
+        <!-- <div class="col">
             <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
                 <div class="card darker">
                     <img src="images/products/dark_blue_surfboard.jpg" alt="Product picture" >
@@ -171,308 +201,7 @@
                     </div>
                 </div>   
             </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/bee_yellow_surfboard.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/surfboard_whitegreen.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/light_blue_surfboard.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/cap.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/cap_mctavish.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/fin.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/neopren.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/neopren3.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/leash.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/black_shirt.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/bucket_hat.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/leash2.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/fin2.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/cap_blue.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
-        <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/green_tshirt.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div> 
-
+        </div>  -->
     </div>
 </div>
 

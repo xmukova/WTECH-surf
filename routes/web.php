@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('homepage');
@@ -18,10 +19,6 @@ Route::get('/admin/login', function () {
 Route::get('/admin/profile', function () {
     return view('admin_profile');
 })->name('admin_profile');
-
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
 
 Route::get('/products', function () {
     return view('products');
@@ -53,6 +50,14 @@ Route::get('/shopping_cart3', function () {
 
 
 
-use App\Http\Controllers\ProductController;
+Route::post('/register', [UserController::class, 'register'])->name('register');
+Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+Route::get('/profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
+
+Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/products/{category}', [ProductController::class, 'byCategory'])->name('products.byCategory');
+Route::get('/products/{category}/{subcategory}', [ProductController::class, 'bySubcategory'])->name('products.bySubcategory');
+
 
 Route::get('/product/{id}', [ProductController::class, 'detail']);

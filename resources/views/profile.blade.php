@@ -19,29 +19,60 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4 order-sm-2">
-            <div class="profil_info">
-                <img src="images/surf images videos/pc1.jpg" alt="Profile image" class="profile-img mb-3">
-                <h2>Meno Priezvisko</h2>
-            
-            </div>
-            <button class="odhlasit_btn">Log out</button>
+        <div class="col-sm-4 order-sm-2">               
+            <h2>{{ $user->name }}</h2>
 
-            <div class="card my_card">
-                <div class="card-body">
-                    <h5 class="card-title">Profile details</h5>
-                    <ul class="list-unstyled">
-                        <li><strong>Email:</strong> meno.priezvisko@email.com</li>
-                        <li><strong>Phone:</strong> +421 987 654 321</li>
-                        <li><strong>Country:</strong> Country</li>
-                    </ul>
-                </div>
-            </div>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="odhlasit_btn">Log out</button>
+            </form>
+
             <button class="edit_profile_btn" >
                 <i class="fas fa-edit"></i>Edit Profile
             </button>
-            <button class="edit_profile_btn">Change password</button>
+            <button class="edit_profile_btn">Change password</button> 
+
+            <div class="card my_card">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile details</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Email:</strong> {{ $user->email }}</li>
+                            <li><strong>Phone:</strong> {{ $user->phone_number }}</li>
+                            <li><strong>Country:</strong> {{ $user->country }}</li>
+                        </ul>
+                    </div>
+            </div>
+                
+            <div class="profil_info">
+                <img src="images/surf images videos/pc1.jpg" alt="Profile image" class="profile-img mb-3">
+            </div>
+
+
+
+            <!-- <button class="odhlasit_btn">Log out</button>
+            <button class="edit_profile_btn" >
+                <i class="fas fa-edit"></i>Edit Profile
+            </button>
+            <button class="edit_profile_btn">Change password</button> 
+            
+            <div class="card my_card">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile details</h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Email:</strong> meno.priezvisko@email.com</li>
+                            <li><strong>Phone:</strong> +421 987 654 321</li>
+                            <li><strong>Country:</strong> Country</li>
+                        </ul>
+                    </div>
+            </div>
+                
+            <div class="profil_info">
+                <img src="images/surf images videos/pc1.jpg" alt="Profile image" class="profile-img mb-3">
+            </div> -->
         </div>
+
+
+
 
         <!-- Historia objednávok -->
         <div class="col-sm-8">
