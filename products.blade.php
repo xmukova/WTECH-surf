@@ -165,9 +165,25 @@
                     <div class="card darker">
                         <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
                         <div class="produkt-ikonky">
-                            <button class="button-ikonka" aria-label="Add to favorites">
-                                <i class="bi bi-heart"></i>
-                            </button>
+                            @if(auth()->check())
+                                @php
+                                    $isFavorite = auth()->user()->favorites->contains($product->id);
+                                @endphp
+                                <form action="{{ $isFavorite ? route('favorites.remove', $product->id) : route('favorites.add', $product->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @if($isFavorite)
+                                        @method('DELETE')
+                                    @endif
+                                    <button type="submit" class="button-ikonka" aria-label="{{ $isFavorite ? 'Remove from favorites' : 'Add to favorites' }}">
+                                        <i class="bi {{ $isFavorite ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                                    </button>
+                                </form>
+                            @else
+                                <button class="button-ikonka" aria-label="First log in to favorite" >
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            @endif
+
                             <button class="button-ikonka" aria-label="Add to cart">
                                 <i class="bi bi-bag"></i>
                             </button>

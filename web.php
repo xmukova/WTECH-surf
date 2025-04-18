@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\FavoriteController;
 
 Route::get('/', function () {
     return view('homepage');
@@ -27,7 +29,7 @@ Route::get('/confirmation', function () {
     return view('confirmation');
 })->name('confirmation');
 
-Route::get('/favorites', function () {
+Route::get('/favorites', function () {              //asi nepotrebujem pretoze to mam nizsie inak
     return view('favorites');
 })->name('favorites');
 
@@ -53,3 +55,16 @@ Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth')->name('profile');
+
+Route::get('/products', [ProductController::class, 'index'])->name('products');
+Route::get('/products/{category}', [ProductController::class, 'byCategory'])->name('products.byCategory');
+Route::get('/products/{category}/{subcategory}', [ProductController::class, 'bySubcategory'])->name('products.bySubcategory');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/favorites/add/{product}', [FavoriteController::class, 'add'])->name('favorites.add');
+    Route::delete('/favorites/remove/{product}', [FavoriteController::class, 'remove'])->name('favorites.remove');
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+});
+
+
+Route::get('/product/{id}', [ProductController::class, 'detail']);
