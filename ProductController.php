@@ -29,9 +29,19 @@ class ProductController extends Controller{
     public function byCategory(Request $request, $category){
         $categoryModel = Category::where('name', ucfirst($category))->firstOrFail();
         $query = Product::where('category_id', $categoryModel->id);
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'ILIKE', "%{$search}%")
+                  ->orWhere('short_description', 'ILIKE', "%{$search}%");
+            });
+        }
+
+        $currentCategory = $categoryModel->name;
         $query = $this->applySorting($request, $query);
         $products = $query->paginate(4);
-        return view('products', compact('products'));
+        return view('products', compact('products', 'currentCategory'));
     }
 
     public function bySubcategory(Request $request, $category, $subcategory){
@@ -40,6 +50,15 @@ class ProductController extends Controller{
             ->where('category_id', $categoryModel->id)
             ->firstOrFail();
         $query = Product::where('subcategory_id', $subcategoryModel->id);
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'ILIKE', "%{$search}%")
+                  ->orWhere('short_description', 'ILIKE', "%{$search}%");
+            });
+        }    
+
         $query = $this->applySorting($request, $query);
         $products = $query->paginate(16);
         return view('products', compact('products'));
@@ -47,10 +66,21 @@ class ProductController extends Controller{
 
     public function index(Request $request){
         $query = Product::query();
-        $query = $this->applySorting($request, $query);
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+    
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'ILIKE', "%{$search}%")                  // podla name
+                  ->orWhere('short_description', 'ILIKE', "%{$search}%"); // podla short_description
+            });
+        }
+        
+        $query = $this->applySorting($request, $query); //sortnutie ak treba
         $products = $query->paginate(16);
         $categories = Category::all();
-        return view('products', compact('products', 'categories'));
+        $currentCategory = '';
+        return view('products', compact('products', 'currentCategory'));
     }
 
     public function detail($id){

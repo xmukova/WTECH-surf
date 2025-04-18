@@ -19,25 +19,27 @@
 
 <!-- Navigation + Search Bar-->
 <nav class="text-center my-3">
-    <div class="search-bar ">
-        <input type="text" placeholder=" Search...">
-        <i class="bi bi-search"></i>
-    </div>
+
+    <form method="GET" action="{{ url()->current() }}" class="search-bar">
+        <input type="text" name="search" value="{{ request('search') }}" placeholder=" Search...">
+        <button type="submit" class="neviditelny-button"><i class="bi bi-search"></i></button>
+    </form>
+
     <div class="container">
         <div class="row g-1">
             <div class="col-12 col-sm-4">
                 <a href="{{ route('products.byCategory', ['category' => 'surfboards']) }}">
-                    <button class="button_navbar">SURFBOARDS</button>
+                    <button class="button_navbar {{ $currentCategory == 'Surfboards' ? 'active_button' : '' }}">SURFBOARDS</button>
                 </a>
             </div>
             <div class="col-12 col-sm-4">
                 <a href="{{ route('products.byCategory', ['category' => 'equipment']) }}">
-                    <button class="button_navbar">EQUIPMENT</button>
+                    <button class="button_navbar {{ $currentCategory == 'Equipment' ? 'active_button' : '' }}">EQUIPMENT</button>
                 </a>
             </div>
             <div class="col-12 col-sm-4">
                 <a href="{{ route('products.byCategory', ['category' => 'accessories']) }}">
-                    <button class="button_navbar">ACCESSORIES</button>
+                    <button class="button_navbar {{ $currentCategory == 'Accessories' ? 'active_button' : '' }}">ACCESSORIES</button>
                 </a>
             </div>
         </div>
