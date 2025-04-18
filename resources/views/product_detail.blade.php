@@ -15,10 +15,44 @@
         <div class="all_details">
             <div class="carousel_container">
                 <div class="carousel_track">
-                    <img src="images/products/surfboard_darkgreen.jpg" alt="Dark green surfboard" class="carousel_photo1">
-                    <img src="images/products/detail_side_green.jpg" alt="Dark green surfboard from the side" class="carousel_photo">
-                    <img src="images/products/detail_green_tail.jpg" alt="Dark green surfboard close up detail" class="carousel_photo">
-                    <img src="images/products/detail_green.jpg" alt="Dark green surfboard from the back" class="carousel_photo2">
+                    @foreach($product->images as $index => $image)
+                        @if($loop->first) 
+                            <!-- For the first image, add carousel_photo1 class -->
+                            <img src="{{ asset($image->image_path) }}" alt="Product image 1" class="carousel_photo1">
+                        @elseif($loop->last)
+                            <!-- For the last image, add carousel_photo2 class -->
+                            <img src="{{ asset($image->image_path) }}" alt="Product image {{ $index + 1 }}" class="carousel_photo2">
+                        @else
+                            <!-- For all other images, add carousel_photo class -->
+                            <img src="{{ asset($image->image_path) }}" alt="Product image {{ $index + 1 }}" class="carousel_photo">
+                        @endif
+                    @endforeach
+                    <!-- Fallback for less than 3 images -->
+                    @for($i = $product->images->count(); $i < 3; $i++)
+                        @php
+                            // Default fallback image
+                            $fallbackImage = 'images/products/detail_green_tail.jpg'; 
+
+                            // Check product category and update fallback image accordingly
+                            if ($product->category_id === 1) {
+                                $fallbackImage = 'images/products/detail_green_tail.jpg'; // Surfboard-specific fallback
+                            } elseif ($product->category_id === 2) {
+                                $fallbackImage = 'images/products/leash2.jpg'; // Accessory-specific fallback
+                            } elseif ($product->category_id === 3) {
+                                $fallbackImage = 'images/products/cap.jpg'; // Equipment-specific fallback
+                            }
+
+                            // Debug: Output the category ID and selected fallback image
+                            echo "<!-- Category ID: {$product->category_id}, Fallback Image: {$fallbackImage} -->";
+                        @endphp
+
+                        <img 
+                            src="{{ asset($fallbackImage) }}" 
+                            alt="Fallback image" 
+                            class="{{ $i == 2 ? 'carousel_photo2' : 'carousel_photo' }}">
+                    @endfor
+
+
                 </div>
                 <!-- Navigation icons -->
                 <i class="bi bi-chevron-left carousel-prev" id="carousel-prev"></i>
@@ -26,7 +60,7 @@
             </div>
         </div>
         <div class="product_description">
-            <div class="product_name">Forest Green Surfboard</div>
+            <div class="product_name">{{ $product->name }}</div>
             <div class="stars">
                 <i class="bi bi-star-fill star"></i>
                 <i class="bi bi-star-fill star"></i>
@@ -36,16 +70,7 @@
                 <p class="reviews">Reviews</p>
             </div>
             <div class="short_description">
-                Ride the waves with style and confidence on our premium Forest Green Surfboard.
-                Designed to provide exceptional performance and durability, this board is perfect for surfers
-                of all levels. Whether you're a <strong>beginner</strong> looking to catch your first wave or an
-                <strong>experienced surfer</strong> pushing the limits of your skills, the Forest Green Surfboard
-                is engineered to meet your needs.
-                <br><br>Crafted with top-tier materials, it combines a <strong>lightweight</strong> yet sturdy construction with a sleek,
-                eye-catching dark forest green finish that will turn heads wherever you ride. Its expertly designed shape ensures
-                <strong>stability, control, and speed</strong>, giving you the confidence to tackle any wave with ease.
-                The smooth surface helps reduce drag, allowing for faster, more responsive rides, while its forgiving design
-                offers added buoyancy for an easy paddling experience.
+                {!! nl2br(e($product->short_description)) !!}
             </div>
             <div class="dropdown">
                 <div class="size_quantity">
@@ -63,7 +88,7 @@
                 </div>
             </div>
             <div class="price">
-                <p>1270,0$</p>
+                <p>{{ number_format($product->price, 2, ',', ' ') }}$</p>
             </div>
             <div class="fav-buy">
                 <button class="fav-button"> <i class="bi bi-heart smaller" ></i></button>
@@ -77,10 +102,9 @@
                     <label for="dropdown-toggle-1" class="dropdown-btn">Features <i class="bi bi-chevron-down"></i></label>
                     <div class="dropdown-content">
                         <ul>
-                            <li> High-quality dark forest green finish</li>
-                            <li> Ideal for both beginners and experienced surfers</li>
-                            <li> Premium craftsmanship and durability</li>
-                            <li> Lightweight and easy to handle</li>
+                            @foreach($features as $feature)
+                                <li>{{ $feature }}</li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -89,12 +113,7 @@
                     <input type="checkbox" id="dropdown-toggle-2" class="dropdown-toggle">
                     <label for="dropdown-toggle-2" class="dropdown-btn">Description <i class="bi bi-chevron-down"></i></label>
                     <div class="dropdown-content">
-                        <p>Built to withstand the harshest ocean conditions, the Forest Green Surfboard features a durable
-                        fiberglass exterior that enhances its strength while remaining lightweight. Whether you're carving sharp turns or gliding
-                        effortlessly across the water, this board offers the ideal balance of performance and comfort.
-                        Designed with versatility in mind, the Forest Green Surfboard excels in various wave types, making it the perfect
-                        choice for surfers who love to explore different surf conditions. Plus, its stylish dark green color makes a statement in the lineup, ensuring you stand out while you ride.
-                        Elevate your surfing experience today and take your wave riding to the next level with the Forest Green Surfboard – your ultimate companion in the water.</p>
+                       <p>{{ $product->description }}</p>
                     </div>
                 </div>
                 <!-- DELIVERY & RETURNS -->
@@ -163,52 +182,26 @@
         <p class="recommend-text">We think you will like</p>
         <div class="slider-wrapper">
             <div class="recommended-slider">
-                <a href="{{ route('product_detail') }}"><img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
-                <a href="{{ route('product_detail') }}"><img src="images/products/surfboard_green.jpg" alt="Green surfboard" class="recommended-product darker"></a>
-                <a href="{{ route('product_detail') }}"><img src="images/products/surfboard_whitegreen.jpg" alt="White and green surfboard" class="recommended-product darker"></a>
-
-                <!-- NEW -->
-                <div class="image-block">
-                    <a href="{{ route('product_detail') }}"><img src="images/products/bee_yellow_surfboard.jpg" alt="Bright Yellow surfboard" class="recommended-product darker"></a>
-                    <a href="{{ route('product_detail') }}"><img src="images/new.png" alt="New Overlay" class="overlay"></a>
-                </div>
-                <a href="{{ route('product_detail') }}"><img src="images/products/dark_blue_surfboard.jpg" alt="Dark blue surfboard" class="recommended-product darker"></a>
-                <a href="{{ route('product_detail') }}"><img src="images/products/light_blue_surfboard.jpg" alt="Light blue surfboard" class="recommended-product darker"></a>
-
-                <!-- NEW -->
-                <div class="image-block">
-                    <a href="{{ route('product_detail') }}"><img src="images/products/darkred_whiteborder_surfboard.jpg" alt="Dark red surfboard with white border" class="recommended-product darker"></a>
-                    <a href="{{ route('product_detail') }}"><img src="images/new.png" alt="New Overlay" class="overlay"></a>
-                </div>
-                <!-- NEW -->
-                <div class="image-block">
-                    <a href="{{ route('product_detail') }}"><img src="images/products/red_border_surfboard.jpg" alt="Red border surfboard" class="recommended-product darker"></a>
-                    <a href="{{ route('product_detail') }}"><img src="images/new.png" alt="New Overlay" class="overlay"></a>
-                </div>
-
-                <a href="{{ route('product_detail') }}"><img src="images/products/surfboard_darkred.jpg" alt="Dark red surfboard" class="recommended-product darker"></a>
-                <a href="{{ route('product_detail') }}"><img src="images/products/surfboard_green.jpg" alt="Green surfboard" class="recommended-product darker"></a>
-                <a href="{{ route('product_detail') }}"><img src="images/products/surfboard_whitegreen.jpg" alt="White and green surfboard" class="recommended-product darker"></a>
-
-                <!-- NEW -->
-                <div class="image-block">
-                    <a href="{{ route('product_detail') }}"><img src="images/products/bee_yellow_surfboard.jpg" alt="Bright Yellow surfboard" class="recommended-product darker"></a>
-                    <a href="{{ route('product_detail') }}"><img src="images/new.png" alt="New Overlay" class="overlay"></a>
-                </div>
-                <a href="{{ route('product_detail') }}"><img src="images/products/dark_blue_surfboard.jpg" alt="Dark blue surfboard" class="recommended-product darker"></a>
-                <a href="{{ route('product_detail') }}"><img src="images/products/light_blue_surfboard.jpg" alt="Light blue surfboard" class="recommended-product darker"></a>
-
-                <!-- NEW -->
-                <div class="image-block">
-                    <a href="{{ route('product_detail') }}"><img src="images/products/darkred_whiteborder_surfboard.jpg" alt="Dark red surfboard with white border" class="recommended-product darker"></a>
-                    <a href="{{ route('product_detail') }}"><img src="images/new.png" alt="New Overlay" class="overlay"></a>
-                </div>
-                <!-- NEW -->
-                <div class="image-block">
-                    <a href="{{ route('product_detail') }}"><img src="images/products/red_border_surfboard.jpg" alt="Red border surfboard" class="recommended-product darker"></a>
-                    <a href="{{ route('product_detail') }}"><img src="images/new.png" alt="New Overlay" class="overlay"></a>
-                </div>
+                @foreach($all_products as $product)
+                    <div class="image-block">
+                        <a href="{{ route('product_detail', ['id' => $product->id]) }}">
+                            @if ($product->mainImage)
+                                <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="recommended-product darker">
+                            @endif
+                        </a>
+                        <!-- NEW Overlay for products created in the last 24 hours -->
+                        @if($product->created_at >= \Carbon\Carbon::now()->subDay())
+                            <a href="{{ route('product_detail', ['id' => $product->id]) }}">
+                                <img src="{{ asset('images/new.png') }}" alt="New Overlay" class="overlay">
+                            </a>
+                        @endif
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
+
+
+
+
 @endsection

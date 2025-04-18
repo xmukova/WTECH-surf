@@ -51,12 +51,12 @@
                     <button class="button_navbar_2  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Sort by
                     </button>
-                    <ul class="dropdown-menu" >
-                        <li><a class="dropdown-item" href="#">Most Popular</a></li>
-                        <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
-                        <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
-                        <li><a class="dropdown-item" href="#">A - Z</a></li>
-                        <li><a class="dropdown-item" href="#">Z - A</a></li>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['sort' => 'popular']) }}">Most Popular</a></li>
+                        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}">Price: Low to High</a></li>
+                        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}">Price: High to Low</a></li>
+                        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['sort' => 'az']) }}">A - Z</a></li>
+                        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['sort' => 'za']) }}">Z - A</a></li>
                     </ul>
                 </div>
             </div>
@@ -163,7 +163,9 @@
             <div class="col">
                 <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny" aria-label="Product details">
                     <div class="card darker">
-                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
+                        @if ($product->mainImage)
+                            <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}">
+                        @endif
                         <div class="produkt-ikonky">
                             <button class="button-ikonka" aria-label="Add to favorites">
                                 <i class="bi bi-heart"></i>
@@ -183,38 +185,30 @@
 
 
 
-        <!-- <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div>  -->
     </div>
 </div>
 
 <!-- ciselnik stranok -->
 <div class="strankovanie">
-    <button class="strankovanie_sipka" aria-label="Pages left"><i class="bi bi-chevron-left" ></i></button>
-    <div >
-        <a href="#" class="stranka active">1</a>
-        <a href="#" class="stranka">2</a>
-        <a href="#" class="stranka">3</a>
-        <span class="dots">...</span>
-        <a href="#" class="stranka">10</a>
-    </div>
-    <button class="strankovanie_sipka" aria-label="Pages right"><i class="bi bi-chevron-right"></i></button>
+    <!-- sipka vlavo -->
+    @if ($products->onFirstPage())
+        <button class="strankovanie_sipka" aria-label="Pages left" disabled><i class="bi bi-chevron-left"></i></button>
+    @else
+        <a href="{{  request()->fullUrlWithQuery(['page' => $products->currentPage() - 1]) }}" class="strankovanie_sipka">
+            <i class="bi bi-chevron-left"></i>
+        </a>
+    @endif
+    <!-- cisla -->
+    @for ($i = 1; $i <= $products->lastPage(); $i++)
+        <a href="{{ request()->fullUrlWithQuery(['page' => $i]) }}" class="stranka {{ $products->currentPage() == $i ? 'active' : '' }}">
+            {{ $i }}
+        </a>
+    @endfor
+    <!-- sipka vpravo -->
+    @if ($products->hasMorePages())
+        <a href="{{ request()->fullUrlWithQuery(['page' => $products->currentPage() + 1])  }}" class="strankovanie_sipka"><i class="bi bi-chevron-right"></i></a>
+    @else
+        <button class="strankovanie_sipka" aria-label="Pages right" disabled><i class="bi bi-chevron-right"></i></button>
+    @endif
 </div>
 @endsection

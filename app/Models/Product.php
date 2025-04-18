@@ -16,12 +16,12 @@ class Product extends Model
         'price',
         'color',
         'size',
-        'image',
         'stock',
         'features',
         'category_id',
         'subcategory_id',
     ];    
+
 
     public function category()
     {
@@ -37,5 +37,20 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+    // In Product model
+    public function sizes()
+    {
+        return $this->hasMany(Size::class); // Adjust depending on your relationship
+    }
+    // In Product model
+    protected $casts = [
+        'sizes' => 'array',
+    ];
+    
+    public function mainImage()
+    {
+        return $this->hasOne(ProductImage::class)->where('is_main', true);
+    }
+
 
 }
