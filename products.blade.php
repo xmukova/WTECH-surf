@@ -19,27 +19,25 @@
 
 <!-- Navigation + Search Bar-->
 <nav class="text-center my-3">
-
     <form method="GET" action="{{ url()->current() }}" class="search-bar">
         <input type="text" name="search" value="{{ request('search') }}" placeholder=" Search...">
         <button type="submit" class="neviditelny-button"><i class="bi bi-search"></i></button>
     </form>
-
     <div class="container">
         <div class="row g-1">
             <div class="col-12 col-sm-4">
                 <a href="{{ route('products.byCategory', ['category' => 'surfboards']) }}">
-                    <button class="button_navbar {{ $currentCategory == 'Surfboards' ? 'active_button' : '' }}">SURFBOARDS</button>
+                    <button class="button_navbar">SURFBOARDS</button>
                 </a>
             </div>
             <div class="col-12 col-sm-4">
                 <a href="{{ route('products.byCategory', ['category' => 'equipment']) }}">
-                    <button class="button_navbar {{ $currentCategory == 'Equipment' ? 'active_button' : '' }}">EQUIPMENT</button>
+                    <button class="button_navbar">EQUIPMENT</button>
                 </a>
             </div>
             <div class="col-12 col-sm-4">
                 <a href="{{ route('products.byCategory', ['category' => 'accessories']) }}">
-                    <button class="button_navbar {{ $currentCategory == 'Accessories' ? 'active_button' : '' }}">ACCESSORIES</button>
+                    <button class="button_navbar">ACCESSORIES</button>
                 </a>
             </div>
         </div>
@@ -159,18 +157,23 @@
 
 <!-- PRODUCTS SECTION -->
 <div class="container my-4">
-    <div class="row  row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         <!-- Product Card -->
         @foreach($products as $product)
             <div class="col">
                 <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny" aria-label="Product details">
                     <div class="card darker">
-                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
+                        @if ($product->mainImage)
+                            <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}">
+                        @endif
+
                         <div class="produkt-ikonky">
+                            <!-- Add/Remove from favorites -->
+                            @php
+                                $isFavorite = auth()->check() && auth()->user()->favorites->contains('id', $product->id);
+                            @endphp
+
                             @if(auth()->check())
-                                @php
-                                    $isFavorite = auth()->user()->favorites->contains($product->id);
-                                @endphp
                                 <form action="{{ $isFavorite ? route('favorites.remove', $product->id) : route('favorites.add', $product->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @if($isFavorite)
@@ -181,15 +184,17 @@
                                     </button>
                                 </form>
                             @else
-                                <button class="button-ikonka" aria-label="First log in to favorite" >
+                                <button class="button-ikonka" aria-label="Please log in to favorite">
                                     <i class="bi bi-heart"></i>
                                 </button>
                             @endif
 
+                            <!-- Add to cart -->
                             <button class="button-ikonka" aria-label="Add to cart">
                                 <i class="bi bi-bag"></i>
                             </button>
                         </div>
+
                         <div class="card-body text-center">
                             <h5 class="card-title text_produkt">{{ $product->name }}</h5>
                             <p class="card-text text_cena">${{ number_format($product->price, 2) }}</p>
@@ -198,27 +203,6 @@
                 </a>
             </div>
         @endforeach
-
-        <!-- <div class="col">
-            <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Product details">
-                <div class="card darker">
-                    <img src="images/products/dark_blue_surfboard.jpg" alt="Product picture" >
-                    <div class = "produkt-ikonky">
-                        <button class="button-ikonka" aria-label="Add to favorites">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <button class="button-ikonka" aria-label="Add to cart">
-                            <i class="bi bi-bag" ></i>
-                        </button>
-                    </div>
-                    <div class="card-body text-center">
-                        <h5 class="card-title text_produkt">Wave Rider Pro</h5>
-                        <p class="card-text text_cena">$1299.99</p>
-                    </div>
-                </div>   
-            </a>         
-        </div>  -->
-
     </div>
 </div>
 

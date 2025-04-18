@@ -83,8 +83,48 @@ class ProductController extends Controller{
         return view('products', compact('products', 'currentCategory'));
     }
 
-    public function detail($id){
-        $product = Product::findOrFail($id);
-        return view('product_details', compact('product'));
+    public function homepage()
+    {
+        $surfboards = Product::with('mainImage')->whereHas('category', function ($query) {
+            $query->where('name', 'Surfboards');
+        })->limit(4)->get();       
+        
+        $equipment = Product::with('mainImage')->whereHas('category', function ($query) {
+            $query->where('name', 'Equipment');
+        })->limit(4)->get();
+    
+        $accessories = Product::with('mainImage')->whereHas('category', function ($query) {
+            $query->where('name', 'Accessories');
+        })->limit(4)->get();
+    
+        return view('homepage', compact('surfboards', 'equipment', 'accessories'));
     }
+      
+
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+        $features = explode(', ', $product->features); // Rozdelí reťazec na pole podľa čiarky
+    
+        // Predpokladáme, že obrázky sú uložené v stĺpci 'images' ako JSON reťazec
+        $images = json_decode($product->images); 
+    
+        // Ak obrázky nie sú k dispozícii alebo ich je menej než 3, pridáme náhradné obrázky
+        while (count($images) < 3) {
+            $images[] = 'images/detail_green.jpg'; // Pridaj placeholder obrázok
+        }
+
+        $all_products = Product::all();
+    
+        return view('product_detail', compact('product', 'features', 'images', 'all_products'));
+    }
+    
+    public function showProfile()
+    {
+        $user = Auth::user();
+        $product = Product::findOrFail($id);
+        return view('profile', compact('user', 'all_products'));
+    }
+
+
 }

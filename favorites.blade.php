@@ -27,9 +27,10 @@
         @foreach($favorites as $product)
             <div class="col">
                 <div class="card darker">
-                    <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny" aria-label="Show details">
-                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}">
-                    </a>
+                    @if ($product->mainImage)
+                        <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}">
+                    @endif
+
                     <div class="produkt-ikonky">
                         <form action="{{ route('favorites.remove', ['product' => $product->id]) }}" method="POST">
                             @csrf
@@ -49,28 +50,6 @@
                 </div>
             </div>
         @endforeach
-
-            <!-- <div class="col">
-                    <div class="card darker">
-                        <a href="{{ route('product_detail') }}" class="link_neviditelny" aria-label="Show details">   
-                            <img src="images/products/leash.jpg" alt="Favorite product picture" >
-                        </a> 
-                        <div class = "produkt-ikonky">
-                            <button class="button-ikonka " onclick="deletePhoto(this)" aria-label="Remove from favorites">
-                                <i class="bi bi-heart-fill"></i>
-                            </button>
-                            <button class="button-ikonka" aria-label="Add to your shopping bag">
-                                <i class="bi bi-bag" ></i>
-                            </button>
-                        </div>
-                        <a href="{{ route('product_detail') }}" class="link" aria-label="Show details">
-                            <div class="text-center">
-                                <h5 class="text_produkt">Wave Rider Pro</h5>
-                                <p class="text_cena">$1299.99</p>
-                            </div>
-                        </a>  
-                    </div>   
-            </div> -->
 
         </div>
     </div>

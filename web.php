@@ -5,9 +5,14 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FavoriteController;
 
-Route::get('/', function () {
-    return view('homepage');
-})->name('homepage');
+// Route::get('/', function () {
+//     return view('homepage');
+// })->name('homepage');
+
+// Route::get('/', [ProductController::class, 'homepage'])->name('homepage');
+Route::get('/', [ProductController::class, 'homepage'])->name('homepage');
+
+
 
 Route::get('/login', function () {
     return view('login');
@@ -29,13 +34,9 @@ Route::get('/confirmation', function () {
     return view('confirmation');
 })->name('confirmation');
 
-Route::get('/favorites', function () {              //asi nepotrebujem pretoze to mam nizsie inak
+Route::get('/favorites', function () {
     return view('favorites');
 })->name('favorites');
-
-Route::get('/productdetail', function () {
-    return view('product_detail');
-})->name('product_detail');
 
 Route::get('/shopping_cart1', function () {
     return view('shopping_cart1');
@@ -48,8 +49,6 @@ Route::get('/shopping_cart2', function () {
 Route::get('/shopping_cart3', function () {
     return view('shopping_cart3');
 })->name('shopping_cart3');
-
-
 
 Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::post('/login', [UserController::class, 'login'])->name('login');
@@ -67,4 +66,5 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/product/{id}', [ProductController::class, 'detail']);
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product_detail');
+
