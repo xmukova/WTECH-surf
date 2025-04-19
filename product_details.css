@@ -12,6 +12,10 @@ body {
     padding: 0;
 }
 
+main {
+    width: 100vw;
+}
+
 header {
     position: fixed;
     top: 0;
@@ -109,7 +113,7 @@ header {
 }
 
 /* REFERENCES */
-.product-overview-container a, .icons a {
+.product-overview-container a, .icons a, .overlay-btn{
     text-decoration: none;
     color: inherit;
     font: inherit;
@@ -263,7 +267,8 @@ header {
 /* DESCRIPTION */
 .product_description {
     text-align: left;
-    margin: 50px 0 0 4vw;
+    margin-top: 50px;
+    padding-left: 4vw;
     font-size: clamp(10px, 2.5vw, 60px);
     font-weight: lighter;
     display: flex;
@@ -305,7 +310,7 @@ header {
 .dropdown {
     display: flex;
     align-items: center;
-    margin-top: 2vw;
+    margin-top: 0;
     gap: 2vw;
     font-size: 2vw;
     font-weight: 2px;
@@ -315,6 +320,7 @@ header {
     display: flex;
     align-items: center;
     gap: 1.5vw;
+    margin-top: 1vw;
 }
 
 select[name="select_size"], .number-picker input[type="number"] {
@@ -323,8 +329,6 @@ select[name="select_size"], .number-picker input[type="number"] {
     padding: 0.5vw 1vw;
     border: solid 1.5px #26769C;
     border-radius: min(0.5vw, 27px);
-    padding-left: 1vw;
-    align-items: center;
     font-size: 1.6vw;
     font-weight: 100;
     background-color: white;
@@ -334,6 +338,12 @@ select[name="select_size"], .number-picker input[type="number"] {
     -moz-appearance: none;
 }
 
+.dropdown, .number-picker {
+    display: flex;
+    align-items: center;
+}
+
+
 /* custom dropdown arrow for select */
 .size_form {
     position: relative;
@@ -342,6 +352,7 @@ select[name="select_size"], .number-picker input[type="number"] {
 
 select[name="select_size"] {
     padding-right: 2vw; 
+    min-width: 9vw;
 }
 
 .size_form::after {
@@ -680,8 +691,9 @@ select[name="select_size"]:focus,
 
     /* PRODUCT DESCRIPTION */
     .product_description {
-        margin: 10px 5vw;
-        font-size: clamp(12px, 3vw, 16px);
+        margin-top: 10px;
+        padding-right: 4vw;
+        font-size: clamp(10px, 2.5vw, 60px);
     }
 
     .product_name {
@@ -709,6 +721,10 @@ select[name="select_size"]:focus,
         font-size: clamp(14px, 3.5vw, 18px);
         font-weight: 100;
         padding: 0.8vw 1vw 0.8vw 2vw;
+    }
+
+    select[name="select_size"] {
+        min-width: 20vw;
     }
 
     .size_form::after {
@@ -775,6 +791,56 @@ select[name="select_size"]:focus,
     .overlay-text {
         display: none;
     }
+}
+
+/* OVERLAY LOG IN */
+.login-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Overlay content box */
+.overlay-content {
+    background-color: white;
+    padding: 4vw;
+    border-radius: 1vw;
+    text-align: center;
+    width: 30vw;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.overlay-content p {
+    font-size: clamp(16px, 2vw, 24px);
+    margin: 0 0 1.5vw 0;
+}
+
+/* Overlay buttons */
+.overlay-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.overlay-btn {
+    color: white;
+    background-color: #26769c;
+    border: none;
+    border-radius: 0.5vw;
+    padding: 0.5vw 2vw;
+    font-size: clamp(14px, 1.5vw, 20px);
+    cursor: pointer;
+}
+
+.overlay-btn:hover {
+    background-color: #2F6781;
 }
 
   /*FOOTER*/
