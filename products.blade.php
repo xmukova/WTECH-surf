@@ -19,25 +19,27 @@
 
 <!-- Navigation + Search Bar-->
 <nav class="text-center my-3">
+
     <form method="GET" action="{{ url()->current() }}" class="search-bar">
         <input type="text" name="search" value="{{ request('search') }}" placeholder=" Search...">
         <button type="submit" class="neviditelny-button"><i class="bi bi-search"></i></button>
     </form>
+
     <div class="container">
         <div class="row g-1">
             <div class="col-12 col-sm-4">
                 <a href="{{ route('products.byCategory', ['category' => 'surfboards']) }}">
-                    <button class="button_navbar">SURFBOARDS</button>
+                    <button class="button_navbar {{ $currentCategory == 'Surfboards' ? 'active_button' : '' }}">SURFBOARDS</button>
                 </a>
             </div>
             <div class="col-12 col-sm-4">
                 <a href="{{ route('products.byCategory', ['category' => 'equipment']) }}">
-                    <button class="button_navbar">EQUIPMENT</button>
+                    <button class="button_navbar {{ $currentCategory == 'Equipment' ? 'active_button' : '' }}">EQUIPMENT</button>
                 </a>
             </div>
             <div class="col-12 col-sm-4">
                 <a href="{{ route('products.byCategory', ['category' => 'accessories']) }}">
-                    <button class="button_navbar">ACCESSORIES</button>
+                    <button class="button_navbar {{ $currentCategory == 'Accessories' ? 'active_button' : '' }}">ACCESSORIES</button>
                 </a>
             </div>
         </div>
@@ -63,93 +65,61 @@
         </div>
     </div>
     <!-- FILTER MENU -->
-    <div id="filter-menu" class="filter-sidebar">
-        <div class="filter-header">
-            <h5>FILTERS</h5>
-            <button id = "close_filter"class="close-btn" aria-label="Close filter"><i class="bi bi-x"></i></button>
-        </div>
-        <!-- Selected Filters -->
-        <div class="selected-filters">
-            <span class="filter-chosen">WHITE <span class="remove-filter">&times; 
-            </span></span>
-            <span class="filter-chosen">GREEN <span class="remove-filter">&times;
-            </span></span>
-            <span class="filter-chosen">0$ - 800$ <span class="remove-filter">&times;
-            </span></span>
-        </div>
-    
-        <!-- filters -->
-        <div class="filter-section">
-            <label class="price_filter">PRICE RANGE</label>
-            <div class="price-range">
-                <span id="min-price">$ 0</span>
-                <span id="max-price">$ 2 000</span>
+    <aside id="filter-menu" class="filter-sidebar">
+            <div class="filter-header">
+                <h5>FILTERS</h5>
+                <button id = "close_filter"class="close-btn" aria-label="Close filter"><i class="bi bi-x"></i></button>
             </div>
-            <input type="range" class="range-slider" min="0" max="2000" step="1">
-        </div>
+        <form method="GET" action="{{ url()->current() }}">    
+            <!-- Selected Filters -->
+            <div class="selected-filters">
+                <span class="filter-chosen">WHITE <span class="remove-filter">&times; 
+                </span></span>
+                <span class="filter-chosen">GREEN <span class="remove-filter">&times;
+                </span></span>
+                <span class="filter-chosen">0$ - 800$ <span class="remove-filter">&times;
+                </span></span>
+            </div>
+        
+            <!-- filters -->
+            <div class="filter-section">
+                <label class="price_filter">PRICE RANGE</label>
+                <div class="price-range">
+                    <span id="min-price">$ 0</span>
+                    <span id="current-price" class = "current_price">$ 1000</span>
+                    <span id="max-price">$ 2 000</span>
+                </div>
+                <input type="range" name="max_price" id="priceRange" class="range-slider" min="0" max="2000" step="1">
+            </div>
 
-        <div class="filter-section">
-            <ul class = "category_filter"> CATEGORY
-                <li>
-                    <input type="checkbox" id="shortboards">
-                    <label for="shortboards">Short-boards</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="middleboards">
-                    <label for="middleboards">Middle-boards</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="longboards">
-                    <label for="longboards">Long-boards</label>
-                </li>
-            </ul>    
-            <ul class = "category_filter"> COLOR
-                <li>
-                    <input type="checkbox" id="red">
-                    <label for="red">Red</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="green">
-                    <label for="green">Green</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="blue">
-                    <label for="blue">Blue</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="yellow">
-                    <label for="yellow">Yellow</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="white">
-                    <label for="white">White</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="black">
-                    <label for="black">Black</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="others">
-                    <label for="others">Others</label>
-                </li>
-            </ul>
-            <ul class = "category_filter">SIZE
-                    <li>
-                        <input type="checkbox" id="sizeS">
-                        <label for="sizeS">S</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="sizeM">
-                        <label for="sizeM">M</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="sizeL">
-                        <label for="sizeL">L</label>
-                    </li>
-            </ul>
-        </div>
-        <button class="koniec_filter">Apply Filters</button>
-    </div>
+            <div class="filter-section">
+                <ul class = "category_filter"> SUBCATEGORY
+                    @foreach ($subcategories as $subcategory)
+                        <li>
+                            <input type="checkbox" name="subcategory[]" value="{{ $subcategory->id }}" id="sub-{{ $subcategory->id }}"
+                                {{ in_array($subcategory->id, request()->input('subcategory', [])) ? 'checked' : '' }}>
+                            <label for="sub-{{ $subcategory->id }}">{{ $subcategory->name }}</label>
+                        </li>
+                    @endforeach
+                </ul>    
+                <ul class = "category_filter"> COLOR
+                    <li><input type="checkbox" name="color[]" value="red" id="red"><label for="red">Red</label></li>
+                    <li><input type="checkbox" name="color[]" value="green" id="green"><label for="green">Green</label></li>
+                    <li><input type="checkbox" name="color[]" value="blue" id="blue"><label for="blue">Blue</label></li>
+                    <li><input type="checkbox" name="color[]" value="yellow" id="yellow"><label for="yellow">Yellow</label></li>
+                    <li><input type="checkbox" name="color[]" value="white" id="white"><label for="white">White</label></li>
+                    <li><input type="checkbox" name="color[]" value="black" id="black"><label for="black">Black</label></li>
+                    <li><input type="checkbox" name="color[]" value="other" id="others"><label for="others">Others</label></li>
+                </ul>
+                <ul class = "category_filter">SIZE
+                    <li><input type="checkbox" name="size[]" value="S" id="sizeS"><label for="sizeS">S</label></li>
+                    <li><input type="checkbox" name="size[]" value="M" id="sizeM"><label for="sizeM">M</label></li>
+                    <li><input type="checkbox" name="size[]" value="L" id="sizeL"><label for="sizeL">L</label></li>
+                </ul>
+            </div>
+            <button class="koniec_filter" type="submit">Apply Filters</button>
+        </form>
+    </aside>
     <div id = "efekt" class = "overlay"></div>    
     
 </nav> 
@@ -157,7 +127,7 @@
 
 <!-- PRODUCTS SECTION -->
 <div class="container my-4">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="row  row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         <!-- Product Card -->
         @foreach($products as $product)
             <div class="col">
@@ -166,14 +136,12 @@
                         @if ($product->mainImage)
                             <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}">
                         @endif
-
+                        <!-- <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"> -->
                         <div class="produkt-ikonky">
-                            <!-- Add/Remove from favorites -->
-                            @php
-                                $isFavorite = auth()->check() && auth()->user()->favorites->contains('id', $product->id);
-                            @endphp
-
                             @if(auth()->check())
+                                @php
+                                    $isFavorite = auth()->user()->favorites->contains($product->id);
+                                @endphp 
                                 <form action="{{ $isFavorite ? route('favorites.remove', $product->id) : route('favorites.add', $product->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @if($isFavorite)
@@ -184,17 +152,40 @@
                                     </button>
                                 </form>
                             @else
-                                <button class="button-ikonka" aria-label="Please log in to favorite">
+                                <button class="button-ikonka" aria-label="First log in to favorite" onclick="event.preventDefault(); showLoginOverlay()">
                                     <i class="bi bi-heart"></i>
                                 </button>
                             @endif
 
-                            <!-- Add to cart -->
-                            <button class="button-ikonka" aria-label="Add to cart">
-                                <i class="bi bi-bag"></i>
-                            </button>
-                        </div>
+                            <form method="POST" action="{{ route('addToCart', ['id' => $product->id]) }}" class="d-inline">
+                                @csrf
+                                @php
+                                    $sizes = array_map('trim', explode(',', $product->size));
+                                    $defaultSize = count($sizes) > 0 ? $sizes[0] : null;
+                                    $inCart = false;
+                                    if (auth()->check()) {
+                                        $inCart = auth()->user()->cartItems->contains(function ($item) use ($product) {
+                                            return $item->product_id == $product->id;
+                                        });
+                                    } else {
+                                        $sessionCart = session()->get('cart', []);
+                                        foreach ($sessionCart as $item) {
+                                            if (isset($item['product_id']) && $item['product_id'] == $product->id) {
+                                                $inCart = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                @endphp
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="select_size" value="{{ $defaultSize }}">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="button-ikonka" aria-label="Add to cart">
+                                    <i class="bi {{ $inCart ? 'bi-bag-check-fill' : 'bi-bag' }}"></i>
+                                </button>
+                            </form>
 
+                        </div>
                         <div class="card-body text-center">
                             <h5 class="card-title text_produkt">{{ $product->name }}</h5>
                             <p class="card-text text_cena">${{ number_format($product->price, 2) }}</p>
@@ -203,6 +194,7 @@
                 </a>
             </div>
         @endforeach
+
     </div>
 </div>
 
@@ -229,4 +221,17 @@
         <button class="strankovanie_sipka" aria-label="Pages right" disabled><i class="bi bi-chevron-right"></i></button>
     @endif
 </div>
+
+
+<!-- overlay pre prihlasenie -->
+<div id="login-overlay" class="login-overlay" style="display: none;">
+    <div class="overlay-content">
+        <p>You must first log in to add favorites. Would you like to log/sign in?</p>
+        <div class="overlay-buttons">
+            <a href="{{ route('login') }}" class="overlay-btn">Yes</a>
+            <button class="overlay-btn" onclick="closeOverlay()">No</button>
+        </div>
+    </div>
+</div>
+
 @endsection

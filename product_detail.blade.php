@@ -37,14 +37,13 @@
                         @php
                             // Default fallback image
                             $fallbackImage = 'images/products/detail_green_tail.jpg'; 
-
                             // Check product category and update fallback image accordingly
                             if ($product->category_id === 1) {
-                                $fallbackImage = 'images/products/detail_green_tail.jpg'; // Surfboard-specific fallback
+                                $fallbackImage = 'images/products/surf10_detail1.jpg'; // Surfboard-specific fallback
                             } elseif ($product->category_id === 2) {
-                                $fallbackImage = 'images/products/leash2.jpg'; // Accessory-specific fallback
+                                $fallbackImage = 'images/products/fin3_detail1.jpg'; // Accessory-specific fallback
                             } elseif ($product->category_id === 3) {
-                                $fallbackImage = 'images/products/cap.jpg'; // Equipment-specific fallback
+                                $fallbackImage = 'images/products/hat1.jpg'; // Equipment-specific fallback
                             }
 
                             // Debug: Output the category ID and selected fallback image
@@ -77,6 +76,7 @@
             <div class="short_description">
                 {!! nl2br(e($product->short_description)) !!}
             </div>
+
             <form method="POST" action="{{ route('addToCart', ['id' => $product->id]) }}">
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -106,67 +106,33 @@
                 <div class="price">
                     <p>{{ $product->price }}$</p>
                 </div>
-                @php
-                    $isFavorite = auth()->check() && auth()->user()->favorites->contains($product->id);
-                @endphp
-
                 <div class="fav-buy">
-                    @if(auth()->check())
-                        <form action="{{ $isFavorite ? route('favorites.remove', $product->id) : route('favorites.add', $product->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @if($isFavorite)
-                                @method('DELETE')
-                            @endif
-                            <button type="submit" class="fav-button" aria-label="{{ $isFavorite ? 'Remove from favorites' : 'Add to favorites' }}">
-                                <i class="bi {{ $isFavorite ? 'bi-heart-fill' : 'bi-heart' }} smaller"></i>
-                            </button>
-                        </form>
-                    @else
-                        <button type="button" class="fav-button" onclick="showLoginOverlay()" aria-label="Log in to add to favorites">
-                            <i class="bi bi-heart smaller"></i>
-                        </button>
-                    @endif
-
                     <button type="submit" class="buy-button">Buy</button>
                 </div>
-
-
-                <!-- Overlay pre neprihlásených používateľov -->
-                <div id="login-overlay" class="login-overlay">
-                    <div class="overlay-content">
-                        <p>Would you like to sign in?</p>
-                        <div class="overlay-buttons">
-                            <a href="{{ route('login') }}" class="overlay-btn">Yes</a>
-                            <button id="sign-in-no" class="overlay-btn">No</button>
-                        </div>
-                    </div>
-                </div>
-
             </form>
 
-
-            <!-- <div class="dropdown">
-                <div class="size_quantity">
-                    <form class="size_form">
-                        <select name="select_size" id="sizes">
-                            <option value="S">Short &nbsp;&nbsp;5'8''</option>
-                            <option value="M">Middle &nbsp;&nbsp;6'11''</option>
-                            <option value="L">Long &nbsp;&nbsp;7'2''</option>
-                            <option value="XL">Extra Long &nbsp;&nbsp;9'6''</option>
-                        </select>
+            <div class="fav-buy"> 
+                @if(auth()->check())
+                    @php
+                        $isFavorite = auth()->user()->favorites->contains($product->id);
+                    @endphp
+                    <form action="{{ $isFavorite ? route('favorites.remove', $product->id) : route('favorites.add', $product->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @if($isFavorite)
+                            @method('DELETE')
+                        @endif
+                        <button type="submit" class="fav-button" aria-label="{{ $isFavorite ? 'Remove from favorites' : 'Add to favorites' }}">
+                            <i class="bi {{ $isFavorite ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                        </button>
                     </form>
-                    <div class="number-picker">
-                        <input type="number" id="quantity" value="1" min="1">
-                    </div>
-                </div>
+                @else
+                    <button class="fav-button" aria-label="First log in to favorite" onclick="event.preventDefault(); showLoginOverlay()">
+                        <i class="bi bi-heart"></i>
+                    </button>
+                @endif                
             </div>
-            <div class="price">
-                <p>{{ number_format($product->price, 2, ',', ' ') }}$</p>
-            </div>
-            <div class="fav-buy">
-                <button class="fav-button"> <i class="bi bi-heart smaller" ></i></button>
-                <a href="{{ route('addToCart', ['id' => $product->id]) }}" class="buy-button">Buy</a>
-            </div> -->
+
+
 
             <div class="dropdown-features">
                 <!-- FEATURES -->
@@ -274,7 +240,14 @@
         </div>
     </div>
 
-
-
-
+    <!-- overlay pre prihlasenie -->
+    <div id="login-overlay" class="login-overlay" style="display: none;">
+        <div class="overlay-content">
+            <p>You must first log in to add favorites. Would you like to log/sign in?</p>
+            <div class="overlay-buttons">
+                <a href="{{ route('login') }}" class="overlay-btn">Yes</a>
+                <button class="overlay-btn" onclick="closeOverlay()">No</button>
+            </div>
+        </div>
+    </div>
 @endsection

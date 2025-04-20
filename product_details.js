@@ -105,18 +105,6 @@ imageOverlay.addEventListener('click', (e) => {
     }
 });
 
-// FAVOURITE HEART FILL
-const favButton = document.querySelector('.fav-button');
-if (favButton) {
-    const heartIcon = favButton.querySelector('.bi-heart.smaller');
-    if (heartIcon) {
-        favButton.addEventListener('click', function () {
-            heartIcon.classList.toggle('bi-heart');
-            heartIcon.classList.toggle('bi-heart-fill');
-        });
-    }
-}
-
 // CART COUNT - BUY BUTTON
 const buyButton = document.querySelector('.buy-button');
 const cartCount = document.querySelector('.cart-count');
@@ -161,30 +149,31 @@ function updateQuantity() {
     document.getElementById('quantity-input').value = quantity;
 }
 
+// function showLoginOverlay() {
+//     const overlay = document.getElementById('login-overlay');
+//     overlay.style.display = 'flex';
+// }
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     const signInNo = document.getElementById('sign-in-no');
+//     const overlay = document.getElementById('login-overlay');
+
+//     signInNo.addEventListener('click', () => {
+//         overlay.style.display = 'none';
+//     });
+
+//     overlay.addEventListener('click', (e) => {
+//         if (e.target === overlay) {
+//             overlay.style.display = 'none';
+//         }
+//     });
+// });
+
+// LOG IN OVERLAY (pri favorites)
 function showLoginOverlay() {
-    const overlay = document.getElementById('login-overlay');
-    overlay.style.display = 'flex';
+    document.getElementById('login-overlay').style.display = 'flex';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const signInNo = document.getElementById('sign-in-no');
-    const overlay = document.getElementById('login-overlay');
-
-    signInNo.addEventListener('click', () => {
-        overlay.style.display = 'none';
-    });
-
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-            overlay.style.display = 'none';
-        }
-    });
-});
-
-// REMOVE FROM FAVORITES----------------------------------------------------------------------------------------------------------------------
-function deletePhoto(button) {
-    const produkt = button.closest('.col');
-    produkt.remove();
+function closeOverlay() {
+    document.getElementById('login-overlay').style.display = 'none';
 }
-
-
