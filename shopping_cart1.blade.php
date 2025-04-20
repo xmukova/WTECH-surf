@@ -2,6 +2,11 @@
 
 @section('title', 'Shopping cart')
 
+<!-- napis maui surf -->
+@php
+    $showOverlay = true;
+@endphp
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/shopping_cart1.css') }}">
 @endpush
@@ -22,7 +27,6 @@
 
     <div class="bag">
         <div class="products">
-            @php $total = 0; @endphp
 
             @foreach ($cartItems as $item)
                 @php
@@ -31,7 +35,6 @@
                     $quantity = $item->quantity;
                     $size = $item->size;
                     $price = $product->price;
-                    $total += $price * $quantity;
                 @endphp
 
                 <div class="product">
@@ -95,17 +98,25 @@
                 <p class="total"><span class="bold2">Total: </span>{{ number_format($total, 2) }} $</p>
             </div>
             <a href="{{ route('products') }}"><button class="shop-button">Continue Shopping</button></a>
-            <button class="checkout-button">Checkout</button>
+            <button class="checkout-button"
+                @auth
+                    onclick="window.location.href='{{ route('shopping_cart2') }}'"
+                @else
+                    onclick="showLoginOverlay()"
+                @endauth
+            >
+                Checkout
+            </button>
         </div>
     </div>
 
     <!-- sign in overlay -->
-    <div id="login-overlay" class="overlay">
+    <div id="login-overlay" class="login-overlay">
         <div class="overlay-content">
             <p>Would you like to sign in?</p>
             <div class="overlay-buttons">
-                <button id="sign-in-yes" class="overlay-btn">Yes</button>
-                <button id="sign-in-no" class="overlay-btn">No</button>
+                <a href="{{ route('login') }}" class="overlay-btn">Yes</a>
+                <a href="{{ route('shopping_cart2') }}" class="overlay-btn">No</a>
             </div>
         </div>
     </div>

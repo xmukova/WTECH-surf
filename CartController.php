@@ -17,15 +17,14 @@ class CartController extends Controller
                 ->where('user_id', Auth::id())
                 ->orderBy('id') // alebo orderBy('id')
                 ->get();
-
         } else {
             $cart = session()->get('cart', []);
             $cartItems = [];
-    
+        
             foreach ($cart as $item) {
                 // ⛔️ Tu vznikal error, keď `$item` neobsahoval 'product_id'
                 if (!isset($item['product_id'])) continue;
-    
+        
                 $product = Product::find($item['product_id']);
                 if ($product) {
                     $product->quantity = $item['quantity'];
@@ -35,16 +34,20 @@ class CartController extends Controller
             }
         }
     
+        // Výpočet celkovej ceny
         $total = 0;
         foreach ($cartItems as $item) {
-            $total += $item->price * $item->quantity;
+            $product = $item instanceof \App\Models\Product ? $item : $item->product;
+            $total += $product->price * $item->quantity;
         }
     
+        // Vraciame pohľad s cartItems a celkovou cenou
         return view('shopping_cart1', [
             'cartItems' => $cartItems,
             'total' => $total
         ]);
     }
+    
     
     
     public function addToCart(Request $request, $id)
@@ -191,9 +194,65 @@ class CartController extends Controller
     
     public function step2()
     {
-        return view('shopping_cart2');
+        // Check if the user is authenticated
+        if (Auth::check()) {
+            // Retrieve the authenticated user's information
+            $user = Auth::user();
+    
+            // Split the name into first name and last name
+            $nameParts = explode(' ', $user->name);
+            $firstName = $nameParts[0]; // First part is the first name
+            $lastName = isset($nameParts[1]) ? $nameParts[1] : ''; // Second part is the last name
+    
+            // Get the cart items from the database
+            $cartItems = CartItem::with('product')
+                ->where('user_id', Auth::id())
+                ->orderBy('id')
+                ->get();
+        } else {
+            // Handle guest user (session data)
+            $cart = session()->get('cart', []);
+            $cartItems = [];
+    
+            foreach ($cart as $item) {
+                if (!isset($item['product_id'])) continue;
+    
+                $product = Product::find($item['product_id']);
+                if ($product) {
+                    $product->quantity = $item['quantity'];
+                    $product->size = $item['size'];
+                    $cartItems[] = $product;
+                }
+            }
+    
+            // Set default values for the fields
+            $firstName = '';
+            $lastName = '';
+            $phone = '';
+            $email = '';
+            $country = '';
+        }
+    
+        // Calculate the total cost of the cart
+        $total = 0;
+        foreach ($cartItems as $item) {
+            $product = $item instanceof \App\Models\Product ? $item : $item->product;
+            $total += $product->price * $item->quantity;
+        }
+    
+        // Return the view with cart items and user information
+        return view('shopping_cart2', [
+            'cartItems' => $cartItems,
+            'total' => $total,
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'phone' => $user->phone_number ?? $phone,
+            'email' => $user->email ?? $email,
+            'country' => $user->country ?? $country,
+        ]);
     }
-
+    
+    
     public function step3()
     {
         return view('shopping_cart3');

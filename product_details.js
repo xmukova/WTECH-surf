@@ -15,6 +15,41 @@ window.addEventListener("scroll", function () {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const biListIcon = document.querySelector('.bi-list');
+    const productOverviewContainer = document.getElementById('product-overview');
+
+    if (biListIcon && productOverviewContainer) {
+        biListIcon.addEventListener('click', function () {
+            productOverviewContainer.classList.toggle('visible');
+        });
+    } else {
+        console.warn('Product overview elements (.bi-list or #product-overview) not found.');
+    }
+
+    function toggleSubcategories(categoryId, subcategoryId) {
+        const category = document.getElementById(categoryId);
+        const subcategories = document.getElementById(subcategoryId);
+
+        if (category && subcategories) {
+            category.addEventListener('click', function () {
+                if (subcategories.style.display === 'none' || subcategories.style.display === '') {
+                    subcategories.style.display = 'block';
+                } else {
+                    subcategories.style.display = 'none';
+                }
+            });
+        } else {
+            console.warn(`Subcategory toggle failed: #${categoryId} or #${subcategoryId} not found.`);
+        }
+    }
+
+    toggleSubcategories('surfboards', 'surfboards-subcategories');
+    toggleSubcategories('equipment', 'equipment-subcategories');
+    toggleSubcategories('accessories', 'accessories-subcategories');
+});
+
+
 // CAROUSEL
 if (window.matchMedia('(max-width: 576px)').matches) {
     const carouselTrack = document.querySelector('.carousel_track');
@@ -69,35 +104,6 @@ imageOverlay.addEventListener('click', (e) => {
         imageOverlay.classList.remove('active');
     }
 });
-
-// PRODUCT OVERVIEW
-const biListIcon = document.querySelector('.bi-list');
-const productOverviewContainer = document.getElementById('product-overview');
-
-if (biListIcon && productOverviewContainer) {
-    biListIcon.addEventListener('click', function () {
-        productOverviewContainer.classList.toggle('visible');
-    });
-}
-
-function toggleSubcategories(categoryId, subcategoryId) {
-    const category = document.getElementById(categoryId);
-    const subcategories = document.getElementById(subcategoryId);
-
-    if (category && subcategories) {
-        category.addEventListener('click', function () {
-            if (subcategories.style.display === 'none' || subcategories.style.display === '') {
-                subcategories.style.display = 'block';
-            } else {
-                subcategories.style.display = 'none';
-            }
-        });
-    }
-}
-
-toggleSubcategories('surfboards', 'surfboards-subcategories');
-toggleSubcategories('equipment', 'equipment-subcategories');
-toggleSubcategories('accessories', 'accessories-subcategories');
 
 // FAVOURITE HEART FILL
 const favButton = document.querySelector('.fav-button');
@@ -174,5 +180,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// REMOVE FROM FAVORITES----------------------------------------------------------------------------------------------------------------------
+function deletePhoto(button) {
+    const produkt = button.closest('.col');
+    produkt.remove();
+}
 
 

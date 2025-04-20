@@ -2,6 +2,11 @@
 
 @section('title', 'Product Detail')
 
+<!-- pre maui surf nazov v headeri -->
+@php
+    $showOverlay = true;
+@endphp
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/product_details.css') }}">
 @endpush

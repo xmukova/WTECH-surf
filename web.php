@@ -63,16 +63,16 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product_detail');
 
 
-// CART
+// CART step1
 Route::get('/cart_step1', [CartController::class, 'step1'])->name('shopping_cart1');
 Route::delete('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
 Route::post('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
 Route::put('/cart/update/{id}', [CartController::class, 'updateCartItem'])->name('updateCartItem');
 
-
-
-
+// CART step2
 Route::get('/cart_step2', [CartController::class, 'step2'])->name('shopping_cart2');
+
+
 Route::get('/cart_step3', [CartController::class, 'step3'])->name('shopping_cart3');
 
 
