@@ -27,7 +27,8 @@
     </div>
     <div class="bag">
         <div class="fill-info">
-            <form id="checkout-form" class="checkout-form" autocomplete="on">
+            <form id="checkout-form" class="checkout-form" method="POST" action="{{ route('order.process') }}">
+                @csrf
                 <div class="customer-shipping">
                     <p>Customer Information</p>
 
@@ -70,8 +71,14 @@
                     <div class="shipping-method">
                         <p>Shipping Method</p>
                         <div class="shipping-radios">
-                            <label><input type="radio" name="shipping" value="standard" required checked> Standard Shipping <span>3,99$</span></label>
-                            <label><input type="radio" name="shipping" value="express"> Express Shipping <span>6,99$</span></label>
+                            <label>
+                                <input type="radio" name="shipping" value="standard" data-cost="3.99" required checked> 
+                                Standard Shipping <span>3,99$</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="shipping" value="express" data-cost="6.99"> 
+                                Express Shipping <span>6,99$</span>
+                            </label>
                         </div>
                     </div>
 
@@ -82,6 +89,7 @@
                             <label><input type="radio" name="payment" value="applepay"> Apple Pay</label>
                             <label><input type="radio" name="payment" value="paypal"> PayPal</label>
                             <label><input type="radio" name="payment" value="googlepay"> Google Pay</label>
+                            <label><input type="radio" name="payment" value="cod"> Cash On Delivery</label>
                         </div>
                     </div>
                 </div>
@@ -111,6 +119,7 @@
         <div class="buttons">
             <div class="final-info">
                 <p class="shipping-cost"><span class="bold2">Shipping: </span>3.99$</p>
+                <div id="cart-data" data-total="{{ $total }}"></div>
                 <p class="total"><span class="bold2">Total: </span>{{ number_format($total, 2) }}$</p>
             </div>
             <a href="{{ route('shopping_cart1') }}"><button class="shop-button">Go Back</button></a>

@@ -37,7 +37,8 @@
                     <img src="images/googlepay.png" alt="google pay is supported" class="supported-pay-img">
                 </div>
             </div>
-            <form id="checkout-form" class="checkout-form">
+            <form id="checkout-form" class="checkout-form" method="POST" action="{{ route('order.process') }}">
+                @csrf
                 <p>Card Information</p>
                 <input type="text" name="cardName" placeholder="Name on Card" required>
                 <input type="text" name="cardNum" placeholder="Card Number" pattern="[0-9]{13,16}" maxlength="19" required>
@@ -49,8 +50,8 @@
         </div>
         <div class="buttons">
             <div class="final-info">
-                <p class="shipping-cost"><span class="bold2">Shipping: </span>3.99$</p>
-                <p class="total"><span class="bold2">Total: </span>86.99$</p>
+                <p class="shipping-cost"><span class="bold2">Shipping: </span><span id="shipping-amount">—</span></p>
+                <p class="total"><span class="bold2">Total: </span><span id="total-amount">—</span></p>
             </div>
             <a href="{{ route('shopping_cart2') }}"><button class="shop-button">Go Back</button></a>
             <button type="submit" form="checkout-form" id="purchase-button" class="checkout-button" disabled>Purchase</button>
