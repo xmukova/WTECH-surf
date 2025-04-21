@@ -53,7 +53,7 @@ header {
   top: -7px;
 }
 
-.icons a{
+.icons a, .overlay-btn{
   text-decoration: none;  
   color: inherit;          
   font: inherit; 
@@ -515,8 +515,9 @@ padding: 0 5px;
   border-radius: 1vw;
   text-align: center;
   width: 30vw;
-  max-width: 700px;
+  max-width: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-weight: 100;
 }
 
 .overlay-content p {
@@ -531,7 +532,6 @@ padding: 0 5px;
 }
 
 .overlay-btn {
-  text-decoration: none;
   color: white;
   background-color: #26769c;
   border: none;
@@ -545,7 +545,39 @@ padding: 0 5px;
   background-color: #2F6781;
 }
 
+@media (max-width: 768px) {
+    /* OVERLAY LOG IN */
+    .overlay-content {
+      width: 60vw !important;
+      padding: 10vw !important;
+  }
+  .overlay-content p {
+      font-size: clamp(14px, 3vw, 20px) !important;
+  }
+  .overlay-btn {
+      margin-top: 3vw;
+      padding: 1vw 3vw !important;
+      font-size: clamp(12px, 2.5vw, 16px) !important;
+  }
+}
 
+/* NOTIFIKACIA */
+.cart-notification {
+  position: fixed;
+  top: 70px; /* Pozícia pod hlavičkou */
+  right: -300px; /* Začína mimo obrazovky */
+  background-color: #418fb47b;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: right 0.5s ease-in-out;
+  z-index: 9999;
+}
+
+.cart-notification.show {
+  right: 10px;
+}
 /* FOOTER */
 .footer {
   background-color: #26769C;

@@ -59,3 +59,36 @@ function showLoginOverlay() {
 function closeOverlay() {
     document.getElementById('login-overlay').style.display = 'none';
 }
+
+// ADDED TO CART NOTIFICATION ---------------------------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', function () {
+    const flashEl = document.getElementById('flash-data');
+    if (flashEl) {
+        const successMessage = flashEl.dataset.success;
+        if (successMessage) {
+            showCartNotification(successMessage);
+        }
+    }
+});
+
+function showCartNotification(message) {
+    const notification = document.createElement('div');
+    notification.classList.add('cart-notification');
+    notification.innerText = message;
+    document.body.appendChild(notification);
+
+    // Force reflow before adding the class (important!)
+    requestAnimationFrame(() => {
+        notification.classList.add('show');
+    });
+
+    // Remove after 4s
+    setTimeout(() => {
+        notification.classList.remove('show');
+
+        // Remove from DOM after transition ends
+        setTimeout(() => {
+            notification.remove();
+        }, 500); // match your CSS transition duration
+    }, 4000);
+}

@@ -222,7 +222,6 @@
     @endif
 </div>
 
-
 <!-- overlay pre prihlasenie -->
 <div id="login-overlay" class="login-overlay" style="display: none;">
     <div class="overlay-content">
@@ -233,5 +232,8 @@
         </div>
     </div>
 </div>
+@if(session('success'))
+    <div id="flash-data" data-success="{{ session('success') }}"></div>
+@endif
 
 @endsection
