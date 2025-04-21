@@ -5,15 +5,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
-// Route::get('/', function () {
-//     return view('homepage');
-// })->name('homepage');
 
-// Route::get('/', [ProductController::class, 'homepage'])->name('homepage');
 Route::get('/', [ProductController::class, 'homepage'])->name('homepage');
-
-
 
 Route::get('/login', function () {
     return view('login');
@@ -58,7 +53,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
 });
 
-
 // DETAIL PRODUKTU
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product_detail');
 
@@ -71,8 +65,13 @@ Route::put('/cart/update/{id}', [CartController::class, 'updateCartItem'])->name
 
 // CART step2
 Route::get('/cart_step2', [CartController::class, 'step2'])->name('shopping_cart2');
+Route::post('/save-order-session', [OrderController::class, 'saveOrderToSession']);
 
-
+// CART step3
 Route::get('/cart_step3', [CartController::class, 'step3'])->name('shopping_cart3');
+Route::post('/process-order-session', [OrderController::class, 'processOrderSession']);
 
-
+// ULOZENIE ORDER
+Route::post('/order', [OrderController::class, 'process'])->name('order.process');
+Route::post('/ordersession', [OrderController::class, 'processFromSession'])->name('order.processFromSession');
+Route::get('/confirmation', [OrderController::class, 'confirmation'])->name('confirmation');

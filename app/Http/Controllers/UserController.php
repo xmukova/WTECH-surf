@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Product;
 
 
 class UserController extends Controller{
@@ -36,6 +37,7 @@ class UserController extends Controller{
 
         // Presmerovanie na domovskú stránku
         return redirect()->route('homepage');
+        // return redirect()->intended($request->input('redirect', route('homepage')));
     }
 
 
@@ -45,26 +47,30 @@ class UserController extends Controller{
             'email' => 'required|email',
             'password' => 'required|string|min:8',
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->route('login')
                 ->withErrors($validator, 'login')
                 ->withInput();
         }
-
+    
         // Pokus o prihlásenie
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('homepage');
+            return redirect()->intended($request->input('redirect', route('homepage')));
         } else {
             return redirect()->route('login')
                 ->withErrors(['email' => 'Invalid email or password'], 'login')
                 ->withInput();
         }
     }
+    
 
     public function profile(){
         $user = Auth::user(); 
-        return view('profile', compact('user'));
+        // $all_products = Product::all();
+        // return view('profile', compact('user', 'all_products'));
+        $orders = $user->orders()->with('items')->get();
+        return view('profile', compact('user', 'orders'));
     }
 
     public function logout(Request $request){
