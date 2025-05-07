@@ -49,7 +49,31 @@ function closeFilterMenu() {
     filterMenu.classList.remove("visible");  
     efekt.style.display = "none"; 
 }
+// pohyblivy a interaktivny price slider
+const minSlider = document.getElementById('slider-1');
+const maxSlider = document.getElementById('slider-2');
+const minPriceText = document.getElementById('min-price');
+const maxPriceText = document.getElementById('max-price');
 
+function updatePrices() {
+    let minVal = parseInt(minSlider.value);
+    let maxVal = parseInt(maxSlider.value);
+
+    // Zabezpeč, že min nie je väčší ako max
+    if (minVal > maxVal) {
+        [minVal, maxVal] = [maxVal, minVal];
+    }
+
+    minPriceText.textContent = `$ ${minVal}`;
+    maxPriceText.textContent = `$ ${maxVal}`;
+}
+
+if (minSlider && maxSlider && minPriceText && maxPriceText) {
+    updatePrices();
+
+    minSlider.addEventListener('input', updatePrices);
+    maxSlider.addEventListener('input', updatePrices);
+}
 
 // LOG IN OVERLAY (pri favorites)
 function showLoginOverlay() {
@@ -58,37 +82,4 @@ function showLoginOverlay() {
 
 function closeOverlay() {
     document.getElementById('login-overlay').style.display = 'none';
-}
-
-// ADDED TO CART NOTIFICATION ---------------------------------------------------------------------------------
-document.addEventListener('DOMContentLoaded', function () {
-    const flashEl = document.getElementById('flash-data');
-    if (flashEl) {
-        const successMessage = flashEl.dataset.success;
-        if (successMessage) {
-            showCartNotification(successMessage);
-        }
-    }
-});
-
-function showCartNotification(message) {
-    const notification = document.createElement('div');
-    notification.classList.add('cart-notification');
-    notification.innerText = message;
-    document.body.appendChild(notification);
-
-    // Force reflow before adding the class (important!)
-    requestAnimationFrame(() => {
-        notification.classList.add('show');
-    });
-
-    // Remove after 4s
-    setTimeout(() => {
-        notification.classList.remove('show');
-
-        // Remove from DOM after transition ends
-        setTimeout(() => {
-            notification.remove();
-        }, 500); // match your CSS transition duration
-    }, 4000);
 }

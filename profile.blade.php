@@ -60,13 +60,21 @@
                             <li class="list-group-item">
                                 <div class="d-flex align-items-center">
                                     @php
-                                        $product = \App\Models\Product::with('mainImage')->find($item->product_id);
+                                        $product = \App\Models\Product::with(['mainImage', 'images'])->find($item->product_id);
                                     @endphp
-                                    @if ($product && $product->mainImage)
-                                        <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="product_order_image">
-                                    @else 
-                                        <img src="/images/logo.png" alt="No image" class="product_order_image">
+
+                                    @if ($product)
+                                        @if ($product->mainImage)
+                                            <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="product_order_image">
+                                        @elseif ($product->images->isNotEmpty())
+                                            <img src="{{ asset($product->images->first()->image_path) }}" alt="{{ $product->name }}" class="product_order_image">
+                                        @else 
+                                            <img src="/images/logo.png" alt="No image" class="product_order_image">
+                                        @endif
+                                    @else
+                                        <img src="/images/product_not_in_stock.jpg" alt="Product is not in stock anymore" class="product_order_image">
                                     @endif
+
                                     <div>
                                         <p class="order_title">{{ $item->product_name }}</p>
                                         <p class="order_details">
@@ -88,6 +96,7 @@
                             </li>
                         @endforeach
                     @endforeach
+
                 </ul>
 
                 <ul class="list-group">

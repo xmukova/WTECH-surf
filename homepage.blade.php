@@ -37,74 +37,102 @@
         <!-- Surfboards Section -->
         <div class="product_left">
             @if ($surfboards->isNotEmpty())
-                <a href="{{ route('product_detail', ['id' => $surfboards[0]->id]) }}" class = "link_neviditelny">
-                    @if ($surfboards[0]->mainImage)
-                        <img src="{{ asset($surfboards[0]->mainImage->image_path) }}" alt="{{ $surfboards[0]->name }}" class="surfboard_picture darker">
+                @php
+                    $firstProduct = $surfboards[0];
+                    $firstImage = $firstProduct->mainImage ?? $firstProduct->images->first();
+                @endphp
+                <a href="{{ route('product_detail', ['id' => $firstProduct->id]) }}" class="link_neviditelny">
+                    @if ($firstImage)
+                        <img src="{{ asset($firstImage->image_path) }}" alt="{{ $firstProduct->name }}" class="surfboard_picture darker">
                     @endif
                 </a>
             @endif
+
             <div class="surfboard_products">
                 <div class="three_products">
-                    @foreach ($surfboards->skip(1) as $product) <!-- Skip the first one -->
-                        <a href="{{ route('product_detail', ['id' => $product->id]) }}" class = "link_neviditelny">
-                            @if ($product->mainImage)
-                                <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="surfboard_product darker">
+                    @foreach ($surfboards->skip(1) as $product)
+                        @php
+                            $image = $product->mainImage ?? $product->images->first();
+                        @endphp
+                        <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny">
+                            @if ($image)
+                                <img src="{{ asset($image->image_path) }}" alt="{{ $product->name }}" class="surfboard_product darker">
                             @endif
                         </a>
                     @endforeach
 
-                    <!-- If there are less than 4 products, repeat the available ones to fill the space -->
                     @if ($surfboards->count() < 4)
-                        @foreach ($surfboards->take(4 - $surfboards->count()) as $product) <!-- Repeat the available products -->
-                            <a href="{{ route('product_detail', ['id' => $product->id]) }}" class = "link_neviditelny">
-                                @if ($product->mainImage)
-                                    <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="surfboard_product darker">
+                        @foreach ($surfboards->take(4 - $surfboards->count()) as $product)
+                            @php
+                                $image = $product->mainImage ?? $product->images->first();
+                            @endphp
+                            <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny">
+                                @if ($image)
+                                    <img src="{{ asset($image->image_path) }}" alt="{{ $product->name }}" class="surfboard_product darker">
                                 @endif
                             </a>
                         @endforeach
                     @endif
+
                     <div class="pretty-box">
                         <p class="pretty-text">Surfboards</p>
                     </div>
                 </div>
+
                 <div class="surfboard_button">
-                    <a href="{{ route('products.byCategory', ['category' => 'Surfboards']) }}"><button class="custom-btn">More</button></a>
+                    <a href="{{ route('products.byCategory', ['category' => 'Surfboards']) }}">
+                        <button class="custom-btn">More</button>
+                    </a>
                 </div>
             </div>
         </div>
 
+
         <!-- Equipment Section -->
         <div class="product_right">
             @if ($equipment->isNotEmpty())
-                <a href="{{ route('product_detail', ['id' => $equipment[0]->id]) }}" class = "link_neviditelny">
-                    @if ($equipment[0]->mainImage)
-                        <img src="{{ asset($equipment[0]->mainImage->image_path) }}" alt="{{ $equipment[0]->name }}" class="equipment_picture darker">
+                @php
+                    $firstProduct = $equipment[0];
+                    $firstImage = $firstProduct->mainImage ?? $firstProduct->images->first();
+                @endphp
+                <a href="{{ route('product_detail', ['id' => $firstProduct->id]) }}" class="link_neviditelny">
+                    @if ($firstImage)
+                        <img src="{{ asset($firstImage->image_path) }}" alt="{{ $firstProduct->name }}" class="equipment_picture darker">
                     @endif
                 </a>
             @endif
+
             <div class="equipment_products">
                 <div class="three_products">
-                    @foreach ($equipment->skip(1) as $product) <!-- Skip the first one -->
-                        <a href="{{ route('product_detail', ['id' => $product->id]) }}" class = "link_neviditelny">
-                            @if ($product->mainImage)
-                                <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="equipment_product darker">
+                    @foreach ($equipment->skip(1) as $product)
+                        @php
+                            $image = $product->mainImage ?? $product->images->first();
+                        @endphp
+                        <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny">
+                            @if ($image)
+                                <img src="{{ asset($image->image_path) }}" alt="{{ $product->name }}" class="equipment_product darker">
                             @endif
                         </a>
                     @endforeach
 
-                    <!-- If there are less than 4 products, repeat the available ones to fill the space -->
                     @if ($equipment->count() < 4)
-                        @foreach ($equipment->take(4 - $equipment->count()) as $product) <!-- Repeat the available products -->
-                            <a href="{{ route('product_detail', ['id' => $product->id]) }}" class = "link_neviditelny">
-                                @if ($product->mainImage)
-                                    <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="equipment_product darker">
+                        @foreach ($equipment->take(4 - $equipment->count()) as $product)
+                            @php
+                                $image = $product->mainImage ?? $product->images->first();
+                            @endphp
+                            <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny">
+                                @if ($image)
+                                    <img src="{{ asset($image->image_path) }}" alt="{{ $product->name }}" class="equipment_product darker">
                                 @endif
                             </a>
                         @endforeach
                     @endif
                 </div>
+
                 <div class="surfboard_button">
-                    <a href="{{ route('products.byCategory', ['category' => 'Equipment']) }}"><button class="equipment-custom-btn">More</button></a>
+                    <a href="{{ route('products.byCategory', ['category' => 'Equipment']) }}">
+                        <button class="equipment-custom-btn">More</button>
+                    </a>
                     <div class="pretty-box-reverse">
                         <p class="pretty-text">Equipment</p>
                     </div>
@@ -115,41 +143,55 @@
         <!-- Accessories Section -->
         <div class="product_left">
             @if ($accessories->isNotEmpty())
-                <a href="{{ route('product_detail', ['id' => $accessories[0]->id]) }}" class = "link_neviditelny">
-                    @if ($accessories[0]->mainImage)
-                        <img src="{{ asset($accessories[0]->mainImage->image_path) }}" alt="{{ $accessories[0]->name }}" class="surfboard_picture darker">
+                @php
+                    $firstProduct = $accessories[0];
+                    $firstImage = $firstProduct->mainImage ?? $firstProduct->images->first();
+                @endphp
+                <a href="{{ route('product_detail', ['id' => $firstProduct->id]) }}" class="link_neviditelny">
+                    @if ($firstImage)
+                        <img src="{{ asset($firstImage->image_path) }}" alt="{{ $firstProduct->name }}" class="surfboard_picture darker">
                     @endif
                 </a>
             @endif
+
             <div class="surfboard_products">
                 <div class="three_products">
-                    <!-- Check how many products are available and display them -->
-                    @foreach ($accessories->skip(1) as $product) <!-- Skip the first one -->
-                        <a href="{{ route('product_detail', ['id' => $product->id]) }}" class = "link_neviditelny">
-                            @if ($product->mainImage)
-                                <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="surfboard_product darker">
+                    @foreach ($accessories->skip(1) as $product)
+                        @php
+                            $image = $product->mainImage ?? $product->images->first();
+                        @endphp
+                        <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny">
+                            @if ($image)
+                                <img src="{{ asset($image->image_path) }}" alt="{{ $product->name }}" class="surfboard_product darker">
                             @endif
                         </a>
                     @endforeach
 
-                    <!-- If there are less than 4 products, repeat the available ones to fill the space -->
                     @if ($accessories->count() < 4)
-                        @foreach ($accessories->take(4 - $accessories->count()) as $product) <!-- Repeat the available products -->
-                            <a href="{{ route('product_detail', ['id' => $product->id]) }}" class = "link_neviditelny">
-                                @if ($product->mainImage)
-                                    <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="surfboard_product darker">
+                        @foreach ($accessories->take(4 - $accessories->count()) as $product)
+                            @php
+                                $image = $product->mainImage ?? $product->images->first();
+                            @endphp
+                            <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny">
+                                @if ($image)
+                                    <img src="{{ asset($image->image_path) }}" alt="{{ $product->name }}" class="surfboard_product darker">
                                 @endif
                             </a>
                         @endforeach
                     @endif
+
                     <div class="pretty-box">
                         <p class="pretty-text">Accessories</p>
                     </div>
                 </div>
+
                 <div class="surfboard_button">
-                    <a href="{{ route('products.byCategory', ['category' => 'Accessories']) }}"><button class="custom-btn">More</button></a>
+                    <a href="{{ route('products.byCategory', ['category' => 'Accessories']) }}">
+                        <button class="custom-btn">More</button>
+                    </a>
                 </div>
             </div>
         </div>
+
     </div>
 @endsection

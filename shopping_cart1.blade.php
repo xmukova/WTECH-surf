@@ -41,6 +41,10 @@
                     <a href="{{ route('product_detail', ['id' => $productId]) }}">
                         @if ($product->mainImage)
                             <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="cart_product darker">
+                        @elseif($product->images->isNotEmpty())
+                            <img src="{{ asset($product->images->first()->image_path) }}" alt="{{ $product->name }}" class="cart_product darker">
+                        @else
+                            <img src="/images/logo.png" alt="No image" class="cart_product darker">
                         @endif
                     </a>
                     <div class="description">
@@ -93,12 +97,24 @@
 
         </div>
 
+        @php
+            $isEmpty = false;
+            if (auth()->check()) {
+                $isEmpty = $cartItems->isEmpty();
+            } else {
+                $cart = session('cart', []);
+                $isEmpty = empty($cart);
+            }
+        @endphp
+
+
         <div class="buttons">
             <div class="final-info">
                 <p class="total"><span class="bold2">Total: </span>{{ number_format($total, 2) }} $</p>
             </div>
             <a href="{{ route('products') }}"><button class="shop-button">Continue Shopping</button></a>
             <button class="checkout-button"
+                @if($isEmpty) disabled @endif
                 @auth
                     onclick="window.location.href='{{ route('shopping_cart2') }}'"
                 @else

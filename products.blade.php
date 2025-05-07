@@ -54,7 +54,6 @@
                         Sort by
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['sort' => 'popular']) }}">Most Popular</a></li>
                         <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}">Price: Low to High</a></li>
                         <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}">Price: High to Low</a></li>
                         <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(['sort' => 'az']) }}">A - Z</a></li>
@@ -71,27 +70,23 @@
                 <button id = "close_filter"class="close-btn" aria-label="Close filter"><i class="bi bi-x"></i></button>
             </div>
         <form method="GET" action="{{ url()->current() }}">    
-            <!-- Selected Filters -->
-            <div class="selected-filters">
-                <span class="filter-chosen">WHITE <span class="remove-filter">&times; 
-                </span></span>
-                <span class="filter-chosen">GREEN <span class="remove-filter">&times;
-                </span></span>
-                <span class="filter-chosen">0$ - 800$ <span class="remove-filter">&times;
-                </span></span>
-            </div>
-        
+            <!-- Reset filter  -->
+            <a href="{{ url()->current() }}" class="reset_filter">Reset Filters</a>
+
             <!-- filters -->
             <div class="filter-section">
                 <label class="price_filter">PRICE RANGE</label>
                 <div class="price-range">
                     <span id="min-price">$ 0</span>
-                    <span id="current-price" class = "current_price">$ 1000</span>
+                    
                     <span id="max-price">$ 2 000</span>
                 </div>
-                <input type="range" name="max_price" id="priceRange" class="range-slider" min="0" max="2000" step="1">
+                <div class="slider-container">
+                    <div class="slider-track"></div>
+                    <input type="range" name="min_price" id="slider-1" class="range-slider" min="0" max="2000" step="1" value="0">
+                    <input type="range" name="max_price" id="slider-2" class="range-slider" min="0" max="2000" step="1" value="2000">
+                </div>
             </div>
-
             <div class="filter-section">
                 <ul class = "category_filter"> SUBCATEGORY
                     @foreach ($subcategories as $subcategory)
@@ -103,18 +98,20 @@
                     @endforeach
                 </ul>    
                 <ul class = "category_filter"> COLOR
-                    <li><input type="checkbox" name="color[]" value="red" id="red"><label for="red">Red</label></li>
-                    <li><input type="checkbox" name="color[]" value="green" id="green"><label for="green">Green</label></li>
-                    <li><input type="checkbox" name="color[]" value="blue" id="blue"><label for="blue">Blue</label></li>
-                    <li><input type="checkbox" name="color[]" value="yellow" id="yellow"><label for="yellow">Yellow</label></li>
-                    <li><input type="checkbox" name="color[]" value="white" id="white"><label for="white">White</label></li>
-                    <li><input type="checkbox" name="color[]" value="black" id="black"><label for="black">Black</label></li>
-                    <li><input type="checkbox" name="color[]" value="other" id="others"><label for="others">Others</label></li>
+                    <li><input type="checkbox" name="color[]" value="red" id="red"  {{ in_array('red', request()->input('color', [])) ? 'checked' : '' }}><label for="red" >Red</label></li>
+                    <li><input type="checkbox" name="color[]" value="green" id="green"  {{ in_array('green', request()->input('color', [])) ? 'checked' : '' }}><label for="green">Green</label></li>
+                    <li><input type="checkbox" name="color[]" value="blue" id="blue"  {{ in_array('blue', request()->input('color', [])) ? 'checked' : '' }}><label for="blue">Blue</label></li>
+                    <li><input type="checkbox" name="color[]" value="yellow" id="yellow"  {{ in_array('yellow', request()->input('color', [])) ? 'checked' : '' }}><label for="yellow">Yellow</label></li>
+                    <li><input type="checkbox" name="color[]" value="white" id="white"  {{ in_array('white', request()->input('color', [])) ? 'checked' : '' }}><label for="white">White</label></li>
+                    <li><input type="checkbox" name="color[]" value="black" id="black"  {{ in_array('black', request()->input('color', [])) ? 'checked' : '' }}><label for="black">Black</label></li>
+                    <li><input type="checkbox" name="color[]" value="other" id="others"  {{ in_array('others', request()->input('color', [])) ? 'checked' : '' }}><label for="others">Others</label></li>
                 </ul>
                 <ul class = "category_filter">SIZE
-                    <li><input type="checkbox" name="size[]" value="S" id="sizeS"><label for="sizeS">S</label></li>
-                    <li><input type="checkbox" name="size[]" value="M" id="sizeM"><label for="sizeM">M</label></li>
-                    <li><input type="checkbox" name="size[]" value="L" id="sizeL"><label for="sizeL">L</label></li>
+                    <li><input type="checkbox" name="size[]" value="XS" id="sizeXS" {{ in_array('XS', request()->input('size', [])) ? 'checked' : '' }}><label for="sizeS">XS</label></li>
+                    <li><input type="checkbox" name="size[]" value="S" id="sizeS" {{ in_array('S', request()->input('size', [])) ? 'checked' : '' }}><label for="sizeS">S</label></li>
+                    <li><input type="checkbox" name="size[]" value="M" id="sizeM" {{ in_array('M', request()->input('size', [])) ? 'checked' : '' }}><label for="sizeM">M</label></li>
+                    <li><input type="checkbox" name="size[]" value="L" id="sizeL" {{ in_array('L', request()->input('size', [])) ? 'checked' : '' }}><label for="sizeL">L</label></li>
+                    <li><input type="checkbox" name="size[]" value="XL" id="sizeXL" {{ in_array('XL', request()->input('size', [])) ? 'checked' : '' }}><label for="sizeL">XL</label></li>
                 </ul>
             </div>
             <button class="koniec_filter" type="submit">Apply Filters</button>
@@ -133,10 +130,12 @@
             <div class="col">
                 <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny" aria-label="Product details">
                     <div class="card darker">
-                        @if ($product->mainImage)
-                            <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}">
-                        @endif
-                        <!-- <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"> -->
+                        @php
+                            $imagePath = $product->mainImage->image_path ?? $product->images->first()->image_path;
+                        @endphp
+                        <div class="product-image-wrapper">
+                            <img src="{{ asset($imagePath) }}" alt="{{ $product->name }}" class="product-image">
+                        </div>
                         <div class="produkt-ikonky">
                             @if(auth()->check())
                                 @php
@@ -157,7 +156,8 @@
                                 </button>
                             @endif
 
-                            <form method="POST" action="{{ route('addToCart', ['id' => $product->id]) }}" class="d-inline">
+
+                            <!-- <form method="POST" action="{{ route('addToCart', ['id' => $product->id]) }}" class="d-inline">
                                 @csrf
                                 @php
                                     $sizes = array_map('trim', explode(',', $product->size));
@@ -183,7 +183,48 @@
                                 <button type="submit" class="button-ikonka" aria-label="Add to cart">
                                     <i class="bi {{ $inCart ? 'bi-bag-check-fill' : 'bi-bag' }}"></i>
                                 </button>
-                            </form>
+                            </form> -->
+
+
+                            @php
+                                $sizes = array_map('trim', explode(',', $product->size));
+                                $defaultSize = count($sizes) > 0 ? $sizes[0] : null;
+                                $inCart = false;
+                                    if (auth()->check()) {
+                                        $inCart = auth()->user()->cartItems->contains(function ($item) use ($product) {
+                                            return $item->product_id == $product->id;
+                                        });
+                                    } else {
+                                        $sessionCart = session()->get('cart', []);
+                                        foreach ($sessionCart as $item) {
+                                            if (isset($item['product_id']) && $item['product_id'] == $product->id) {
+                                                $inCart = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                            @endphp
+                            @if ($inCart) <!-- odstranenie z kosika -->
+                                <form method="POST" action="{{ route('removeFromCart', ['id' => $product->id]) }}" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="button-ikonka" aria-label="Remove from cart">
+                                        <i class="bi bi-bag-check-fill"></i>
+                                    </button>
+                                </form>
+                            @else <!-- pridanie do kosika -->
+                                {{-- Formulár pre PRIDANIE --}}
+                                <form method="POST" action="{{ route('addToCart', ['id' => $product->id]) }}" class="d-inline">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <input type="hidden" name="select_size" value="{{ $defaultSize }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="button-ikonka" aria-label="Add to cart">
+                                        <i class="bi bi-bag"></i>
+                                    </button>
+                                </form>
+                            @endif
+
 
                         </div>
                         <div class="card-body text-center">
@@ -222,6 +263,7 @@
     @endif
 </div>
 
+
 <!-- overlay pre prihlasenie -->
 <div id="login-overlay" class="login-overlay" style="display: none;">
     <div class="overlay-content">
@@ -232,8 +274,5 @@
         </div>
     </div>
 </div>
-@if(session('success'))
-    <div id="flash-data" data-success="{{ session('success') }}"></div>
-@endif
 
 @endsection

@@ -37,18 +37,22 @@
                 <div class="zoznam">
                     <div class = "lupa">
                     <h3 >Products</h3>
-                        <div class="search-bar">
-                            <input type="text" placeholder=" Search...">
-                            <i class="bi bi-search"></i>
-                        </div>
+                        <form method="GET" action="{{ url()->current() }}" class="search-bar">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder=" Search...">
+                            <button type="submit" class="neviditelny-button"><i class="bi bi-search"></i></button>
+                        </form>
                     </div>
                     <ul class="list-group">
                         <!-- Produkt  -->
                         @foreach ($products as $product)
                             <li class="list-group-item">
                                 <div class="d-flex align-items-center">
-                                    @if ($product->mainImage)
-                                        <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="product_order_image">
+                                    @php
+                                        $imageToShow = $product->mainImage->image_path ?? ($product->images->first()->image_path ?? null);
+                                    @endphp
+
+                                    @if ($imageToShow)
+                                        <img src="{{ asset($imageToShow) }}" alt="{{ $product->name }}" class="product_order_image">
                                     @endif
                                     <div class="d-flex order_info">
                                         <div>
@@ -83,6 +87,31 @@
             </div>
         </div>
     </div> 
+
+
+    <!-- ciselnik stranok -->
+    <div class="strankovanie">
+        <!-- sipka vlavo -->
+        @if ($products->onFirstPage())
+            <button class="strankovanie_sipka" aria-label="Pages left" disabled><i class="bi bi-chevron-left"></i></button>
+        @else
+            <a href="{{  request()->fullUrlWithQuery(['page' => $products->currentPage() - 1]) }}" class="strankovanie_sipka">
+                <i class="bi bi-chevron-left"></i>
+            </a>
+        @endif
+        <!-- cisla -->
+        @for ($i = 1; $i <= $products->lastPage(); $i++)
+            <a href="{{ request()->fullUrlWithQuery(['page' => $i]) }}" class="stranka {{ $products->currentPage() == $i ? 'active' : '' }}">
+                {{ $i }}
+            </a>
+        @endfor
+        <!-- sipka vpravo -->
+        @if ($products->hasMorePages())
+            <a href="{{ request()->fullUrlWithQuery(['page' => $products->currentPage() + 1])  }}" class="strankovanie_sipka"><i class="bi bi-chevron-right"></i></a>
+        @else
+            <button class="strankovanie_sipka" aria-label="Pages right" disabled><i class="bi bi-chevron-right"></i></button>
+        @endif
+    </div>
 
     <!-- EDIT OVERLAY -->
     <div class="change-product-overlay" id="editOverlay">
