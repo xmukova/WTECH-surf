@@ -45,7 +45,7 @@ class UserController extends Controller{
         // Validácia prihlasovacích údajov
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string',
         ]);
     
         if ($validator->fails()) {
@@ -67,8 +67,10 @@ class UserController extends Controller{
 
     public function profile(){
         $user = Auth::user(); 
-        $all_products = Product::all();
-        return view('profile', compact('user', 'all_products'));
+        // $all_products = Product::all();
+        // return view('profile', compact('user', 'all_products'));
+        $orders = $user->orders()->with('items')->get();
+        return view('profile', compact('user', 'orders'));
     }
 
     public function logout(Request $request){

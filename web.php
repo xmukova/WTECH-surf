@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\AdminController;
 
 
 Route::get('/', [ProductController::class, 'homepage'])->name('homepage');
@@ -75,3 +76,22 @@ Route::post('/process-order-session', [OrderController::class, 'processOrderSess
 Route::post('/order', [OrderController::class, 'process'])->name('order.process');
 Route::post('/ordersession', [OrderController::class, 'processFromSession'])->name('order.processFromSession');
 Route::get('/confirmation', [OrderController::class, 'confirmation'])->name('confirmation');
+
+
+
+
+
+
+
+//  ---------------- ADMIN -----------------------
+Route::view('/login/admin', 'admin_login')->name('admin_login');
+Route::post('/login/admin', [AdminController::class, 'login'])->name('admin_login_udaje');
+Route::get('/profile/admin', [AdminController::class, 'profile'])->middleware('auth')->name('admin_profile');
+Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin_logout');
+// manipulacia s produktami
+Route::post('/profile/admin', [AdminController::class, 'add'])->name('add_product');
+Route::delete('/admin/products/{product}', [AdminController::class, 'delete'])->name('delete_product');
+Route::put('/admin/products/{product}', [AdminController::class, 'edit'])->name('edit_product');
+
+
+
