@@ -47,7 +47,9 @@
                         @foreach ($products as $product)
                             <li class="list-group-item">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="product_order_image">
+                                    @if ($product->mainImage)
+                                        <img src="{{ asset($product->mainImage->image_path) }}" alt="{{ $product->name }}" class="product_order_image">
+                                    @endif
                                     <div class="d-flex order_info">
                                         <div>
                                             <p class="product_title">{{ $product->name }}</p>
@@ -66,7 +68,8 @@
                                                 data-features="{{ $product->features }}"
                                                 data-price="{{ $product->price }}"
                                                 data-stock="{{ $product->stock}}"
-                                                data-images='@json($product->images->pluck("image_path"))'
+
+                                                data-images='@json($product->images)'
                                                 data-size='@json($product->size)'
                                                 data-color='@json($product->color)' > 
                                                 Edit <i class="bi bi-pencil-square"></i></button>
@@ -110,8 +113,8 @@
                 </div>
     
                 <div class="mb-3">
-                    <label for="description" name="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" rows="5"></textarea>
+                    <label for="description"  class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="5"></textarea>
                 </div>
     
                 <div class="mb-3">
@@ -157,7 +160,7 @@
                     <label class="form-label">Photos</label>
                     <div class="photo-preview" id="photoPreview">
                         @foreach ($product->images as $image)
-                            <div class="photo-item">
+                            <div class="photo-item" data-id="{{ $image->id }}">
                                 <img src="{{ asset($image->image_path) }}" alt="Product Image">
                                 <button class="delete-photo" type="button" onclick="deletePhoto(this)" aria-label="Delete photo">
                                     <i class="bi bi-x-circle"></i>
@@ -165,7 +168,8 @@
                             </div>
                         @endforeach
                     </div>
-                    <input type="file" class="form-control mt-2" id="newPhoto" accept="image/*">
+                    <input type="file" class="form-control mt-2" name="images[]" id="newPhoto" accept="image/*" multiple>
+
                 </div>
                 <button type="submit" class="save-btn">Save Changes</button>
             </form>

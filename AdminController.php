@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\Subcategory;
+use App\Models\ProductImage;
+
 
 class AdminController extends Controller{
     public function login(Request $request){
@@ -45,8 +47,9 @@ class AdminController extends Controller{
             'size' => 'required|array',
             'color' => 'required|array',
             'images' => 'required|array',
-            'images.*' => 'image|mimes:jpg,jpeg,png,gif|max:2048',
+            'images.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
+        
 
         // získa category_id zo subkategórie
         $subcategory = Subcategory::findOrFail($validated['subcategory_id']);
@@ -116,14 +119,29 @@ class AdminController extends Controller{
         $product->save();
     
         // obrazok
-        if ($request->hasFile('new_photo')) {
-            $image = $request->file('new_photo');
-            $path = $image->store('product_images', 'public');
-    
-            $product->images()->create([
-                'image_path' => 'storage/' . $path,
-            ]);
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $index => $image) {
+                $filename = $image->getClientOriginalName(); 
+                $image->move(public_path('images/products'), $filename); // uloženie do /public/images/products
+        
+                $product->images()->create([
+                    'image_path' => 'images/products/' . $filename,
+                    'is_main' => false, // alebo nejako urči hlavný obrázok
+                ]);
+            }
         }
+        if ($request->has('deleted_images')) {
+            foreach ($request->deleted_images as $imageId) {
+                $image = ProductImage::find($imageId);
+                if ($image && $image->product_id === $product->id) {
+                    if (file_exists(public_path($image->image_path))) {
+                        unlink(public_path($image->image_path));
+                    }
+                    $image->delete();
+                }
+            }
+        }        
+
         return redirect()->back()->with('success', 'Product updated successfully!');
     }
 
