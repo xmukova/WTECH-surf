@@ -137,95 +137,64 @@
                             <img src="{{ asset($imagePath) }}" alt="{{ $product->name }}" class="product-image">
                         </div>
                         <div class="produkt-ikonky">
-                            @if(auth()->check())
-                                @php
-                                    $isFavorite = auth()->user()->favorites->contains($product->id);
-                                @endphp 
-                                <form action="{{ $isFavorite ? route('favorites.remove', $product->id) : route('favorites.add', $product->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @if($isFavorite)
-                                        @method('DELETE')
-                                    @endif
-                                    <button type="submit" class="button-ikonka" aria-label="{{ $isFavorite ? 'Remove from favorites' : 'Add to favorites' }}">
-                                        <i class="bi {{ $isFavorite ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                            @if(!auth()->check() || !auth()->user()->is_admin)
+                                @if(auth()->check())
+                                    @php
+                                        $isFavorite = auth()->user()->favorites->contains($product->id);
+                                    @endphp 
+                                    <form action="{{ $isFavorite ? route('favorites.remove', $product->id) : route('favorites.add', $product->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @if($isFavorite)
+                                            @method('DELETE')
+                                        @endif
+                                        <button type="submit" class="button-ikonka" aria-label="{{ $isFavorite ? 'Remove from favorites' : 'Add to favorites' }}">
+                                            <i class="bi {{ $isFavorite ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                                        </button>
+                                    </form>
+                                @else
+                                    <button class="button-ikonka" aria-label="First log in to favorite" onclick="event.preventDefault(); showLoginOverlay()">
+                                        <i class="bi bi-heart"></i>
                                     </button>
-                                </form>
-                            @else
-                                <button class="button-ikonka" aria-label="First log in to favorite" onclick="event.preventDefault(); showLoginOverlay()">
-                                    <i class="bi bi-heart"></i>
-                                </button>
-                            @endif
+                                @endif
 
-
-                            <!-- <form method="POST" action="{{ route('addToCart', ['id' => $product->id]) }}" class="d-inline">
-                                @csrf
                                 @php
                                     $sizes = array_map('trim', explode(',', $product->size));
                                     $defaultSize = count($sizes) > 0 ? $sizes[0] : null;
                                     $inCart = false;
-                                    if (auth()->check()) {
-                                        $inCart = auth()->user()->cartItems->contains(function ($item) use ($product) {
-                                            return $item->product_id == $product->id;
-                                        });
-                                    } else {
-                                        $sessionCart = session()->get('cart', []);
-                                        foreach ($sessionCart as $item) {
-                                            if (isset($item['product_id']) && $item['product_id'] == $product->id) {
-                                                $inCart = true;
-                                                break;
+                                        if (auth()->check()) {
+                                            $inCart = auth()->user()->cartItems->contains(function ($item) use ($product) {
+                                                return $item->product_id == $product->id;
+                                            });
+                                        } else {
+                                            $sessionCart = session()->get('cart', []);
+                                            foreach ($sessionCart as $item) {
+                                                if (isset($item['product_id']) && $item['product_id'] == $product->id) {
+                                                    $inCart = true;
+                                                    break;
+                                                }
                                             }
                                         }
-                                    }
                                 @endphp
-                                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="select_size" value="{{ $defaultSize }}">
-                                <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="button-ikonka" aria-label="Add to cart">
-                                    <i class="bi {{ $inCart ? 'bi-bag-check-fill' : 'bi-bag' }}"></i>
-                                </button>
-                            </form> -->
-
-
-                            @php
-                                $sizes = array_map('trim', explode(',', $product->size));
-                                $defaultSize = count($sizes) > 0 ? $sizes[0] : null;
-                                $inCart = false;
-                                    if (auth()->check()) {
-                                        $inCart = auth()->user()->cartItems->contains(function ($item) use ($product) {
-                                            return $item->product_id == $product->id;
-                                        });
-                                    } else {
-                                        $sessionCart = session()->get('cart', []);
-                                        foreach ($sessionCart as $item) {
-                                            if (isset($item['product_id']) && $item['product_id'] == $product->id) {
-                                                $inCart = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                            @endphp
-                            @if ($inCart) <!-- odstranenie z kosika -->
-                                <form method="POST" action="{{ route('removeFromCart', ['id' => $product->id]) }}" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="button-ikonka" aria-label="Remove from cart">
-                                        <i class="bi bi-bag-check-fill"></i>
-                                    </button>
-                                </form>
-                            @else <!-- pridanie do kosika -->
-                                {{-- Formulár pre PRIDANIE --}}
-                                <form method="POST" action="{{ route('addToCart', ['id' => $product->id]) }}" class="d-inline">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <input type="hidden" name="select_size" value="{{ $defaultSize }}">
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="button-ikonka" aria-label="Add to cart">
-                                        <i class="bi bi-bag"></i>
-                                    </button>
-                                </form>
+                                @if ($inCart) <!-- odstranenie z kosika -->
+                                    <form method="POST" action="{{ route('removeFromCart', ['id' => $product->id]) }}" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="button-ikonka" aria-label="Remove from cart">
+                                            <i class="bi bi-bag-check-fill"></i>
+                                        </button>
+                                    </form>
+                                @else <!-- pridanie do kosika -->
+                                    <form method="POST" action="{{ route('addToCart', ['id' => $product->id]) }}" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="select_size" value="{{ $defaultSize }}">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="button-ikonka" aria-label="Add to cart">
+                                            <i class="bi bi-bag"></i>
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
-
-
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title text_produkt">{{ $product->name }}</h5>

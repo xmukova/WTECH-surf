@@ -7,17 +7,55 @@
         <i class="bi bi-list icon_click"></i>
     </div>
     <div class="icons d-flex gap-3">
-        <a href="{{ route('favorites.index') }}" aria-label="Favorites">
-            <i class="bi bi-heart icon_click" ></i>
-        </a>
-        <a href="{{ route('profile') }}" aria-label="Profile">
-            <i class="bi bi-person icon_click" ></i>
-        </a>
-        <a href="{{ route('shopping_cart1') }} " aria-label="Shopping cart">
-            <i class="bi bi-bag icon_click" ></i>
-        </a>
+        @auth
+            @if (!Auth::user()->is_admin)
+                <a href="{{ route('favorites.index') }}" aria-label="Favorites">
+                    <i class="bi bi-heart icon_click"></i>
+                </a>
+            @endif
+        @else
+            <a href="{{ route('favorites.index') }}" aria-label="Favorites">
+                <i class="bi bi-heart icon_click"></i>
+            </a>
+        @endauth
+
+        @auth 
+            @if (Auth::user()->is_admin)
+                <a href="{{ route('admin_profile') }}" aria-label="Admin profile">
+                    <i class="bi bi-person-gear icon_click"></i>
+                </a>
+            @else
+                <a href="{{ route('profile') }}" aria-label="User profile">
+                    <i class="bi bi-person icon_click"></i>
+                </a>
+            @endif
+        @endauth
+        @guest
+            <a href="{{ route('login') }}" aria-label="Login">
+                <i class="bi bi-person icon_click"></i>
+            </a>
+        @endguest
+
+        @auth
+            @if (!Auth::user()->is_admin)
+                <a href="{{ route('shopping_cart1') }}" aria-label="Shopping cart">
+                    <i class="bi bi-bag icon_click"></i>
+                </a>
+            @endif
+        @else
+            <a href="{{ route('shopping_cart1') }}" aria-label="Shopping cart">
+                <i class="bi bi-bag icon_click"></i>
+            </a>
+        @endauth
     </div>
-    <!-- <a href="{{ route('homepage') }}" class="overlay-link"><div class="overlay-text">Maui Surf</div></a> -->
+    <!-- overlay nazov zobraz len ak je definovaný section 'show-overlay' -->
+    @if(!empty($showOverlay) && $showOverlay)
+        <a href="{{ route('homepage') }}" class="overlay-link">
+            <div class="overlay-text">Maui Surf</div>
+        </a>
+    @endif
+
+
     <!-- PRODUCT OVERVIEW -->
     <div id="product-overview" class="product-overview-container">
         <div class="product-overview">

@@ -108,29 +108,32 @@
                 </div>
             </form>
 
-            <div class="fav-buy">
-                <div class="fav"> 
-                    @if(auth()->check())
-                        @php
-                            $isFavorite = auth()->user()->favorites->contains($product->id);
-                        @endphp
-                        <form action="{{ $isFavorite ? route('favorites.remove', $product->id) : route('favorites.add', $product->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            @if($isFavorite)
-                                @method('DELETE')
-                            @endif
-                            <button type="submit" class="fav-button" aria-label="{{ $isFavorite ? 'Remove from favorites' : 'Add to favorites' }}">
-                                <i class="bi {{ $isFavorite ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+            @if(!auth()->check() || !auth()->user()->is_admin)
+                <div class="fav-buy">
+                    <div class="fav"> 
+                        @if(auth()->check())
+                            @php
+                                $isFavorite = auth()->user()->favorites->contains($product->id);
+                            @endphp
+                            <form action="{{ $isFavorite ? route('favorites.remove', $product->id) : route('favorites.add', $product->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @if($isFavorite)
+                                    @method('DELETE')
+                                @endif
+                                <button type="submit" class="fav-button" aria-label="{{ $isFavorite ? 'Remove from favorites' : 'Add to favorites' }}">
+                                    <i class="bi {{ $isFavorite ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                                </button>
+                            </form>
+                        @else
+                            <button class="fav-button" aria-label="First log in to favorite" onclick="event.preventDefault(); showLoginOverlay()">
+                                <i class="bi bi-heart"></i>
                             </button>
-                        </form>
-                    @else
-                        <button class="fav-button" aria-label="First log in to favorite" onclick="event.preventDefault(); showLoginOverlay()">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    @endif                
+                        @endif                
+                    </div>
+                    <button type="submit" class="buy-button" form="add-to-cart-form">Buy</button>
                 </div>
-                <button type="submit" class="buy-button" form="add-to-cart-form">Buy</button>
-            </div>
+            @endif
+
 
                 <!-- overlay pre prihlasenie -->
             <div id="login-overlay" class="login-overlay" >
