@@ -20,7 +20,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4 order-sm-2">
-                <h2 class = "meno">Meno Priezvisko</h2> 
+                <h2 class = "meno">ADMIN - maui surf</h2> 
                 <button id = "add" class="admin_btn button_uprava farba">
                     ADD PRODUCT<i class="bi bi-plus-square"></i>
                 </button>
@@ -44,23 +44,27 @@
                     </div>
                     <ul class="list-group">
                         <!-- Produkt  -->
+                         
                         @foreach ($products as $product)
                             <li class="list-group-item">
                                 <div class="d-flex align-items-center">
-                                    @php
-                                        $imageToShow = $product->mainImage->image_path ?? ($product->images->first()->image_path ?? null);
-                                    @endphp
-
-                                    @if ($imageToShow)
-                                        <img src="{{ asset($imageToShow) }}" alt="{{ $product->name }}" class="product_order_image">
-                                    @endif
+                                    <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny">
+                                        @php
+                                            $imageToShow = $product->mainImage->image_path ?? ($product->images->first()->image_path ?? null);
+                                        @endphp
+                                        @if ($imageToShow)
+                                            <img src="{{ asset($imageToShow) }}" alt="{{ $product->name }}" class="product_order_image">
+                                        @endif
+                                    </a>
                                     <div class="d-flex order_info">
-                                        <div>
-                                            <p class="product_title">{{ $product->name }}</p>
-                                            <p class="product_details">Category: <strong>{{ $product->category->name }}</strong></p>
-                                            <p class="product_details">Subcategory: <strong>{{ $product->subcategory->name }}</strong></p>
-                                            <p class="product_details">Price: <strong>${{ number_format($product->price, 2) }}</strong></p>
-                                        </div>
+                                        <a href="{{ route('product_detail', ['id' => $product->id]) }}" class="link_neviditelny">
+                                            <div>
+                                                <p class="product_title">{{ $product->name }}</p>
+                                                <p class="product_details">Category: <strong>{{ $product->category->name }}</strong></p>
+                                                <p class="product_details">Subcategory: <strong>{{ $product->subcategory->name }}</strong></p>
+                                                <p class="product_details">Price: <strong>${{ number_format($product->price, 2) }}</strong></p>
+                                            </div>
+                                        </a>    
                                         <div class="admin_button">
                                             <button class="delete-product" aria-label="Delete product"><i class="bi bi-trash3"></i></button>
                                             <button class="change-btn" aria-label="Edit product" 
@@ -128,12 +132,14 @@
 
                 <select name="subcategory_id" class="form-select" id="size">
                     <option disabled selected>-- Select a Subcategory --</option>
-                    @foreach ($subcategories as $subcategory)
-                        <option value="{{ $subcategory->id }}" 
-                            {{ $product->subcategory_id == $subcategory->id ? 'selected' : '' }}>
-                            {{ $subcategory->name }}
-                        </option>
-                    @endforeach
+                    @if(isset($product))
+                        @foreach ($subcategories as $subcategory)
+                            <option value="{{ $subcategory->id }}" 
+                                {{ $product->subcategory_id == $subcategory->id ? 'selected' : '' }}>
+                                {{ $subcategory->name }}
+                            </option>
+                        @endforeach
+                    @endif
                 </select>
                 
                 <div class="mb-3">
@@ -153,7 +159,7 @@
     
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
-                    <input type="number" name="price" step="0.1" class="form-control" id="price">
+                    <input type="number" name="price" step="0.5" min="0" max="2000" class="form-control" id="price">
                 </div>
 
                 <div class="mb-3">
@@ -188,19 +194,21 @@
                 <div class="mb-3">
                     <label class="form-label">Photos</label>
                     <div class="photo-preview" id="photoPreview">
-                        @foreach ($product->images as $image)
-                            <div class="photo-item" data-id="{{ $image->id }}">
-                                <img src="{{ asset($image->image_path) }}" alt="Product Image">
-                                <button class="delete-photo" type="button" onclick="deletePhoto(this)" aria-label="Delete photo">
-                                    <i class="bi bi-x-circle"></i>
-                                </button>
-                            </div>
-                        @endforeach
+                        @if(isset($product))
+                            @foreach ($product->images as $image)
+                                <div class="photo-item" data-id="{{ $image->id }}">
+                                    <img src="{{ asset($image->image_path) }}" alt="Product Image">
+                                    <button class="delete-photo" type="button" onclick="deletePhoto(this)" aria-label="Delete photo">
+                                        <i class="bi bi-x-circle"></i>
+                                    </button>
+                                </div>
+                            @endforeach
+                        @endif    
                     </div>
                     <input type="file" class="form-control mt-2" name="images[]" id="newPhoto" accept="image/*" multiple>
 
                 </div>
-                <button type="submit" class="save-btn">Save Changes</button>
+                <button type="submit" id='save-edit-changes' class="save-btn">Save Changes</button>
             </form>
         </div>
     </div>
@@ -244,7 +252,7 @@
 
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
-                    <input name="price" type="number" step="0.1" class="form-control" id="price" placeholder="Enter product price">
+                    <input name="price" type="number" step="0.5" min="0" max="2000" class="form-control" id="price" placeholder="Enter product price">
                 </div>
 
                 <div class="mb-3">
@@ -292,12 +300,13 @@
         <div class="overlay-delete">
             <h6 class="text-center">Are you sure? Do you want to delete this product from your e-shop?</h6>
             <div class="sure-buttons">
-            <form id="confirm_delete" action="{{ route('delete_product', $product->id) }}" method="POST">
+            <form id="confirm_delete" method="POST">
                 @csrf
                 @method('DELETE')
-                <button class="delete-yes" onclick="deleteProduct()">YES</button>
+                <button class="delete-yes">YES</button>
             </form>
-                <button class="delete-no" onclick="closeDeleteOverlay()">NO</button>
+
+            <button class="delete-no" onclick="closeDeleteOverlay()">NO</button>
             </div>    
         </div>
     </div>        

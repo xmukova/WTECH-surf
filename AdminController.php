@@ -30,9 +30,19 @@ class AdminController extends Controller{
     public function profile(){
         if (Auth::check() && Auth::user()->is_admin) {
             $admin = Auth::user();
-            $products = Product::with(['category', 'subcategory', 'mainImage'])->get();
+
+            $search = request('search');
+            $query = Product::with(['category', 'subcategory', 'mainImage']);
+
+            if ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'ILIKE', "%{$search}%");
+                });
+            }
+
+            $products = $query->orderBy('created_at', 'desc')->paginate(10);
             $subcategories = Subcategory::all();
-            return view('admin_profile', compact('products', 'subcategories'));
+            return view('admin_profile', compact('products', 'subcategories'));        
         } else {
             return redirect()->route('homepage');
         }
@@ -42,15 +52,15 @@ class AdminController extends Controller{
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'subcategory_id' => 'required|exists:subcategories,id',
-            'price' => 'required|numeric',
-            'stock' => 'required|numeric',
-            'size' => 'required|array',
-            'color' => 'required|array',
-            'images' => 'required|array',
+            'description' => 'required|string',
+            'price' => 'required|numeric|max:2000',
+            'images' => 'required|array|min:2',
             'images.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'stock' => 'nullable|numeric',
+            'size' => 'nullable|array',
+            'color' => 'nullable|array',
         ]);
         
-
         // získa category_id zo subkategórie
         $subcategory = Subcategory::findOrFail($validated['subcategory_id']);
         $categoryID = $subcategory->category_id;
@@ -59,10 +69,10 @@ class AdminController extends Controller{
             'name' => $validated['name'],
             'subcategory_id' => $validated['subcategory_id'],
             'category_id' => $categoryID,
-            'stock' => $validated['stock'],
+            'stock' => $validated['stock'] ?? 1000,
             'price' => $validated['price'],
-            'size' => implode(',', $validated['size']),
-            'color' => implode(',', $validated['color']), 
+            'size' => isset($validated['size']) ? implode(',', $validated['size']) : '',
+            'color' => isset($validated['color']) ? implode(',', $validated['color']) : '',
             'short_description' => $request->input('short_description'),
             'description' => $request->input('description'),
             'features' => $request->input('features'),
@@ -93,29 +103,36 @@ class AdminController extends Controller{
 
     public function edit(Request $request, Product $product){
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
             'subcategory_id' => 'required|exists:subcategories,id',
-            'price' => 'required|numeric',
-            'stock' => 'required|numeric',
-            'short_description' => 'nullable|string',
             'description' => 'nullable|string',
-            'features' => 'nullable|string',
-            'size' => 'required|array',
-            'color' => 'required|array',
-            'new_photo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'price' => 'nullable|numeric',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'stock' => 'nullable|numeric',
+            'size' => 'nullable|array',
+            'color' => 'nullable|array',
         ]);
     
-        $product->name = $validated['name'];
+
+        //meno produktu updatujem len ak nebolo vymazane
+        if ($request->has('name') && !empty($validated['name'])) {$product->name = $validated['name'];}
         $product->subcategory_id = $validated['subcategory_id'];
         $subcategory = Subcategory::findOrFail($validated['subcategory_id']);
         $product->category_id = $subcategory->category_id;
-        $product->price = $validated['price'];
-        $product->stock = $validated['stock'];
-        $product->short_description = $validated['short_description'] ?? '';
-        $product->description = $validated['description'] ?? '';
-        $product->features = $validated['features'] ?? '';
-        $product->size =  implode(',', $validated['size']);
-        $product->color =  implode(',', $validated['color']);
+        //cena sa updatuje len ak bola v spravnom rozpati, inka zostava nezmenena
+        if (isset($validated['price']) && $validated['price'] >= 0 && $validated['price'] <= 2000) {
+            $product->price = $validated['price'];
+        }
+        $product->stock = $validated['stock'] ?? $product->stock;   //ak neni nastaveny, zostava na povodnej hodnote
+        $product->short_description = $request->input('short_description'); 
+        if (isset($validated['description']) && !empty($validated['description'])) {
+            $product->description = $validated['description'];
+        }
+        $product->features = $request->input('features');
+        $product->size =  isset($validated['size']) ? implode(',', $validated['size']) : '';
+        $product->color =  isset($validated['color']) ? implode(',', $validated['color']) : '';
+        
         $product->save();
     
         // obrazok
@@ -134,16 +151,14 @@ class AdminController extends Controller{
             foreach ($request->deleted_images as $imageId) {
                 $image = ProductImage::find($imageId);
                 if ($image && $image->product_id === $product->id) {
-                    if (file_exists(public_path($image->image_path))) {
-                        unlink(public_path($image->image_path));
-                    }
                     $image->delete();
                 }
             }
         }        
-
         return redirect()->back()->with('success', 'Product updated successfully!');
     }
+
+
 
     public function logout(Request $request){
         Auth::logout();

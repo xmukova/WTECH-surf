@@ -209,8 +209,6 @@ margin-bottom: max(1.5vw, 20px);
   .product_order_image{
     width: clamp(90px, 20vw, 170px);
     height: auto;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
     border-radius: 5px;
     margin-right: 15px;
   }
@@ -700,3 +698,16 @@ margin-top: 10px;
   color: #66aaca;
   padding: 0 5px;
   }
+
+  .is-invalid {
+    border: 1px solid red;
+}
+.invalid-feedback {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 4px;
+}
+
+.ciernobiely{
+  filter: grayscale(100%);
+}

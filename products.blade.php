@@ -77,14 +77,14 @@
             <div class="filter-section">
                 <label class="price_filter">PRICE RANGE</label>
                 <div class="price-range">
-                    <span id="min-price">$ 0</span>
+                    <span id="min-price">$ {{ request('min_price', 0) }}</span>
                     
-                    <span id="max-price">$ 2 000</span>
+                    <span id="max-price">$ {{ request('max_price', 2000) }}</span>
                 </div>
                 <div class="slider-container">
                     <div class="slider-track"></div>
-                    <input type="range" name="min_price" id="slider-1" class="range-slider" min="0" max="2000" step="1" value="0">
-                    <input type="range" name="max_price" id="slider-2" class="range-slider" min="0" max="2000" step="1" value="2000">
+                    <input type="range" name="min_price" id="slider-1" class="range-slider" min="0" max="2000" step="1" value="{{ request('min_price', 0) }}">
+                    <input type="range" name="max_price" id="slider-2" class="range-slider" min="0" max="2000" step="1" value="{{ request('max_price', 2000) }}">
                 </div>
             </div>
             <div class="filter-section">
