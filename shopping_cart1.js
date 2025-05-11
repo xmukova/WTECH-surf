@@ -2,7 +2,7 @@ function isElementPresent(selector) {
     return document.querySelector(selector) !== null;
 }
 
-// PRODUCT OVERVIEW
+// PRODUCT OVERVIEW ------------------------------------------------------------------------------------------------------------------------------------
 const biListIcon = document.querySelector('.bi-list');
 const productOverviewContainer = document.getElementById('product-overview');
 
@@ -31,7 +31,7 @@ toggleSubcategories('surfboards', 'surfboards-subcategories');
 toggleSubcategories('equipment', 'equipment-subcategories');
 toggleSubcategories('accessories', 'accessories-subcategories');
 
-// SHIPPING FORM LOGIC
+// SHIPPING FORM LOGIC ------------------------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     if (!isElementPresent('#checkout-form') || !isElementPresent('#continue-button')) {
         return;
@@ -72,19 +72,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Check shipping radio buttons (exactly one must be selected)
+        // kontrola radio buttons, vzdy jeden musi byt selected 
         const shippingChecked = Array.from(shippingRadios).some(radio => radio.checked);
         if (!shippingChecked) {
             isFilled = false;
         }
 
-        // Check payment radio buttons (exactly one must be selected)
+        // kontrola payment radio buttons vzdy jeden musi byt selected
         const paymentChecked = Array.from(paymentRadios).some(radio => radio.checked);
         if (!paymentChecked) {
             isFilled = false;
         }
 
-        // Check country select
+        // kontrola vyplnenia Country
         if (countrySelect.value === '') {
             isFilled = false;
         }
@@ -93,11 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('isFilled:', isFilled); 
     }
 
-    // Update button state 
+    //update button 
     form.addEventListener('input', updateButtonState);
     form.addEventListener('change', updateButtonState); 
 });
 
+// chces sa prihlasit overlay?
 function showLoginOverlay() {
     const overlay = document.getElementById('login-overlay');
     overlay.style.display = 'flex';
@@ -119,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// SHIPPING COST TOTAL v step2
+// SHIPPING COST TOTAL v step2 ------------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
     const cartData = document.querySelector('#cart-data');
     if (!cartData) return;
@@ -152,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// v step3 ukaz vypocitany total so shipping
+// v step3 ukaz vypocitany total so shipping --------------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     const shippingAmountEl = document.getElementById('shipping-amount');
     const totalAmountEl = document.getElementById('total-amount');
@@ -171,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// DOBIERKA ? ULOZENIE PRESMEROVANIE
+// DOBIERKA ? ULOZENIE PRESMEROVANIE ------------------------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('checkout-form');
     const continueBtn = document.getElementById('continue-button');
@@ -263,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// RETRIEVE FROM SESSION - ked ideme cez kartu, treba preniest objednavku form
+// RETRIEVE FROM SESSION - ked ideme cez kartu, treba preniest objednavku form ------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('checkout-form');
     const purchaseButton = document.getElementById('purchase-button');
@@ -289,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log('Odosielam objednávku na /ordersession...');
 
-        // Send data from session to be saved in the database
+        //posli nech sa objednavka posle zo session do databazy
         fetch('/process-order-session', {
             method: 'POST',
             headers: {
@@ -314,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// FORMAT KARTA
+// FORMAT KARTA ------------------------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     if (!isElementPresent('#checkout-form') || !isElementPresent('#purchase-button')) {
         return;
@@ -328,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardNameInput = form.querySelector('input[name="cardName"]');
     const cvcInput = form.querySelector('input[name="cvc"]');
 
-    // Formatovanie čísla karty
+    // Formatovanie cisla karty
     cardNumInput.addEventListener('input', (e) => {
         let value = e.target.value.replace(/\D/g, '');
         if (value.length > 0) {
@@ -347,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Validácia datumu na karte
+    // Validacia datumu na karte
     function isValidExpDate(dateStr) {
         if (!/^\d{2}\/\d{2}$/.test(dateStr)) return false;
     
@@ -358,10 +359,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isNaN(month) || isNaN(year) || month < 1 || month > 12) return false;
     
         const now = new Date();
-        const currentMonth = now.getMonth() + 1; // 0-based
+        const currentMonth = now.getMonth() + 1; 
         const currentYear = now.getFullYear();
     
-        // Ak je rok v budúcnosti, OK. Ak je rovnaký, kontrolujeme mesiac.
+        // Ak je rok v buducnosti, OK. Ak je rovnaký, kontrolujeme mesiac.
         if (year > currentYear) return true;
         if (year === currentYear && month >= currentMonth) return true;
     
@@ -369,10 +370,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     
-    // Validácia údajov z formulára
+    // Validacia udajov z formulára
     function updateButtonState() {
         const cardNumValid = cardNumInput.value.trim().length === 19;
-        const cardNameValid = /^[A-z]+ [A-z]+$/.test(cardNameInput.value.trim());
+        const cardNameValid = /^\p{L}+(?: \p{L}+)+$/u.test(cardNameInput.value.trim());
         const expDateValid = isValidExpDate(expDateInput.value.trim());
         const cvcValid = /^\d{3,4}$/.test(cvcInput.value.trim());
     
@@ -380,7 +381,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
         purchaseButton.disabled = !allFilled;
     }
-    // ... zvyšok tvojho JS kódu
 
     form.addEventListener('input', updateButtonState);
     form.addEventListener('change', updateButtonState);
@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// KONTROLA MAX STOCK v kosiku
+// KONTROLA MAX STOCK v kosiku------------------------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
     const forms = document.querySelectorAll('.auto-update-form');
 
@@ -406,8 +406,6 @@ document.addEventListener('DOMContentLoaded', function () {
             } else if (value < 1) {
                 e.target.value = 1;
             }
-
-            // optional: auto-submit if within valid range
             form.submit();
         });
     });

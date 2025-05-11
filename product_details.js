@@ -15,7 +15,7 @@ window.addEventListener("scroll", function () {
     }
 });
 
-// PRODUCT OVERVIEW ---------------------------------------------------------------------------------
+// PRODUCT OVERVIEW ------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
     const biListIcon = document.querySelector('.bi-list');
     const productOverviewContainer = document.getElementById('product-overview');
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// CAROUSEL ---------------------------------------------------------------------------------
+// CAROUSEL ---------------------------------------------------------------------------------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     const prevButton = document.querySelector('.carousel-prev');
     const nextButton = document.querySelector('.carousel-next');
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Ak sme na prvom obrázku, presunieme sa na posledný
             currentIndex = carouselItems.length - 1;
         }
-        carouselTrack.style.transform = `translateX(-${currentIndex * 90}vw)`; // 90vw is the width of each image
+        carouselTrack.style.transform = `translateX(-${currentIndex * 90}vw)`; // 90vw je sirka obrazka
     });
 
     // Posun na ďalší obrázok
@@ -78,12 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
             // Ak sme na poslednom obrázku, presunieme sa na prvý
             currentIndex = 0;
         }
-        carouselTrack.style.transform = `translateX(-${currentIndex * 90}vw)`; // 90vw is the width of each image
+        carouselTrack.style.transform = `translateX(-${currentIndex * 90}vw)`; 
     });
 });
 
 
-// PHOTO BIG OVERLAY ---------------------------------------------------------------------------------
+// PHOTO BIG OVERLAY ------------------------------------------------------------------------------------------------------------------
 const carouselImages = document.querySelectorAll('.carousel_photo, .carousel_photo1, .carousel_photo2');
 const imageOverlay = document.getElementById('imageOverlay');
 const enlargedImage = document.getElementById('enlargedImage');
@@ -103,7 +103,7 @@ imageOverlay.addEventListener('click', (e) => {
     }
 });
 
-// REVIEWS click ---------------------------------------------------------------------------------
+// REVIEWS click ---------------------------------------------------------------------------------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", function () {
     const stars = document.querySelector('.stars');
     const reviewBlock = document.querySelector('.dropdown-features .detail-block:nth-child(4)');
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// ADDED TO CART NOTIFICATION ---------------------------------------------------------------------------------
+// ADDED TO CART NOTIFICATION ---------------------------------------------------------------------------------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function () {
     const flashEl = document.getElementById('flash-data');
     if (flashEl) {
@@ -136,36 +136,33 @@ function showCartNotification(message) {
     notification.innerText = message;
     document.body.appendChild(notification);
 
-    // Force reflow before adding the class (important!)
+    //animacia notifikacie spustenie
     requestAnimationFrame(() => {
         notification.classList.add('show');
     });
 
-    // Remove after 4s
+    //odstran po 4sekundach
     setTimeout(() => {
         notification.classList.remove('show');
 
-        // Remove from DOM after transition ends
         setTimeout(() => {
             notification.remove();
-        }, 500); // match your CSS transition duration
+        }, 500);
     }, 4000);
 }
 
-//---------------------------------------------------------------------------------
-function updateSize() {
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+function updateSize() { //update vybranej velkosti
     var size = document.getElementById('sizes').value;
-    // Skrytý input, ktorý bude obsahovať vybranú veľkosť
     document.getElementById('size-input').value = size;
 }
 
-function updateQuantity() {
+function updateQuantity() { //update vybraneho mnozstva
     var quantity = document.getElementById('quantity').value;
-    // Skrytý input pre množstvo
     document.getElementById('quantity-input').value = quantity;
 }
 
-// LOG IN OVERLAY (pri favorites)
+// LOG IN OVERLAY (pri favorites) --------------------------------------------------------------------------------------------------------------------
 function showLoginOverlay() {
     document.getElementById('login-overlay').style.display = 'flex';
 }
