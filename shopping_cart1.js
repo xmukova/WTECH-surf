@@ -2,7 +2,6 @@ function isElementPresent(selector) {
     return document.querySelector(selector) !== null;
 }
 
-
 // PRODUCT OVERVIEW
 const biListIcon = document.querySelector('.bi-list');
 const productOverviewContainer = document.getElementById('product-overview');
@@ -97,26 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update button state 
     form.addEventListener('input', updateButtonState);
     form.addEventListener('change', updateButtonState); 
-
-    //form submission
-    // form.addEventListener('submit', (e) => {
-    //     e.preventDefault();
-    //     if (!continueButton.disabled) {
-    //         console.log('Form submitted, redirecting to shopping_cart3');
-    //         window.location.href = '/cart_step3';
-    //     } else {
-    //         console.log('Button is disabled, no redirect');
-    //     }
-    // });
-
-    // Button click
-    // continueButton.addEventListener('click', () => {
-    //     if (!continueButton.disabled) {
-    //         console.log('Button clicked, redirecting to shopping_cart3.html');
-    //         window.location.href = '/cart_step3';
-    //     }
-    // });
-    // updateButtonState();
 });
 
 function showLoginOverlay() {
@@ -160,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const totalWithShipping = baseTotal + shippingCost;
         totalEl.innerHTML = `<span class="bold2">Total: </span>${totalWithShipping.toFixed(2)}$`;
 
-        // 🔽 Presunuté sem:
+        // Presunuté sem:
         sessionStorage.setItem('finalTotal', totalWithShipping.toFixed(2));
         sessionStorage.setItem('shippingCost', shippingCost.toFixed(2));
     }
@@ -284,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// RETRIEVE FROM SESSION
+// RETRIEVE FROM SESSION - ked ideme cez kartu, treba preniest objednavku form
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('checkout-form');
     const purchaseButton = document.getElementById('purchase-button');
@@ -335,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
+// FORMAT KARTA
 document.addEventListener('DOMContentLoaded', () => {
     if (!isElementPresent('#checkout-form') || !isElementPresent('#purchase-button')) {
         return;
@@ -346,6 +325,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputs = form.querySelectorAll('input[type="text"]');
     const cardNumInput = form.querySelector('input[name="cardNum"]');
     const expDateInput = form.querySelector('input[name="expDate"]');
+    const cardNameInput = form.querySelector('input[name="cardName"]');
+    const cvcInput = form.querySelector('input[name="cvc"]');
 
     // Formatovanie čísla karty
     cardNumInput.addEventListener('input', (e) => {
@@ -356,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Formátovanie MM/YY
+    // Formatovanie MM/YY
     expDateInput.addEventListener('input', (e) => {
         let value = e.target.value.replace(/\D/g, '');
         if (value.length > 2) {
@@ -366,31 +347,71 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Validácia datumu na karte
+    function isValidExpDate(dateStr) {
+        if (!/^\d{2}\/\d{2}$/.test(dateStr)) return false;
+    
+        const [monthStr, yearStr] = dateStr.split('/');
+        const month = parseInt(monthStr, 10);
+        const year = parseInt('20' + yearStr, 10);
+    
+        if (isNaN(month) || isNaN(year) || month < 1 || month > 12) return false;
+    
+        const now = new Date();
+        const currentMonth = now.getMonth() + 1; // 0-based
+        const currentYear = now.getFullYear();
+    
+        // Ak je rok v budúcnosti, OK. Ak je rovnaký, kontrolujeme mesiac.
+        if (year > currentYear) return true;
+        if (year === currentYear && month >= currentMonth) return true;
+    
+        return false;
+    }
+    
+    
     // Validácia údajov z formulára
     function updateButtonState() {
-        let isFilled = true;
-
-        inputs.forEach(input => {
-            const value = input.value.trim();
-
-            if (value === '') {
-                isFilled = false;
-            } else if (input.name === 'cardName') {
-                if (!/[a-zA-Z]/.test(value)) {
-                    isFilled = false;
-                }
-            } else {
-                if (!/^[0-9\/\s]+$/.test(value)) {
-                    isFilled = false;
-                }
-            }
-        });
-
-        purchaseButton.disabled = !isFilled;
+        const cardNumValid = cardNumInput.value.trim().length === 19;
+        const cardNameValid = /^[A-z]+ [A-z]+$/.test(cardNameInput.value.trim());
+        const expDateValid = isValidExpDate(expDateInput.value.trim());
+        const cvcValid = /^\d{3,4}$/.test(cvcInput.value.trim());
+    
+        const allFilled = cardNumValid && cardNameValid && expDateValid && cvcValid;
+    
+        purchaseButton.disabled = !allFilled;
     }
+    // ... zvyšok tvojho JS kódu
 
     form.addEventListener('input', updateButtonState);
     form.addEventListener('change', updateButtonState);
+
+    
 });
+
+
+// KONTROLA MAX STOCK v kosiku
+document.addEventListener('DOMContentLoaded', function () {
+    const forms = document.querySelectorAll('.auto-update-form');
+
+    forms.forEach(form => {
+        const quantityInput = form.querySelector('input[name="quantity"]');
+        const max = parseInt(quantityInput.getAttribute('max'));
+
+        quantityInput.addEventListener('change', function (e) {
+            let value = parseInt(e.target.value);
+
+            if (value > max) {
+                alert(`There are no more than ${max} items of this product in our stock.`);
+                e.target.value = max;
+            } else if (value < 1) {
+                e.target.value = 1;
+            }
+
+            // optional: auto-submit if within valid range
+            form.submit();
+        });
+    });
+});
+
 
 

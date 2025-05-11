@@ -33,7 +33,7 @@
                         @endif
                     @endforeach
                     <!-- Fallback for less than 3 images -->
-                    @for($i = $product->images->count(); $i < 3; $i++)
+                    @for($i = $product->images->count(); $i < 2; $i++)
                         @php
                             // Default fallback image
                             $fallbackImage = 'images/products/detail_green_tail.jpg'; 
@@ -41,9 +41,9 @@
                             if ($product->category_id === 1) {
                                 $fallbackImage = 'images/products/surf10_detail1.jpg'; // Surfboard-specific fallback
                             } elseif ($product->category_id === 2) {
-                                $fallbackImage = 'images/products/fin3_detail1.jpg'; // Accessory-specific fallback
+                                $fallbackImage = 'images/products/fin3_detail1.jpg'; // Equipment-specific fallback
                             } elseif ($product->category_id === 3) {
-                                $fallbackImage = 'images/products/hat1.jpg'; // Equipment-specific fallback
+                                $fallbackImage = 'images/products/hat1.jpg'; // Accessory-specific fallback
                             }
 
                             // Debug: Output the category ID and selected fallback image
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <div class="number-picker">
-                        <input type="number" id="quantity" name="quantity" value="1" min="1" onchange="updateQuantity()">
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ $product->stock }}" onchange="updateQuantity()">
                     </div>
                 </div>
                 <div class="price">

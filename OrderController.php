@@ -8,12 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Models\OrderItem;
 
-class OrderController extends Controller
-{
+class OrderController extends Controller{
     // Common order data validation
-    private function validateOrderData(Request $request)
-    {
+    private function validateOrderData(Request $request){
         return $request->validate([
             'firstName' => 'required|string',
             'lastName' => 'required|string',
@@ -32,8 +31,7 @@ class OrderController extends Controller
     }
 
     // Helper method for creating an order
-    private function createOrder(array $data)
-    {
+    private function createOrder(array $data){
         $shippingPrice = $data['shipping'] === 'express' ? 6.99 : 3.99;
 
         return Order::create([
@@ -55,29 +53,28 @@ class OrderController extends Controller
         ]);
     }
 
-    public function process(Request $request)
-    {
+    public function process(Request $request){
         try {
             $cartItems = [];
             if (Auth::check()) {
                 $cartItems = CartItem::with('product')->where('user_id', Auth::id())->get();
             } else {
-                $cartItems = session()->get('cart', []);
-                foreach ($cartItems as $item) {
+                $sessionCartItems = session()->get('cart', []);
+                $cartItems = [];
+                
+                foreach ($sessionCartItems as $item) {
                     if (!isset($item['product_id'])) continue;
                     $product = Product::find($item['product_id']);
                     if ($product) {
                         $product->quantity = $item['quantity'];
                         $product->size = $item['size'];
-                        $cartItems[] = $product;
+                        $cartItems[] = $product; // už žiadne prepísanie
                     }
                 }
             }
             
             // Validate form data
             $data = $this->validateOrderData($request);
-
-            Log::info('Order data validated', $data);
 
             // Merge session data if available
             if (!empty($sessionData)) {
@@ -86,11 +83,36 @@ class OrderController extends Controller
 
             // Create order
             $order = $this->createOrder($data);
+            // vlozenie produktov k objednavke
+            foreach ($cartItems as $item) {
+                if (Auth::check()) {
+                    $product = $item->product;
+                    $quantity = $item->quantity;
+                    $size = $item->size;
+                } else {
+                    $product = Product::find($item->id); 
+                    $quantity = $item->quantity;
+                    $size = $item->size;
+                }
+                if ($product) {
+                    OrderItem::create([
+                        'order_id'     => $order->id,
+                        'product_id'   => $product->id,
+                        'product_name' => $product->name,
+                        'quantity'     => $quantity,
+                        'size'         => $size,
+                        'unit_price'   => $product->price,
+                        // 'image'        => $product->mainImage->image_path ?? $product->images->first()->image_path,
+                    ]);
+                    // Odpocitanie zasob
+                    $product->stock = max(0, $product->stock - $quantity); 
+                    $product->save();
 
+                }
+            }    
+            
             // Clear the cart session
             $this->clearCart($cartItems);
-
-            Log::info('Order created successfully', ['order_id' => $order->id]);
 
             return response()->json([
                 'success' => true,
@@ -107,21 +129,22 @@ class OrderController extends Controller
         }
     }
 
-    public function processOrderSession(Request $request)
-    {
+    public function processOrderSession(Request $request){
         try {
             $cartItems = [];
             if (Auth::check()) {
                 $cartItems = CartItem::with('product')->where('user_id', Auth::id())->get();
             } else {
-                $cartItems = session()->get('cart', []);
-                foreach ($cartItems as $item) {
+                $sessionCartItems = session()->get('cart', []);
+                $cartItems = [];
+
+                foreach ($sessionCartItems as $item) {
                     if (!isset($item['product_id'])) continue;
                     $product = Product::find($item['product_id']);
                     if ($product) {
                         $product->quantity = $item['quantity'];
                         $product->size = $item['size'];
-                        $cartItems[] = $product;
+                        $cartItems[] = $product; // už žiadne prepísanie
                     }
                 }
             }
@@ -138,6 +161,34 @@ class OrderController extends Controller
 
             // Create order from session data
             $order = $this->createOrder($data);
+            
+            //vlozenie produktov k objednavke
+            foreach ($cartItems as $item) {
+                if (Auth::check()) {
+                    $product = $item->product;
+                    $quantity = $item->quantity;
+                    $size = $item->size;
+                } else {
+                    $product = Product::find($item->id); 
+                    $quantity = $item->quantity;
+                    $size = $item->size;
+                }
+                if ($product) {
+                    OrderItem::create([
+                        'order_id'     => $order->id,
+                        'product_id'   => $product->id,
+                        'product_name' => $product->name,
+                        'quantity'     => $quantity,
+                        'size'         => $size,
+                        'unit_price'   => $product->price,
+                        // 'image'        => $product->mainImage->image_path ?? $product->images->first()->image_path,
+                    ]);
+                    // Odpocitanie zasob
+                    $product->stock = max(0, $product->stock - $quantity); 
+                    $product->save();
+
+                }
+            }
 
             // Clear the session after processing
             $this->clearCart($cartItems);
@@ -157,13 +208,11 @@ class OrderController extends Controller
         }
     }
 
-    public function confirmation()
-    {
+    public function confirmation(){
         return view('confirmation');
     }
 
-    public function saveOrderToSession(Request $request)
-    {
+    public function saveOrderToSession(Request $request){
         try {
             // Validate order data
             $data = $this->validateOrderData($request);
@@ -186,8 +235,8 @@ class OrderController extends Controller
             ], 500);
         }
     }
-    private function clearCart($cartItems)
-    {
+
+    private function clearCart($cartItems){
         if (Auth::check()) {
             // If user is logged in, remove cart items from the database
             foreach ($cartItems as $item) {
@@ -197,8 +246,5 @@ class OrderController extends Controller
             // If user is not logged in, clear the session cart
             session()->forget('cart');
         }
-    }
-    
-    
+    }   
 }
-

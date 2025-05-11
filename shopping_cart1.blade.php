@@ -82,7 +82,7 @@
                                     </div>
 
                                     <div class="number-picker">
-                                        <input type="number" name="quantity" value="{{ $quantity }}" min="1" onchange="this.form.submit()">
+                                        <input type="number" name="quantity" value="{{ $quantity }}" min="1" max="{{ $product->stock }}" onchange="this.form.submit()">
                                     </div>
                                 </div>
 

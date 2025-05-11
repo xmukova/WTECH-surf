@@ -20,18 +20,23 @@ class CartController extends Controller
         } else {
             $cart = session()->get('cart', []);
             $cartItems = [];
-        
+            
             foreach ($cart as $item) {
-                // ⛔️ Tu vznikal error, keď `$item` neobsahoval 'product_id'
                 if (!isset($item['product_id'])) continue;
-        
+            
                 $product = Product::find($item['product_id']);
                 if ($product) {
-                    $product->quantity = $item['quantity'];
-                    $product->size = $item['size'];
-                    $cartItems[] = $product;
+                    // namiesto toho, aby sme prepisovali objekt Product,
+                    // vytvorme nový objekt, ktorý má rovnakú štruktúru ako CartItem
+                    $cartItem = new \stdClass();
+                    $cartItem->product = $product;
+                    $cartItem->size = $item['size'] ?? null;
+                    $cartItem->quantity = $item['quantity'] ?? 1;
+            
+                    $cartItems[] = $cartItem;
                 }
             }
+           
         }
     
         // Výpočet celkovej ceny
@@ -52,8 +57,14 @@ class CartController extends Controller
     
     public function addToCart(Request $request, $id)
     {
-        $quantity = $request->input('quantity', 1);
+        $quantity = (int) $request->input('quantity', 1);
         $size = $request->input('select_size', null);
+        $product = Product::findOrFail($id);
+
+        // Over, že množstvo neprekračuje sklad
+        if ($quantity > $product->stock) {
+            return redirect()->back()->with('error', 'Nie je dostatok produktov na sklade.');
+        }
     
         if (Auth::check()) {
             // Skontrolujeme, či už existuje položka v košíku
@@ -126,7 +137,9 @@ class CartController extends Controller
             session()->put('cart', $updatedCart);
         }
     
-        return redirect()->route('shopping_cart1')->with('success', 'Product removed from cart.');
+        // return redirect()->route('shopping_cart1')->with('success', 'Product removed from cart.');
+        return redirect()->back()->with('success', 'Product removed from cart.');
+
     }
 
     public function updateCartItem(Request $request, $id)
